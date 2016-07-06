@@ -1,14 +1,15 @@
-# biodiversity-analysis
+# Biodiversity Analysis #
+
 Project of Institute of Information Science, Academia Sinica
 
-## Requirements
+## Requirements ##
 
-#### Ubuntu 15.10 above
+##### Ubuntu 15.10 or above #####
 ```
-apt-get install python-3.5 python3-virtualenv python3-pip pyqt5-dev-tools
+sudo apt-get install python3.5 python3-virtualenv python3-pip
 ```
 
-## Setup
+## Setup ##
 
 ```
 . ./install.sh
