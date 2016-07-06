@@ -3,17 +3,20 @@
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
-from mock import patch
 import folium
+
+
 
 class Map:
 
-    render_method = "folium.element.Element.save"
-
     def __init__(self):
-        map_osm = folium.Map(location=[45.5236, -122.6750])
-        #patch(self.render_method, side_effect=folium.Element.render).start()
-        map_osm.save('/tmp/folium.html')
+        # Instead of writing to file, just write to memory
+        def to_html(self, **kwargs):
+            return self.get_root().render(**kwargs)
+        folium.element.Element.to_html = to_html
+
+        map_osm = folium.Map(location=[23.5236, 120.6750])
+        html = map_osm.to_html()
 
 if __name__ == '__main__':
     m = Map()
