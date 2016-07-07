@@ -3,11 +3,12 @@
 
 from PyQt5.QtWidgets import QApplication
 from window import MainWindow
-from map import Map
+from leafletMap import Map
 
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
-    window = MainWindow()
+    leafletMap = Map()
+    window = MainWindow(leafletMap)
     window.show()
     sys.exit(app.exec_())
