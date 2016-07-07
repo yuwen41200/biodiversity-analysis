@@ -11,13 +11,9 @@ class Map:
 
     def __init__(self):
         # Instead of writing to file, just write to memory
-        def to_html(self, **kwargs):
+        def toHTML(self, **kwargs):
             return self.get_root().render(**kwargs)
-        folium.element.Element.to_html = to_html
+        folium.element.Element.toHTML = toHTML
 
-        map_osm = folium.Map(location=[23.5236, 120.6750])
-        html = map_osm.to_html()
-
-if __name__ == '__main__':
-    m = Map()
-
+        self.leafletMap = folium.Map(location=[23.5236, 120.6750])
+        html = self.leafletMap.toHTML()
