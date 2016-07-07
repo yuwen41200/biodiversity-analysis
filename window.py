@@ -32,12 +32,10 @@ class MainWindow(QMainWindow):
         # assume we only support Darwin Core Archive(.zip) now
         # default path: current working directory
         fileName, _ = QFileDialog.getOpenFileName(self, "Open a dataset", os.getcwd(), "*.zip")
-        print("fileName: " + fileName)
         _, extension = os.path.splitext(fileName)
         if extension == ".zip":
-            darwinCoreArchive = extractDarwinCoreArchive(fileName)
             try:
-                pass
+                darwinCoreArchive = extractDarwinCoreArchive(fileName)
             except:
                 # TODO: show a warning dialog
                 return
