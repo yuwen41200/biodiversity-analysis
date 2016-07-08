@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from datasetProcessor import extractCsv
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
 import folium
@@ -15,5 +16,11 @@ class Map:
             return self.get_root().render(**kwargs)
         folium.element.Element.toHTML = toHTML
 
-        self.leafletMap = folium.Map(location=[23.5236, 120.6750])
+        self.webview = QWebEngineView()
+
+    def refreshMap(self, darwinCoreData):
+        fields, data = extractCsv(darwinCoreData, ["decimalLatitude", "decimalLongitude"])
+
+    def renderView(self):
         html = self.leafletMap.toHTML()
+        self.webview.setHtml(html)

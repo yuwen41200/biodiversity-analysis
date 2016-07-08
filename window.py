@@ -35,7 +35,8 @@ class MainWindow(QMainWindow):
         _, extension = os.path.splitext(fileName)
         if extension == ".zip":
             try:
-                darwinCoreArchive = extractDarwinCoreArchive(fileName)
+                darwinCoreArchiveData = extractDarwinCoreArchive(fileName)
+                self.leafletMap.refreshMap(darwinCoreArchiveData)
             except:
                 # TODO: show a warning dialog
                 return

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import zipfile, fnmatch, re
+import zipfile, fnmatch, re, csv
 import xml.etree.ElementTree as xmlParser
 
 def readFileFromZIP(zipHandle, basename):
@@ -20,5 +20,21 @@ def extractDarwinCoreArchive(fileName):
         xmlNamespace = xml.tag.split("archive")[0]
         dataFilename = xml.find(".//" + xmlNamespace + "location").text
 
-        # TODO: extract fieldname from datafile
-        data = readFileFromZIP(zipF, dataFilename)
+        return readFileFromZIP(zipF, dataFilename).decode(encoding="utf-8")
+
+def extractCsv(csvStr, selectedFields=[]):
+    lines = csvStr.split('\n')
+    delim = ',' if ',' in lines[0] else '\t'
+    fields = lines[0].split(delim)
+
+    selectedFields = filter(lambda f: f in fields, selectedFields)
+    if selectedFields:
+        data = []
+        selectedIndexes = map(lambda f: fields.index(f), selectedFields)
+        for line in lines[1:]:
+            _line = line.split(delim)
+            data.append([_line[i] for i in selectedIndexes])
+    else:
+        data = [line.split(delim) for line in lines[1:]]
+
+    return (fields, data)
