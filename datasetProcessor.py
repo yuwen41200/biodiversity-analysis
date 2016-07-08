@@ -26,14 +26,16 @@ def extractDarwinCoreArchive(fileName):
 
 
 # noinspection PyPep8Naming
-def extractCsv(csvStr, selectedFields=[]):
+def extractCsv(csvStr, selectedFields=None):
+    if selectedFields is None:
+        selectedFields = []
+
     lines = csvStr.split('\n')
     delimiter = ',' if ',' in lines[0] else '\t'
     fields = lines[0].split(delimiter)
 
     if len(lines) <= 1:
         raise Exception("Empty csv given")
-        return ([],[])
 
     selectedFields = list(filter(lambda f: f in fields, selectedFields))
     if selectedFields:
@@ -47,11 +49,11 @@ def extractCsv(csvStr, selectedFields=[]):
         data = []
         for line in lines[1:]:
             if line:
-                _line = line.split(delim)
+                _line = line.split(delimiter)
                 data.append([_line[i] for i in selectedIndexes])
     else:
         # Default: select all fields
         selectedIndexes = range(len(fields))
-        data = [line.split(delim) for line in lines[1:]]
+        data = [line.split(delimiter) for line in lines[1:]]
 
-    return (selectedIndexes, data)
+    return selectedIndexes, data

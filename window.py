@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.leafletMap = leafletMap
         self.setWindowTitle("Biodiversity Explorer")
         self.setGeometry(300, 200, 1000, 700)
-        self.setCentralWidget(self.leafletMap.webEngineView)
+        self.setCentralWidget(self.leafletMap.webView)
         self.show()
 
     def setupUi(self):

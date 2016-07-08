@@ -15,11 +15,11 @@ class LeafletMap:
             return self.get_root().render(**kwargs)
         folium.element.Element.toHTML = toHTML
 
-        self.webview = QWebEngineView()
+        self.webView = QWebEngineView()
 
     def refreshMap(self, darwinCoreData):
         fields, data = extractCsv(darwinCoreData, ["decimalLatitude", "decimalLongitude"])
 
     def renderView(self):
         html = self.leafletMap.toHTML()
-        self.webview.setHtml(html)
+        self.webView.setHtml(html)
