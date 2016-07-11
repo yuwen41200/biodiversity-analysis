@@ -2,40 +2,60 @@
 # -*- coding: utf-8 -*-
 
 import os
-from OpenGL import GL
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
-from datasetProcessor import extractDarwinCoreArchive
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from datasetProcessor import extractDarwinCoreArchive, extractCsv
 
 
 # noinspection PyPep8Naming
 class MainWindow(QMainWindow):
 
     def __init__(self, leafletMap):
+        # noinspection PyArgumentList
         super().__init__()
-        self.setupUi()
-        self.leafletMap = leafletMap
+        self.map = leafletMap
+        self.dataset = ""
+        self.speciesList = []
+        self.setupWidgets()
+
+    def setupWidgets(self):
         self.setWindowTitle("Biodiversity Explorer")
         self.setGeometry(300, 200, 1000, 700)
-        self.setCentralWidget(self.leafletMap.webView)
+        self.setCentralWidget(self.map.webView)
         self.show()
 
-    def setupUi(self):
         menuBar = self.menuBar()
-        fileMenu = menuBar.addMenu("&Import Data")
-        action = fileMenu.addAction("Import Data")
-        action.triggered.connect(self.openNewDataSet)
+        menu = menuBar.addMenu("File")
+        action = menu.addAction("Import Data")
+        action.triggered.connect(self.importData)
 
-    def openNewDataSet(self):
+        self.statusBar().showMessage("Ready.")
+
+    def importData(self):
         """
-        Assume we only support Darwin Core Archive (zip file) now.
-        Default path is current working directory.
+        Import data from a Darwin Core Archive (DwC-A), store them in `MainWindow.dataset`.
+        :return: None
         """
-        fileName, _ = QFileDialog.getOpenFileName(self, "Open Darwin Core Archive (DwC-A)", os.getcwd(), "*.zip")
-        _, extension = os.path.splitext(fileName)
-        if extension == ".zip":
-            try:
-                darwinCoreArchiveData = extractDarwinCoreArchive(fileName)
-                self.leafletMap.refreshMap(darwinCoreArchiveData)
-            except:
-                # TODO: show a warning dialog
-                return
+        title, extension = "Select a DwC-A File", "DwC-A Files (*.zip)"
+        # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+        filename, unused = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)
+        unused, extension = os.path.splitext(filename)
+
+        if extension != ".zip":
+            title, content = "Invalid File", "Currently only DwC-A files are supported."
+            # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+            QMessageBox.critical(self, title, content)
+            self.statusBar().showMessage("Please retry.")
+
+        else:
+            darwinCoreData = extractDarwinCoreArchive(filename)
+            columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
+            unused, self.dataset = extractCsv(darwinCoreData, columns)
+            self.statusBar().showMessage("Dataset successfully imported.")
+
+    def addSpecies(self):
+        """
+        Choose a species from the previous dataset, append it to `MainWindow.speciesList`.
+        :return: None
+        """
+        if not self.dataset:
+            self.statusBar().showMessage("The dataset is empty.")

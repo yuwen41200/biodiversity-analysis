@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from datasetProcessor import extractCsv
-from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
+from OpenGL import GL
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from datasetProcessor import extractCsv
 
 
 # noinspection PyPep8Naming
@@ -11,8 +12,8 @@ class LeafletMap:
 
     def __init__(self):
         # Instead of writing to file, just write to memory
-        def toHTML(self, **kwargs):
-            return self.get_root().render(**kwargs)
+        def toHTML(_self, **kwargs):
+            return _self.get_root().render(**kwargs)
         folium.element.Element.toHTML = toHTML
 
         self.webView = QWebEngineView()
