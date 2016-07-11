@@ -1,14 +1,15 @@
 #!/bin/bash
 
-virtualenv -p /usr/bin/python3.5  --no-site-packages venv
-. venv/bin/activate
+python3.5 -m venv ba-env
+source ba-env/bin/activate
 pip install -r requirements.txt
 
-# workaround of `QWebEngine ICU not found` bug
-cp -r venv/lib/python3.5/site-packages/PyQt5/Qt/resources/ \
-    venv/lib/python3.5/site-packages/PyQt5/Qt/libexec/
+# Workaround for `QWebEngine ICU not found` bug
 
-mkdir -p lib/python3.5/site-packages/PyQt5/Qt/libexec/qtwebengine_locales
+cp -r ba-env/lib/python3.5/site-packages/PyQt5/Qt/resources/ \
+    ba-env/lib/python3.5/site-packages/PyQt5/Qt/libexec/
 
-cp -r venv/lib/python3.5/site-packages/PyQt5/Qt/resources/ \
-    venv/lib/python3.5/site-packages/PyQt5/Qt/libexec/qtwebengine_locales
+mkdir -p ba-env/lib/python3.5/site-packages/PyQt5/Qt/libexec/qtwebengine_locales
+
+cp -r ba-env/lib/python3.5/site-packages/PyQt5/Qt/resources/ \
+    ba-env/lib/python3.5/site-packages/PyQt5/Qt/libexec/qtwebengine_locales
