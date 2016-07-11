@@ -36,7 +36,7 @@ class LeafletMap:
         if not speciesList:
             return
 
-        if not self.leafletMap
+        if not self.leafletMap:
             self.leafletMap = folium.Map(location=centerCoordinate,
                                          tiles=self.tiles,
                                          width=self.windowSize[0],
