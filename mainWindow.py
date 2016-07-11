@@ -35,8 +35,9 @@ class MainWindow(QMainWindow):
         """
         Import data from a Darwin Core Archive (DwC-A), store them in `MainWindow.dataset`.
 
-        :return: None
+        :return: None.
         """
+
         title, extension = "Select a DwC-A File", "DwC-A Files (*.zip)"
         # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
         filename = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
@@ -58,8 +59,9 @@ class MainWindow(QMainWindow):
         """
         Choose a species from the previous dataset, append it to `MainWindow.speciesList`.
 
-        :return: None
+        :return: None.
         """
+
         if not self.dataset:
             title, content = "No Data Loaded", "The dataset is empty."
             # noinspection PyCallByClass, PyTypeChecker, PyArgumentList

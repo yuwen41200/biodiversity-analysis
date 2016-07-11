@@ -29,10 +29,13 @@ class LeafletMap:
 
     def refreshMap(self, speciesList, centerCoordinate=None):
         """
-        rerender folium map, given a list of species
-        param: speciesList, dictionary of {specis name -> list of location}
-        param: centerCoordinate, coordinate of central point in map
+        Re-render folium map, given a list of species.
+
+        :param speciesList: dictionary of {species name -> list of location}.
+        :param centerCoordinate: coordinate of central point in map.
+        :return: None.
         """
+
         if not speciesList:
             return
 

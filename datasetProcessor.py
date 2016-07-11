@@ -17,6 +17,7 @@ def readFileFromZip(zipHandle, basename):
     :param basename: The base of the full filename.
     :return: The extracted data.
     """
+
     fullFilename = next(f for f in zipHandle.namelist() if fnmatch.fnmatch(f, '*' + basename))
     return zipHandle.read(fullFilename)
 
@@ -29,6 +30,7 @@ def extractDarwinCoreArchive(filename):
     :param filename: The name of the Darwin Core Archive (DwC-A).
     :return: The extracted data.
     """
+
     with zipfile.ZipFile(filename) as zipped:
         meta = readFileFromZip(zipped, "meta.xml")
 
@@ -49,6 +51,7 @@ def extractCsv(csvStr, selectedFields=None):
     :param selectedFields: The list of selected fields.
     :return: The list of records, each record is a list containing only the selected fields.
     """
+
     if selectedFields is None:
         selectedFields = []
 
