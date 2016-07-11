@@ -40,9 +40,10 @@ class LeafletMap:
                                          tiles=self.tiles,
                                          width=self.windowSize[0],
                                          height=self.windowSize[1])
-        for specis, places in data:
+
+        for name, places in speciesList.items():
             for place in places:
-                self.leafletMap.simple_marker(location=place, popup=specis)
+                self.leafletMap.simple_marker(location=place, popup=name)
 
         # render to webview
         html = leafletMap.toHTML()
