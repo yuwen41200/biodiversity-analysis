@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QApplication
-from window import MainWindow
+from mainWindow import MainWindow
 from leafletMap import LeafletMap
 
 if __name__ == '__main__':
