@@ -4,7 +4,6 @@
 import folium
 from OpenGL import GL
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from datasetProcessor import extractCsv
 
 
 # noinspection PyPep8Naming
@@ -35,9 +34,6 @@ class LeafletMap:
         :param centerCoordinate: coordinate of central point in map.
         :return: None.
         """
-
-        if not speciesList:
-            return
 
         if not self.leafletMap:
             self.leafletMap = folium.Map(location=centerCoordinate,
