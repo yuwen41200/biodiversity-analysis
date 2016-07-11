@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import zipfile, fnmatch, random
+import zipfile
+import fnmatch
+import random
 from functools import reduce
 import xml.etree.ElementTree as xmlParser
 
@@ -10,6 +12,7 @@ import xml.etree.ElementTree as xmlParser
 def readFileFromZip(zipHandle, basename):
     """
     Get full filename from a ZIP handle, then extract the file.
+
     :param zipHandle: The ZIP handle.
     :param basename: The base of the full filename.
     :return: The extracted data.
@@ -22,6 +25,7 @@ def readFileFromZip(zipHandle, basename):
 def extractDarwinCoreArchive(filename):
     """
     Extract data from a Darwin Core Archive (DwC-A).
+
     :param filename: The name of the Darwin Core Archive (DwC-A).
     :return: The extracted data.
     """
@@ -40,6 +44,7 @@ def extractDarwinCoreArchive(filename):
 def extractCsv(csvStr, selectedFields=None):
     """
     Select data from a CSV-formatted string.
+
     :param csvStr: The string representing the CSV data.
     :param selectedFields: The list of selected fields.
     :return: The list of records, each record is a list containing only the selected fields.
@@ -69,12 +74,14 @@ def extractCsv(csvStr, selectedFields=None):
 
     return selectedIndices, data
 
+
+# noinspection PyPep8Naming
 def randomEstimateLocation(data):
     """
-    Estimate center coordinate by averaging 10% of all coordinates
+    Estimate center coordinate by averaging 10% of all coordinates.
 
-    :param data: List of coordinates in tuple
-    :return: Center coordinate, tuple
+    :param data: The list of coordinates, in tuple.
+    :return: The center coordinate, in tuple.
     """
 
     dataNum = len(data)
@@ -85,5 +92,5 @@ def randomEstimateLocation(data):
         draw = dataNum
 
     randomDraws = random.sample(data, draw)
-    coordSum = reduce(lambda a,b: [a[0]+b[0],a[1]+b[1]], randomDraws)
-    return [coordSum[0]/draw, coordSum[1]/draw]
+    coordSum = reduce(lambda a, b: [a[0]+b[0], a[1]+b[1]], randomDraws)
+    return [coordSum[0] / draw, coordSum[1] / draw]

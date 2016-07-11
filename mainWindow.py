@@ -34,6 +34,7 @@ class MainWindow(QMainWindow):
     def importData(self):
         """
         Import data from a Darwin Core Archive (DwC-A), store them in `MainWindow.dataset`.
+
         :return: None
         """
         title, extension = "Select a DwC-A File", "DwC-A Files (*.zip)"
@@ -56,6 +57,7 @@ class MainWindow(QMainWindow):
     def addSpecies(self):
         """
         Choose a species from the previous dataset, append it to `MainWindow.speciesList`.
+
         :return: None
         """
         if not self.dataset:
@@ -63,3 +65,8 @@ class MainWindow(QMainWindow):
             # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
             QMessageBox.critical(self, title, content)
             self.statusBar().showMessage("Please retry.")
+
+        else:
+            frozenset(r[2] for r in self.dataset)
+            pass
+            # TODO: Finish it!
