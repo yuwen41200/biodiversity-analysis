@@ -24,9 +24,10 @@ class MainWindow(QMainWindow):
         self.show()
 
         menuBar = self.menuBar()
-        menu = menuBar.addMenu("File")
-        action = menu.addAction("Import Data")
-        action.triggered.connect(self.importData)
+        importDataAction = menuBar.addAction("Import Data")
+        addSpeciesAction = menuBar.addAction("Add Species")
+        importDataAction.triggered.connect(self.importData)
+        addSpeciesAction.triggered.connect(self.addSpecies)
 
         self.statusBar().showMessage("Ready.")
 
@@ -58,4 +59,7 @@ class MainWindow(QMainWindow):
         :return: None
         """
         if not self.dataset:
-            self.statusBar().showMessage("The dataset is empty.")
+            title, content = "No Data Loaded", "The dataset is empty."
+            # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+            QMessageBox.critical(self, title, content)
+            self.statusBar().showMessage("Please retry.")
