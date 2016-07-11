@@ -37,8 +37,8 @@ class MainWindow(QMainWindow):
         """
         title, extension = "Select a DwC-A File", "DwC-A Files (*.zip)"
         # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
-        filename, unused = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)
-        unused, extension = os.path.splitext(filename)
+        filename = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
+        extension = os.path.splitext(filename)[1]
 
         if extension != ".zip":
             title, content = "Invalid File", "Currently only DwC-A files are supported."
@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         else:
             darwinCoreData = extractDarwinCoreArchive(filename)
             columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-            unused, self.dataset = extractCsv(darwinCoreData, columns)
+            self.dataset = extractCsv(darwinCoreData, columns)[1]
             self.statusBar().showMessage("Dataset successfully imported.")
 
     def addSpecies(self):
