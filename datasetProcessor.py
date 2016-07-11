@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import zipfile
-import fnmatch
+import zipfile, fnmatch, random
+from functools import reduce
 import xml.etree.ElementTree as xmlParser
 
 
@@ -68,3 +68,22 @@ def extractCsv(csvStr, selectedFields=None):
         data = [line.split(delimiter) for line in lines[1:]]
 
     return selectedIndices, data
+
+def randomEstimateLocation(data):
+    """
+    Estimate center coordinate by averaging 10% of all coordinates
+
+    :param data: List of coordinates in tuple
+    :return: Center coordinate, tuple
+    """
+
+    dataNum = len(data)
+    assert(dataNum and len(data[0]) == 2)
+
+    draw = int(dataNum * 0.1)
+    if not draw:
+        draw = dataNum
+
+    randomDraws = random.sample(data, draw)
+    coordSum = reduce(lambda a,b: [a[0]+b[0],a[1]+b[1]], randomDraws)
+    return [coordSum[0]/draw, coordSum[1]/draw]
