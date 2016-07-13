@@ -79,21 +79,26 @@ def extractCsv(csvStr, selectedFields=None):
 
 
 # noinspection PyPep8Naming
-def randomEstimateLocation(data):
+def randomEstimateLocation(coordinates):
     """
     Estimate center coordinate by averaging 10% of all coordinates.
 
-    :param data: The list of coordinates, in tuple.
+    :param coordinates: The list of coordinates, in tuple.
     :return: The center coordinate, in tuple.
     """
 
-    dataNum = len(data)
-    assert(dataNum and len(data[0]) == 2)
+    dataNum = len(coordinates)
+    assert(dataNum and len(coordinates[0]) == 2)
 
     draw = int(dataNum * 0.1)
     if not draw:
         draw = dataNum
 
-    randomDraws = random.sample(data, draw)
+    randomDraws = random.sample(coordinates, draw)
     coordSum = reduce(lambda a, b: [a[0]+b[0], a[1]+b[1]], randomDraws)
     return [coordSum[0] / draw, coordSum[1] / draw]
+
+
+# noinspection PyPep8Naming
+def filterSpecies(dataset, selectedSpecies):
+    pass
