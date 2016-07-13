@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         addSpeciesAction.triggered.connect(self.addSpecies)
 
         self.statusBar().showMessage("Ready.")
+        self.map.refreshMap()
 
     def importData(self):
         """

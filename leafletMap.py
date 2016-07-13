@@ -4,16 +4,15 @@
 import folium
 from OpenGL import GL
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-
+from PyQt5.QtCore import QUrl
 
 # noinspection PyPep8Naming
 class LeafletMap:
 
     def __init__(self,
-                 windowSize=[750,500],
-                 tiles="Stamen Terrain"):
-
-        assert(len(windowSize) == 2)
+                 tiles="OpenStreetMap",
+                 location=[23.5,120],
+                 zoom=3):
 
         # Instead of writing to file, just write to memory
         def toHTML(_self, **kwargs):
@@ -21,12 +20,13 @@ class LeafletMap:
         folium.element.Element.toHTML = toHTML
 
         self.webView = QWebEngineView()
-        self.windowSize = windowSize
         self.tiles = tiles
-        self.dataNum = 0
+        self.leafletMap = folium.Map(location=location,
+                                     zoom_start=zoom,
+                                     tiles=tiles)
 
 
-    def refreshMap(self, speciesList, centerCoordinate=None):
+    def refreshMap(self, speciesList={}, centerCoordinate=None):
         """
         Re-render folium map, given a list of species.
 
@@ -35,16 +35,14 @@ class LeafletMap:
         :return: None.
         """
 
-        if not self.leafletMap:
+        if centerCoordinate:
             self.leafletMap = folium.Map(location=centerCoordinate,
-                                         tiles=self.tiles,
-                                         width=self.windowSize[0],
-                                         height=self.windowSize[1])
+                                         tiles=self.tiles)
 
         for name, places in speciesList.items():
             for place in places:
                 self.leafletMap.simple_marker(location=place, popup=name)
 
         # render to webview
-        html = leafletMap.toHTML()
+        html = self.leafletMap.toHTML()
         self.webView.setHtml(html)
