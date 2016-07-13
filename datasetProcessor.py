@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import zipfile
-import fnmatch
 import random
+from fnmatch import fnmatch
 from functools import reduce
 import xml.etree.ElementTree as xmlParser
 
@@ -18,7 +18,7 @@ def readFileFromZip(zipHandle, basename):
     :return: The extracted data.
     """
 
-    fullFilename = next(f for f in zipHandle.namelist() if fnmatch.fnmatch(f, '*' + basename))
+    fullFilename = next(f for f in zipHandle.namelist() if fnmatch(f, '*' + basename))
     return zipHandle.read(fullFilename)
 
 
@@ -49,7 +49,8 @@ def extractCsv(csvStr, selectedFields=None):
 
     :param csvStr: The string representing the CSV data.
     :param selectedFields: The list of selected fields.
-    :return: The list of records, each record is a list containing only the selected fields.
+    :return: The list of records.
+             Each record is a list containing only the selected fields.
     """
 
     if selectedFields is None:
@@ -97,8 +98,3 @@ def randomEstimateLocation(coordinates):
     randomDraws = random.sample(coordinates, draw)
     coordSum = reduce(lambda a, b: [a[0]+b[0], a[1]+b[1]], randomDraws)
     return [coordSum[0] / draw, coordSum[1] / draw]
-
-
-# noinspection PyPep8Naming
-def filterSpecies(dataset, selectedSpecies):
-    pass

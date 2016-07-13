@@ -3,29 +3,45 @@
 
 import os
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from multiDict import MultiDict
 from addSpeciesDialog import AddSpeciesDialog
-from datasetProcessor import extractDarwinCoreArchive, extractCsv, filterSpecies
+from datasetProcessor import extractDarwinCoreArchive, extractCsv
 
 
 # noinspection PyPep8Naming
 class MainWindow(QMainWindow):
 
     def __init__(self, leafletMap):
+        """
+        Initialize the main window, using a LeafletMap.
+        It will call MainWindow.setupWidgets().
+
+        :param leafletMap: The LeafletMap object.
+        """
+
         # noinspection PyArgumentList
         super().__init__()
         self.map = leafletMap
-        self.dataset = []
-        self.species = frozenset()
+        self.dataset = MultiDict()
         self.selectedSpecies = []
         self.setupWidgets()
 
     def setupWidgets(self):
-        self.setWindowTitle("Biodiversity Explorer")
+        """
+        Construct all GUI elements.
+        It is automatically called by MainWindow.__init__().
+
+        :return: None.
+        """
+
+        self.setWindowTitle("Biodiversity Analysis")
         self.setGeometry(300, 200, 1000, 700)
-        self.setCentralWidget(self.map.webView)
         self.show()
 
+        self.map.webView.setStatusTip("Drag to change the displayed region.")
+        self.setCentralWidget(self.map.webView)
         self.map.refreshMap()
+
         self.statusBar()
         menuBar = self.menuBar()
 
@@ -39,8 +55,8 @@ class MainWindow(QMainWindow):
 
     def importData(self):
         """
-        Import data from a Darwin Core Archive (DwC-A), store them in
-        `MainWindow.dataset` and `MainWindow.species`.
+        Import data from a Darwin Core Archive (DwC-A).
+        Store them in MainWindow.dataset.
 
         :return: None.
         """
@@ -62,18 +78,20 @@ class MainWindow(QMainWindow):
         else:
             darwinCoreData = extractDarwinCoreArchive(filename)
             columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-            self.dataset = extractCsv(darwinCoreData, columns)[1]
-            self.species = frozenset(r[2] for r in self.dataset)
+            dataList = extractCsv(darwinCoreData, columns)[1]
+            for r in dataList:
+                self.dataset[r[2]] = (r[0], r[1])
 
             title = "Dataset Successfully Imported"
-            content = "{:,d} records have been loaded.".format(len(self.dataset))
+            content = "{:,d} records have been loaded.".format(len(dataList))
             # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
             QMessageBox.information(self, title, content)
 
     def addSpecies(self):
         """
-        Choose a species from the previous dataset, append it to
-        `MainWindow.selectedSpecies`.
+        Choose a species from the previous dataset.
+        Append it to MainWindow.selectedSpecies.
+        Then refresh the map.
 
         :return: None.
         """
@@ -84,7 +102,7 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, title, content)
 
         else:
-            dialog = AddSpeciesDialog(self.species, self.selectedSpecies)
+            dialog = AddSpeciesDialog(self.dataset.keys(), self.selectedSpecies)
             dialog.exec_()
-            speciesData = filterSpecies(self.dataset, self.selectedSpecies)
-            self.map.refreshMap(speciesData)
+
+            self.map.refreshMap(self.dataset, self.selectedSpecies)

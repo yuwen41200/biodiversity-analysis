@@ -38,6 +38,6 @@ class AddSpeciesDialog(QDialog):
         self.show()
 
     def addSpeciesHandle(self):
-        index = self.comboBox.currentIndex()
-        self.selectedSpecies.append(index)
+        item = self.comboBox.currentText()
+        self.selectedSpecies.append(item)
         self.done(0)

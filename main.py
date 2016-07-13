@@ -8,7 +8,6 @@ from leafletMap import LeafletMap
 if __name__ == '__main__':
     import sys
     app = QApplication(sys.argv)
-    leafletMap = LeafletMap()
-    window = MainWindow(leafletMap)
+    window = MainWindow(LeafletMap())
     window.show()
     sys.exit(app.exec_())
