@@ -106,7 +106,9 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, title, content)
 
         else:
-            dialog = AddSpeciesDialog(self.dataset.keys(), self.selectedSpecies)
+            species = [k for k in self.dataset.keys() if k not in self.selectedSpecies]
+
+            dialog = AddSpeciesDialog(species, self.selectedSpecies)
             dialog.exec_()
 
             self.map.refreshMap(self.dataset, self.selectedSpecies)

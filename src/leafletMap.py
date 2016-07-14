@@ -6,6 +6,7 @@ import folium
 from OpenGL import GL
 # noinspection PyUnresolvedReferences
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from datasetProcessor import randomEstimateLocation
 
 
 # noinspection PyPep8Naming
@@ -30,7 +31,8 @@ class LeafletMap:
 
         self.webView = QWebEngineView()
         self.tiles = tiles
-        self.leafletMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
+        self.zoom = zoom
+        self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
 
     def refreshMap(self, dataset=None, selectedSpecies=None, centerCoordinate=None):
         """
@@ -45,14 +47,24 @@ class LeafletMap:
         if dataset is None:
             dataset = {}
 
+        if dataset and not centerCoordinate:
+            allCoordinates = []
+            for species, coordinates in dataset.items():
+                if species in selectedSpecies:
+                    allCoordinates += coordinates
+            centerCoordinate = randomEstimateLocation(allCoordinates)
+
         if centerCoordinate:
-            self.leafletMap = folium.Map(location=centerCoordinate, tiles=self.tiles)
+            zoom = self.zoom + 3
+            self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tiles)
+        else:
+            self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
 
         for species, coordinates in dataset.items():
             if species in selectedSpecies:
                 for coordinate in coordinates:
-                    self.leafletMap.simple_marker(location=coordinate, popup=species)
+                    self.fMap.simple_marker(location=coordinate, popup=species)
 
         # Render to LeafletMap.webView
-        html = self.leafletMap.toHTML()
+        html = self.fMap.toHTML()
         self.webView.setHtml(html)
