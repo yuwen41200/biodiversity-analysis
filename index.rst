@@ -1,22 +1,51 @@
-.. Biodiversity Analysis documentation master file, created by
-   sphinx-quickstart on Thu Jul 14 15:34:54 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to Biodiversity Analysis's documentation!
-=================================================
-
-Contents:
+Documentation
+=============
 
 .. toctree::
    :maxdepth: 2
 
-Indices and tables
-==================
+addSpeciesDialog.py
+-------------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. automodule:: addSpeciesDialog
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+datasetProcessor.py
+-------------------
+
+.. automodule:: datasetProcessor
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+leafletMap.py
+-------------
+
+.. automodule:: leafletMap
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+main.py
+-------
+
+.. automodule:: main
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+mainWindow.py
+-------------
 
 .. automodule:: mainWindow
    :members:
@@ -24,3 +53,20 @@ Indices and tables
    :private-members:
    :special-members:
    :show-inheritance:
+
+multiDict.py
+------------
+
+.. automodule:: multiDict
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+Advanced
+--------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

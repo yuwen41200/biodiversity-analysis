@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Biodiversity Analysis’s documentation! &mdash; Biodiversity Analysis 0.1-pre documentation</title>
+    <title>Documentation &mdash; Biodiversity Analysis 0.1-pre documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -38,20 +38,207 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-biodiversity-analysis-s-documentation">
-<h1>Welcome to Biodiversity Analysis&#8217;s documentation!<a class="headerlink" href="#welcome-to-biodiversity-analysis-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<div class="section" id="module-addSpeciesDialog">
+<span id="addspeciesdialog-py"></span><h2>addSpeciesDialog.py<a class="headerlink" href="#module-addSpeciesDialog" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="addSpeciesDialog.AddSpeciesDialog">
+<em class="property">class </em><code class="descclassname">addSpeciesDialog.</code><code class="descname">AddSpeciesDialog</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<dl class="method">
+<dt id="addSpeciesDialog.AddSpeciesDialog.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the dialog, given a list of species.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>species</strong> &#8211; List of distinct species in the dataset.</li>
+<li><strong>selectedSpecies</strong> &#8211; List of already selected species.
+This list will be modified.</li>
 </ul>
-<span class="target" id="module-mainWindow"></span><dl class="class">
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="addSpeciesDialog.AddSpeciesDialog.__module__">
+<code class="descname">__module__</code><em class="property"> = 'addSpeciesDialog'</em><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="addSpeciesDialog.AddSpeciesDialog.addSpeciesHandle">
+<code class="descname">addSpeciesHandle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.addSpeciesHandle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append the chosen species to AddSpeciesDialog.selectedSpecies.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-datasetProcessor">
+<span id="datasetprocessor-py"></span><h2>datasetProcessor.py<a class="headerlink" href="#module-datasetProcessor" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="datasetProcessor.extractCsv">
+<code class="descclassname">datasetProcessor.</code><code class="descname">extractCsv</code><span class="sig-paren">(</span><em>csvStr</em>, <em>selectedFields=None</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.extractCsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select data from a CSV-formatted string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>csvStr</strong> &#8211; The string representing the CSV data.</li>
+<li><strong>selectedFields</strong> &#8211; The list of selected fields.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The list of records.
+Each record is a list containing only the selected fields.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="datasetProcessor.extractDarwinCoreArchive">
+<code class="descclassname">datasetProcessor.</code><code class="descname">extractDarwinCoreArchive</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.extractDarwinCoreArchive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data from a Darwin Core Archive (DwC-A).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; The name of the Darwin Core Archive (DwC-A).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The extracted data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="datasetProcessor.randomEstimateLocation">
+<code class="descclassname">datasetProcessor.</code><code class="descname">randomEstimateLocation</code><span class="sig-paren">(</span><em>coordinates</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.randomEstimateLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate center coordinate by averaging 10% of all coordinates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinates</strong> &#8211; The list of coordinates, in tuple.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The center coordinate, in tuple.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="datasetProcessor.readFileFromZip">
+<code class="descclassname">datasetProcessor.</code><code class="descname">readFileFromZip</code><span class="sig-paren">(</span><em>zipHandle</em>, <em>basename</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.readFileFromZip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full filename from a ZIP handle, then extract the file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>zipHandle</strong> &#8211; The ZIP handle.</li>
+<li><strong>basename</strong> &#8211; The base of the full filename.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The extracted data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-leafletMap">
+<span id="leafletmap-py"></span><h2>leafletMap.py<a class="headerlink" href="#module-leafletMap" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="leafletMap.LeafletMap">
+<em class="property">class </em><code class="descclassname">leafletMap.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=None</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="leafletMap.LeafletMap.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__init__': &lt;function LeafletMap.__init__&gt;, '__weakref__': &lt;attribute '__weakref__' of 'LeafletMap' objects&gt;, 'refreshMap': &lt;function LeafletMap.refreshMap&gt;, '__module__': 'leafletMap', '__doc__': None, '__dict__': &lt;attribute '__dict__' of 'LeafletMap' objects&gt;})</em><a class="headerlink" href="#leafletMap.LeafletMap.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="leafletMap.LeafletMap.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=None</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tiles</strong> &#8211; Tile source, defaults to OpenStreetMap.</li>
+<li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map.</li>
+<li><strong>zoom</strong> &#8211; Zoom level, defaults to 3.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="leafletMap.LeafletMap.__module__">
+<code class="descname">__module__</code><em class="property"> = 'leafletMap'</em><a class="headerlink" href="#leafletMap.LeafletMap.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="leafletMap.LeafletMap.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#leafletMap.LeafletMap.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="leafletMap.LeafletMap.refreshMap">
+<code class="descname">refreshMap</code><span class="sig-paren">(</span><em>dataset=None</em>, <em>selectedSpecies=None</em>, <em>centerCoordinate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.refreshMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rerender folium map, given a list of species.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> &#8211; Dictionary of {species name -&gt; list of coordinates}.</li>
+<li><strong>selectedSpecies</strong> &#8211; List of names of selected species.</li>
+<li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main">
+<span id="main-py"></span><h2>main.py<a class="headerlink" href="#module-main" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-mainWindow">
+<span id="mainwindow-py"></span><h2>mainWindow.py<a class="headerlink" href="#module-mainWindow" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="mainWindow.MainWindow">
 <em class="property">class </em><code class="descclassname">mainWindow.</code><code class="descname">MainWindow</code><span class="sig-paren">(</span><em>leafletMap</em><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
@@ -139,6 +326,62 @@ It is automatically called by MainWindow.__init__().</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-multiDict">
+<span id="multidict-py"></span><h2>multiDict.py<a class="headerlink" href="#module-multiDict" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="multiDict.MultiDict">
+<em class="property">class </em><code class="descclassname">multiDict.</code><code class="descname">MultiDict</code><a class="headerlink" href="#multiDict.MultiDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
+<dl class="attribute">
+<dt id="multiDict.MultiDict.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__doc__': None, '__weakref__': &lt;attribute '__weakref__' of 'MultiDict' objects&gt;, '__setitem__': &lt;function MultiDict.__setitem__&gt;, '__dict__': &lt;attribute '__dict__' of 'MultiDict' objects&gt;, '__module__': 'multiDict'})</em><a class="headerlink" href="#multiDict.MultiDict.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="multiDict.MultiDict.__module__">
+<code class="descname">__module__</code><em class="property"> = 'multiDict'</em><a class="headerlink" href="#multiDict.MultiDict.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="multiDict.MultiDict.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#multiDict.MultiDict.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override default dictionary behavior so that it can support duplicate keys.
+e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8217;} will produce {&#8216;k&#8217;: [&#8216;v1&#8217;, &#8216;v2&#8217;]}.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; Key of the key-value pair to be inserted.</li>
+<li><strong>value</strong> &#8211; Value of the key-value pair to be inserted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="multiDict.MultiDict.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#multiDict.MultiDict.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="advanced">
+<h2>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
 
 
           </div>
@@ -148,8 +391,16 @@ It is automatically called by MainWindow.__init__().</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to Biodiversity Analysis&#8217;s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#">Documentation</a><ul>
+<li><a class="reference internal" href="#module-addSpeciesDialog">addSpeciesDialog.py</a></li>
+<li><a class="reference internal" href="#module-datasetProcessor">datasetProcessor.py</a></li>
+<li><a class="reference internal" href="#module-leafletMap">leafletMap.py</a></li>
+<li><a class="reference internal" href="#module-main">main.py</a></li>
+<li><a class="reference internal" href="#module-mainWindow">mainWindow.py</a></li>
+<li><a class="reference internal" href="#module-multiDict">multiDict.py</a></li>
+<li><a class="reference internal" href="#advanced">Advanced</a></li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
