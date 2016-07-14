@@ -2,28 +2,50 @@
 
 Biodiversity Data Analysis and Visualization
 
-## Introduction ##
+A Project by Institute of Information Science, Academia Sinica
 
-Biodiversity Data Analysis and Visualization
+## Features ##
+
++ Spatial distribution graph
++ Spatial correlation quotient
++ Temporal distribution graph
++ Temporal correlation quotient
 
 Supported file format: Darwin Core Archive (DwC-A)
-
-A Project of Institute of Information Science, Academia Sinica
 
 ## Getting Started ##
 
 Download the repository and execute the following command:
 
-```
-. ./install.sh
+```bash
+source ./install.sh
 ```
 
-## Requirement ##
-
-Operating System: Ubuntu 15.10 or above
+## Requirements ##
 
 Make sure you have installed all dependencies:
 
-```
+```bash
 sudo apt-get install python3.5 python3.5-venv
 ```
+
+This program has been tested on Ubuntu 15.10 and above,  
+but it should work on other platforms with few modifications.
+
+## License ##
+
+Biodiversity Analysis: Biodiversity Data Analysis and Visualization  
+Copyright (C) 2016 Yu-wen Pwu and Yun-chih Chen
+
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License  
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
