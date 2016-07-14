@@ -32,6 +32,15 @@ sudo apt-get install python3.5 python3.5-venv
 This program has been tested on Ubuntu 15.10 and above,  
 but it should work on other platforms with few modifications.
 
+## Acknowledgement ##
+
+Special thanks to:
+
++ Tyng-ruey Chuang from Institute of Information Science, Academia Sinica
++ Te-en Lin from Endemic Species Research Institute, Council of Agriculture
++ Jason Mai from Biodiversity Research Center, Academia Sinica
++ Yi-hong Chang from Word Gleaner Ltd.
+
 ## License ##
 
 Biodiversity Analysis: Biodiversity Data Analysis and Visualization  
