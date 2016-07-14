@@ -6,10 +6,10 @@ A Project by Institute of Information Science, Academia Sinica
 
 ## Features ##
 
-+ Spatial distribution graph
-+ Spatial correlation quotient
-+ Temporal distribution graph
-+ Temporal correlation quotient
+* Spatial distribution graph
+* Spatial correlation quotient
+* Temporal distribution graph
+* Temporal correlation quotient
 
 Supported file format: Darwin Core Archive (DwC-A)
 
@@ -32,14 +32,19 @@ sudo apt-get install python3.5 python3.5-venv
 This program has been tested on Ubuntu 15.10 and above,  
 but it should work on other platforms with few modifications.
 
+## Documentation ##
+
+Full documents are available at:  
+<https://rawgit.com/yuwen41200/biodiversity-analysis/master/docs/index.html>.
+
 ## Acknowledgement ##
 
 Special thanks to:
 
-+ Tyng-ruey Chuang from Institute of Information Science, Academia Sinica
-+ Te-en Lin from Endemic Species Research Institute, Council of Agriculture
-+ Jason Mai from Biodiversity Research Center, Academia Sinica
-+ Yi-hong Chang from Word Gleaner Ltd.
+* Tyng-ruey Chuang from Institute of Information Science, Academia Sinica
+* Te-en Lin from Endemic Species Research Institute, Council of Agriculture
+* Jason Mai from Biodiversity Research Center, Academia Sinica
+* Yi-hong Chang from Word Gleaner Ltd.
 
 ## License ##
 
@@ -53,8 +58,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,  
 but WITHOUT ANY WARRANTY; without even the implied warranty of  
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License  
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
