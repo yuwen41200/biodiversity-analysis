@@ -53,6 +53,10 @@ class MainWindow(QMainWindow):
         addSpeciesAction.setStatusTip("Click to add species.")
         addSpeciesAction.triggered.connect(self.addSpecies)
 
+        clearDataAction = menuBar.addAction("Clear Data")
+        clearDataAction.setStatusTip("Click to clear data.")
+        clearDataAction.triggered.connect(self.clearData)
+
     def importData(self):
         """
         Import data from a Darwin Core Archive (DwC-A).
@@ -106,3 +110,16 @@ class MainWindow(QMainWindow):
             dialog.exec_()
 
             self.map.refreshMap(self.dataset, self.selectedSpecies)
+
+    def clearData(self):
+        """
+        Clear MainWindow.dataset and MainWindow.selectedSpecies.
+        Then refresh the map.
+
+        :return: None.
+        """
+
+        self.dataset.clear()
+        self.selectedSpecies.clear()
+
+        self.map.refreshMap()

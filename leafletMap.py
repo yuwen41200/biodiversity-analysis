@@ -21,7 +21,7 @@ class LeafletMap:
         """
 
         if centerCoordinate is None:
-            centerCoordinate = [23.5, 120]
+            centerCoordinate = (23.5, 120)
 
         # Instead of writing to file, just write to memory
         def toHTML(_self, **kwargs):

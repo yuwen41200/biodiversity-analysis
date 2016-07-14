@@ -9,6 +9,14 @@ class AddSpeciesDialog(QDialog):
 
     # noinspection PyArgumentList
     def __init__(self, species, selectedSpecies):
+        """
+        Construct the dialog, given a list of species.
+
+        :param species: List of distinct species in the dataset.
+        :param selectedSpecies: List of already selected species.
+                                This list will be modified.
+        """
+
         super().__init__()
         self.selectedSpecies = selectedSpecies
 
@@ -38,6 +46,12 @@ class AddSpeciesDialog(QDialog):
         self.show()
 
     def addSpeciesHandle(self):
+        """
+        Append the chosen species to AddSpeciesDialog.selectedSpecies.
+
+        :return: None.
+        """
+
         item = self.comboBox.currentText()
         self.selectedSpecies.append(item)
         self.done(0)
