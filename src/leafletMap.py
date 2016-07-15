@@ -12,7 +12,8 @@ from datasetProcessor import randomEstimateLocation
 # noinspection PyPep8Naming
 class LeafletMap:
 
-    def __init__(self, tiles="OpenStreetMap", centerCoordinate=None, zoom=3):
+
+    def __init__(self, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=3):
         """
         Initialize folium map.
 
@@ -20,9 +21,6 @@ class LeafletMap:
         :param centerCoordinate: Coordinate of central point in map.
         :param zoom: Zoom level, defaults to 3.
         """
-
-        if centerCoordinate is None:
-            centerCoordinate = (23.5, 120)
 
         # Instead of writing to file, just write to memory
         def toHTML(_self, **kwargs):
@@ -33,8 +31,19 @@ class LeafletMap:
         self.tiles = tiles
         self.zoom = zoom
         self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
+        self.markerColors = {
+                "red", "blue", "green", "purple", "orange", "darkred",
+                "lightred", "beige", "darkblue", "darkgreen", "cadetblue",
+                "darkpurple", "pink", "lightblue", "lightgreen",
+                "gray", "black", "lightgray"
+            }
+        self.speciesMarkerColor = {}
 
-    def refreshMap(self, dataset=None, selectedSpecies=None, centerCoordinate=None):
+        # Ignore simple_marker future warning
+        import warnings
+        warnings.filterwarnings("ignore", category=FutureWarning)
+
+    def refreshMap(self, dataset=None, selectedSpecies=[], centerCoordinate=None):
         """
         Rerender folium map, given a list of species.
 
@@ -60,11 +69,37 @@ class LeafletMap:
         else:
             self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
 
+        self.updateSpeciesMarkerColor(selectedSpecies)
+
         for species, coordinates in dataset.items():
             if species in selectedSpecies:
                 for coordinate in coordinates:
-                    self.fMap.simple_marker(location=coordinate, popup=species)
+                    self.fMap.simple_marker(
+                            popup=species,
+                            location=coordinate,
+                            marker_icon="flag",
+                            marker_color=self.speciesMarkerColor[species]
+                        )
 
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()
         self.webView.setHtml(html)
+
+    def updateSpeciesMarkerColor(self, selectedSpecies):
+        """
+        Update the correspondence between species and their colors
+
+        :param selectedSpecies: List of names of selected species.
+        :return: None.
+        """
+        cur, prev = set(selectedSpecies), set(self.speciesMarkerColor.keys())
+        common = cur.intersection(prev)
+
+        import random
+        for newSpecies in cur - common:
+            color = self.markerColors.pop()
+            self.speciesMarkerColor[newSpecies] = color
+
+        for removedSpecies in prev - common:
+            del self.speciesMarkerColor[removedSpecies]
+
