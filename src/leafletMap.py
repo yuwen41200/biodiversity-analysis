@@ -32,14 +32,12 @@ class LeafletMap:
         self.zoom = zoom
         self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
         self.markerColors = {
-                "red", "blue", "green", "purple", "orange", "darkred",
-                "lightred", "beige", "darkblue", "darkgreen", "cadetblue",
-                "darkpurple", "pink", "lightblue", "lightgreen",
-                "gray", "black", "lightgray"
-            }
+            "#142b44", "#1d508d", "#297cbb", "#288ad6", "#0fdebd", "#16c98d", "#feef6d",
+            "#ffc83f", "#fa5e5b", "#bf538d", "#841e1b", "#582c2b", "#2c3643", "#2c3643"
+        }
         self.speciesMarkerColor = {}
 
-        # Ignore simple_marker future warning
+        # Ignore simple_marker/circle_marker future warning
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
@@ -74,11 +72,13 @@ class LeafletMap:
         for species, coordinates in dataset.items():
             if species in selectedSpecies:
                 for coordinate in coordinates:
-                    self.fMap.simple_marker(
+                    self.fMap.circle_marker(
                             popup=species,
                             location=coordinate,
-                            marker_icon="flag",
-                            marker_color=self.speciesMarkerColor[species]
+                            radius=400,
+                            line_color=self.speciesMarkerColor[species],
+                            fill_color="#cfcbaf",
+                            fill_opacity=1
                         )
 
         # Render to LeafletMap.webView
