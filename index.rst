@@ -64,6 +64,26 @@ multiDict.py
    :special-members:
    :show-inheritance:
 
+spaceWidget.py
+--------------
+
+.. automodule:: spaceWidget
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
+timeWidget.py
+-------------
+
+.. automodule:: timeWidget
+   :members:
+   :undoc-members:
+   :private-members:
+   :special-members:
+   :show-inheritance:
+
 Advanced
 --------
 

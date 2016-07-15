@@ -166,21 +166,42 @@ Each record is a list containing only the selected fields.</p>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="datasetProcessor.updateLabel">
+<code class="descclassname">datasetProcessor.</code><code class="descname">updateLabel</code><span class="sig-paren">(</span><em>label</em>, <em>selectedSpecies=None</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.updateLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a label which lists all selected species.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>label</strong> &#8211; A QLabel object.</li>
+<li><strong>selectedSpecies</strong> &#8211; List of names of selected species.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-leafletMap">
 <span id="leafletmap-py"></span><h2>leafletMap.py<a class="headerlink" href="#module-leafletMap" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="leafletMap.LeafletMap">
-<em class="property">class </em><code class="descclassname">leafletMap.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=None</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">leafletMap.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="leafletMap.LeafletMap.__dict__">
-<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__init__': &lt;function LeafletMap.__init__&gt;, '__weakref__': &lt;attribute '__weakref__' of 'LeafletMap' objects&gt;, 'refreshMap': &lt;function LeafletMap.refreshMap&gt;, '__module__': 'leafletMap', '__doc__': None, '__dict__': &lt;attribute '__dict__' of 'LeafletMap' objects&gt;})</em><a class="headerlink" href="#leafletMap.LeafletMap.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__weakref__': &lt;attribute '__weakref__' of 'LeafletMap' objects&gt;, '__init__': &lt;function LeafletMap.__init__&gt;, '__dict__': &lt;attribute '__dict__' of 'LeafletMap' objects&gt;, '__doc__': None, '__module__': 'leafletMap', 'refreshMap': &lt;function LeafletMap.refreshMap&gt;, 'updateSpeciesMarkerColor': &lt;function LeafletMap.updateSpeciesMarkerColor&gt;})</em><a class="headerlink" href="#leafletMap.LeafletMap.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="leafletMap.LeafletMap.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=None</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=3</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize folium map.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,6 +246,22 @@ Each record is a list containing only the selected fields.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="leafletMap.LeafletMap.updateSpeciesMarkerColor">
+<code class="descname">updateSpeciesMarkerColor</code><span class="sig-paren">(</span><em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.updateSpeciesMarkerColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the correspondence between species and their colors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>selectedSpecies</strong> &#8211; List of names of selected species.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -334,7 +371,7 @@ It is automatically called by MainWindow.__init__().</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
 <dl class="attribute">
 <dt id="multiDict.MultiDict.__dict__">
-<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__doc__': None, '__weakref__': &lt;attribute '__weakref__' of 'MultiDict' objects&gt;, '__setitem__': &lt;function MultiDict.__setitem__&gt;, '__dict__': &lt;attribute '__dict__' of 'MultiDict' objects&gt;, '__module__': 'multiDict'})</em><a class="headerlink" href="#multiDict.MultiDict.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__weakref__': &lt;attribute '__weakref__' of 'MultiDict' objects&gt;, '__setitem__': &lt;function MultiDict.__setitem__&gt;, '__module__': 'multiDict', '__dict__': &lt;attribute '__dict__' of 'MultiDict' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#multiDict.MultiDict.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -373,6 +410,56 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 </dd></dl>
 
 </div>
+<div class="section" id="module-spaceWidget">
+<span id="spacewidget-py"></span><h2>spaceWidget.py<a class="headerlink" href="#module-spaceWidget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spaceWidget.SpaceWidget">
+<em class="property">class </em><code class="descclassname">spaceWidget.</code><code class="descname">SpaceWidget</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#spaceWidget.SpaceWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="method">
+<dt id="spaceWidget.SpaceWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#spaceWidget.SpaceWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Space page in the main window.
+A LeafletMap.webView will be shown on this page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>webView</strong> &#8211; The LeafletMap.webView widget.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="spaceWidget.SpaceWidget.__module__">
+<code class="descname">__module__</code><em class="property"> = 'spaceWidget'</em><a class="headerlink" href="#spaceWidget.SpaceWidget.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-timeWidget">
+<span id="timewidget-py"></span><h2>timeWidget.py<a class="headerlink" href="#module-timeWidget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="timeWidget.TimeWidget">
+<em class="property">class </em><code class="descclassname">timeWidget.</code><code class="descname">TimeWidget</code><a class="headerlink" href="#timeWidget.TimeWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="method">
+<dt id="timeWidget.TimeWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#timeWidget.TimeWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Time page in the main window.
+&lt;&lt;&lt; TODO &gt;&gt;&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="timeWidget.TimeWidget.__module__">
+<code class="descname">__module__</code><em class="property"> = 'timeWidget'</em><a class="headerlink" href="#timeWidget.TimeWidget.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="advanced">
 <h2>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -398,6 +485,8 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <li><a class="reference internal" href="#module-main">main.py</a></li>
 <li><a class="reference internal" href="#module-mainWindow">mainWindow.py</a></li>
 <li><a class="reference internal" href="#module-multiDict">multiDict.py</a></li>
+<li><a class="reference internal" href="#module-spaceWidget">spaceWidget.py</a></li>
+<li><a class="reference internal" href="#module-timeWidget">timeWidget.py</a></li>
 <li><a class="reference internal" href="#advanced">Advanced</a></li>
 </ul>
 </li>
