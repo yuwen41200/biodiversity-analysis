@@ -8,5 +8,10 @@ from PyQt5.QtWidgets import QWidget
 class TimeWidget(QWidget):
 
     def __init__(self):
+        """
+        Construct the Time page in the main window.
+        <<< TODO >>>
+        """
+
         # noinspection PyArgumentList
         super().__init__()

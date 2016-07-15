@@ -103,3 +103,25 @@ def randomEstimateLocation(coordinates):
 
     coordSum = reduce(lambda a, b: (a[0] + b[0], a[1] + b[1]), randomDraws)
     return coordSum[0] / draw, coordSum[1] / draw
+
+
+# noinspection PyPep8Naming
+def updateLabel(label, selectedSpecies=None):
+    """
+    Update a label which lists all selected species.
+
+    :param label: A QLabel object.
+    :param selectedSpecies: List of names of selected species.
+    :return: None.
+    """
+
+    if selectedSpecies is None:
+        selectedSpecies = []
+
+    if selectedSpecies:
+        msg = "Selected Species: " + ", ".join(selectedSpecies) + "."
+    else:
+        msg = "No species is selected."
+
+    label.setText(msg)
+    label.update()

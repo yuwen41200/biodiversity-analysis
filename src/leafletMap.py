@@ -12,7 +12,6 @@ from datasetProcessor import randomEstimateLocation
 # noinspection PyPep8Naming
 class LeafletMap:
 
-
     def __init__(self, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=3):
         """
         Initialize folium map.
@@ -39,11 +38,11 @@ class LeafletMap:
             }
         self.speciesMarkerColor = {}
 
-        # Ignore simple_marker future warning
+        # Ignore simple_marker future warnings
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def refreshMap(self, dataset=None, selectedSpecies=[], centerCoordinate=None):
+    def refreshMap(self, dataset=None, selectedSpecies=None, centerCoordinate=None):
         """
         Rerender folium map, given a list of species.
 
@@ -55,6 +54,9 @@ class LeafletMap:
 
         if dataset is None:
             dataset = {}
+
+        if selectedSpecies is None:
+            selectedSpecies = []
 
         if dataset and not centerCoordinate:
             allCoordinates = []
@@ -87,19 +89,18 @@ class LeafletMap:
 
     def updateSpeciesMarkerColor(self, selectedSpecies):
         """
-        Update the correspondence between species and their colors
+        Update the correspondence between species and their colors.
 
         :param selectedSpecies: List of names of selected species.
         :return: None.
         """
+
         cur, prev = set(selectedSpecies), set(self.speciesMarkerColor.keys())
         common = cur.intersection(prev)
 
-        import random
         for newSpecies in cur - common:
             color = self.markerColors.pop()
             self.speciesMarkerColor[newSpecies] = color
 
         for removedSpecies in prev - common:
             del self.speciesMarkerColor[removedSpecies]
-

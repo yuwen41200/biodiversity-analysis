@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-from PyQt5.QtWidgets import QMainWindow, QTabWidget, QLabel, QVBoxLayout, QWidget,\
+from PyQt5.QtWidgets import QMainWindow, QLabel, QTabWidget, QVBoxLayout, QWidget,\
                             QFileDialog, QMessageBox
 from multiDict import MultiDict
 from spaceWidget import SpaceWidget
 from timeWidget import TimeWidget
 from addSpeciesDialog import AddSpeciesDialog
-from datasetProcessor import extractDarwinCoreArchive, extractCsv
+from datasetProcessor import updateLabel, extractDarwinCoreArchive, extractCsv
 
 
 # noinspection PyPep8Naming
@@ -27,6 +27,7 @@ class MainWindow(QMainWindow):
         self.map = leafletMap
         self.dataset = MultiDict()
         self.selectedSpecies = []
+        self.speciesLabel = QLabel()
         self.setupWidgets()
 
     # noinspection PyArgumentList
@@ -62,12 +63,11 @@ class MainWindow(QMainWindow):
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refreshMap()
-
-        label = QLabel("Selected Species: " + ", ".join(self.selectedSpecies))
+        updateLabel(self.speciesLabel)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(tabWidget)
-        mainLayout.addWidget(label)
+        mainLayout.addWidget(self.speciesLabel)
 
         self.setCentralWidget(QWidget())
         self.centralWidget().setLayout(mainLayout)
@@ -125,6 +125,7 @@ class MainWindow(QMainWindow):
             dialog.exec_()
 
             self.map.refreshMap(self.dataset, self.selectedSpecies)
+            updateLabel(self.speciesLabel, self.selectedSpecies)
 
     def clearData(self):
         """
@@ -138,3 +139,4 @@ class MainWindow(QMainWindow):
         self.selectedSpecies.clear()
 
         self.map.refreshMap()
+        updateLabel(self.speciesLabel)
