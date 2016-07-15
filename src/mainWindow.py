@@ -85,18 +85,18 @@ class MainWindow(QMainWindow):
         filename = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
         extension = os.path.splitext(filename)[1]
 
-        if not filename:
-            # User clicked the "cancel" button or closed the dialog
-            pass
+        if filename:
+        # If user does select some file
+            try:
+                darwinCoreData = extractDarwinCoreArchive(filename)
+                columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
+                dataList = extractCsv(darwinCoreData, columns)[1]
+            except:
+                title = "Invalid DwC-A"
+                content = "The provided file either is not in DwC-A or is corrupted.  Please select a valid one"
+                QMessageBox.critical(self, title, content)
+                return
 
-        elif extension != ".zip":
-            title, content = "Invalid File", "Currently only DwC-A files are supported."
-            QMessageBox.critical(self, title, content)
-
-        else:
-            darwinCoreData = extractDarwinCoreArchive(filename)
-            columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-            dataList = extractCsv(darwinCoreData, columns)[1]
             for r in dataList:
                 self.dataset[r[2]] = (r[0], r[1])
 
