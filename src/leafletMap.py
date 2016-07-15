@@ -74,8 +74,12 @@ class LeafletMap:
         for species, coordinates in dataset.items():
             if species in selectedSpecies:
                 for coordinate in coordinates:
-                    self.fMap.simple_marker(location=coordinate, popup=species,
-                            marker_color=self.speciesMarkerColor[species])
+                    self.fMap.simple_marker(
+                            popup=species,
+                            location=coordinate,
+                            marker_icon="flag",
+                            marker_color=self.speciesMarkerColor[species]
+                        )
 
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()
