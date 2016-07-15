@@ -7,7 +7,7 @@ A Project by Institute of Information Science, Academia Sinica
 ## Features ##
 
 * Spatial distribution graph
-  ![screenshot 1](http://i.imgur.com/mubc0K5.png "screenshot 1")
+  ![screenshot 1](http://i.imgur.com/y1J6QP0.png "screenshot 1")
 * Spatial correlation quotient
 * Temporal distribution graph
 * Temporal correlation quotient
