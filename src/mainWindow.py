@@ -106,6 +106,7 @@ class MainWindow(QMainWindow):
             content = "{:,d} records have been loaded.".format(len(dataList))
             QMessageBox.information(self, title, content)
 
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
         """
         Choose a species from the previous dataset.
@@ -117,7 +118,11 @@ class MainWindow(QMainWindow):
 
         if not self.dataset:
             title, content = "Empty Dataset", "Please import data first."
-            # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+            QMessageBox.critical(self, title, content)
+
+        elif len(self.selectedSpecies) == 14:
+            title = "Too Many Species"
+            content = "Selecting more than 14 species is not supported."
             QMessageBox.critical(self, title, content)
 
         else:
