@@ -39,6 +39,10 @@ class LeafletMap:
             }
         self.speciesMarkerColor = {}
 
+        # Ignore simple_marker future warning
+        import warnings
+        warnings.filterwarnings("ignore", category=FutureWarning)
+
     def refreshMap(self, dataset=None, selectedSpecies=[], centerCoordinate=None):
         """
         Rerender folium map, given a list of species.
