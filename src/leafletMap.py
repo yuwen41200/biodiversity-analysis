@@ -104,4 +104,5 @@ class LeafletMap:
             self.speciesMarkerColor[newSpecies] = color
 
         for removedSpecies in prev - common:
+            self.markerColors.add(self.speciesMarkerColor[removedSpecies])
             del self.speciesMarkerColor[removedSpecies]
