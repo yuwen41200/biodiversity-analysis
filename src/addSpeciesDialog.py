@@ -23,10 +23,10 @@ class AddSpeciesDialog(QDialog):
         self.comboBox = QComboBox()
         self.comboBox.addItems(species)
 
-        label = QLabel("Select a species: ")
+        label = QLabel("&Select a species: ")
         label.setBuddy(self.comboBox)
 
-        pushButton = QPushButton("Add")
+        pushButton = QPushButton("&Add")
         pushButton.setDefault(True)
 
         # noinspection PyUnresolvedReferences

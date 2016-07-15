@@ -45,21 +45,21 @@ class MainWindow(QMainWindow):
         menuBar = self.menuBar()
         self.statusBar()
 
-        importDataAction = menuBar.addAction("Import Data")
+        importDataAction = menuBar.addAction("&Import Data")
         importDataAction.setStatusTip("Click to import data.")
         importDataAction.triggered.connect(self.importData)
 
-        addSpeciesAction = menuBar.addAction("Add Species")
+        addSpeciesAction = menuBar.addAction("&Add Species")
         addSpeciesAction.setStatusTip("Click to add species.")
         addSpeciesAction.triggered.connect(self.addSpecies)
 
-        clearDataAction = menuBar.addAction("Clear Data")
+        clearDataAction = menuBar.addAction("&Clear Data")
         clearDataAction.setStatusTip("Click to clear data.")
         clearDataAction.triggered.connect(self.clearData)
 
         tabWidget = QTabWidget(self)
-        tabWidget.addTab(SpaceWidget(self.map.webView), "Space")
-        tabWidget.addTab(TimeWidget(), "Time")
+        tabWidget.addTab(SpaceWidget(self.map.webView), "&Space")
+        tabWidget.addTab(TimeWidget(), "&Time")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refreshMap()

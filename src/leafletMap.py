@@ -56,7 +56,7 @@ class LeafletMap:
         if selectedSpecies is None:
             selectedSpecies = []
 
-        if dataset and not centerCoordinate:
+        if dataset and selectedSpecies and not centerCoordinate:
             allCoordinates = []
             for species, coordinates in dataset.items():
                 if species in selectedSpecies:
@@ -64,24 +64,25 @@ class LeafletMap:
             centerCoordinate = randomEstimateLocation(allCoordinates)
 
         if centerCoordinate:
-            zoom = self.zoom + 3
+            zoom = self.zoom + 5
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tiles)
         else:
             self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
 
-        self.updateSpeciesMarkerColor(selectedSpecies)
+        if selectedSpecies:
+            self.updateSpeciesMarkerColor(selectedSpecies)
 
-        for species, coordinates in dataset.items():
-            if species in selectedSpecies:
-                for coordinate in coordinates:
-                    self.fMap.circle_marker(
-                            popup=species,
-                            location=coordinate,
-                            radius=400,
-                            line_color=self.speciesMarkerColor[species],
-                            fill_color="#cfcbaf",
-                            fill_opacity=1
-                        )
+            for species, coordinates in dataset.items():
+                if species in selectedSpecies:
+                    for coordinate in coordinates:
+                        self.fMap.circle_marker(
+                                popup=species,
+                                location=coordinate,
+                                radius=40,
+                                line_color=self.speciesMarkerColor[species],
+                                fill_color=self.speciesMarkerColor[species],
+                                fill_opacity=1
+                            )
 
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()
