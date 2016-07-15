@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QTabWidget, QLabel, QVBoxLayout, QWidget,\
+                            QFileDialog, QMessageBox
 from multiDict import MultiDict
+from spaceWidget import SpaceWidget
+from timeWidget import TimeWidget
 from addSpeciesDialog import AddSpeciesDialog
 from datasetProcessor import extractDarwinCoreArchive, extractCsv
 
@@ -26,6 +29,7 @@ class MainWindow(QMainWindow):
         self.selectedSpecies = []
         self.setupWidgets()
 
+    # noinspection PyArgumentList
     def setupWidgets(self):
         """
         Construct all GUI elements.
@@ -36,14 +40,9 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Biodiversity Analysis")
         self.setGeometry(300, 200, 1000, 700)
-        self.show()
 
-        self.map.webView.setStatusTip("Drag to change the displayed region.")
-        self.setCentralWidget(self.map.webView)
-        self.map.refreshMap()
-
-        self.statusBar()
         menuBar = self.menuBar()
+        self.statusBar()
 
         importDataAction = menuBar.addAction("Import Data")
         importDataAction.setStatusTip("Click to import data.")
@@ -57,6 +56,23 @@ class MainWindow(QMainWindow):
         clearDataAction.setStatusTip("Click to clear data.")
         clearDataAction.triggered.connect(self.clearData)
 
+        tabWidget = QTabWidget(self)
+        tabWidget.addTab(SpaceWidget(self.map.webView), "Space")
+        tabWidget.addTab(TimeWidget(), "Time")
+
+        self.map.webView.setStatusTip("Drag to change the displayed region.")
+        self.map.refreshMap()
+
+        label = QLabel("Selected Species: " + ", ".join(self.selectedSpecies))
+
+        mainLayout = QVBoxLayout()
+        mainLayout.addWidget(tabWidget)
+        mainLayout.addWidget(label)
+
+        self.setCentralWidget(QWidget())
+        self.centralWidget().setLayout(mainLayout)
+
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def importData(self):
         """
         Import data from a Darwin Core Archive (DwC-A).
@@ -66,7 +82,6 @@ class MainWindow(QMainWindow):
         """
 
         title, extension = "Select a DwC-A File", "DwC-A File (*.zip)"
-        # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
         filename = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
         extension = os.path.splitext(filename)[1]
 
@@ -76,7 +91,6 @@ class MainWindow(QMainWindow):
 
         elif extension != ".zip":
             title, content = "Invalid File", "Currently only DwC-A files are supported."
-            # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
             QMessageBox.critical(self, title, content)
 
         else:
@@ -88,7 +102,6 @@ class MainWindow(QMainWindow):
 
             title = "Dataset Successfully Imported"
             content = "{:,d} records have been loaded.".format(len(dataList))
-            # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
             QMessageBox.information(self, title, content)
 
     def addSpecies(self):
