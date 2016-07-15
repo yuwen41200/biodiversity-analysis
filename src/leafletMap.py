@@ -76,13 +76,13 @@ class LeafletMap:
                 if species in selectedSpecies:
                     for coordinate in coordinates:
                         self.fMap.circle_marker(
-                                popup=species,
-                                location=coordinate,
-                                radius=40,
-                                line_color=self.speciesMarkerColor[species],
-                                fill_color=self.speciesMarkerColor[species],
-                                fill_opacity=1
-                            )
+                            popup=species,
+                            location=coordinate,
+                            radius=40,
+                            line_color=self.speciesMarkerColor[species],
+                            fill_color=self.speciesMarkerColor[species],
+                            fill_opacity=1
+                        )
 
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()

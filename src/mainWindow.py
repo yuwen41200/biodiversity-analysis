@@ -83,17 +83,19 @@ class MainWindow(QMainWindow):
 
         title, extension = "Select a DwC-A File", "DwC-A File (*.zip)"
         filename = QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
-        extension = os.path.splitext(filename)[1]
 
         if filename:
-        # If user does select some file
+            # noinspection PyBroadException
             try:
                 darwinCoreData = extractDarwinCoreArchive(filename)
                 columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
                 dataList = extractCsv(darwinCoreData, columns)[1]
             except:
-                title = "Invalid DwC-A"
-                content = "The provided file either is not in DwC-A or is corrupted.  Please select a valid one"
+                title = "Invalid DwC-A File"
+                content = (
+                    "The provided file is either not in DwC-A format or corrupted.\n"
+                    "Please select a valid one."
+                )
                 QMessageBox.critical(self, title, content)
                 return
 
