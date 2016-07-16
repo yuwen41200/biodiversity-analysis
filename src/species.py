@@ -21,4 +21,4 @@ class Species:
         return Species.colors
 
     def __del__(self):
-        Species.colors.add(self.color)
+        Species.colors.append(self.color)

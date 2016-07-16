@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import os
-from PyQt5.QtWidgets import QMainWindow, QLabel, QTabWidget, QVBoxLayout, QWidget,\
-                            QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QLabel, QTabWidget, QVBoxLayout, QHBoxLayout,\
+                            QFileDialog, QMessageBox, QWidget
+from PyQt5.QtCore import Qt
 from multiDict import MultiDict
 from spaceWidget import SpaceWidget
 from timeWidget import TimeWidget
 from addSpeciesDialog import AddSpeciesDialog
-from datasetProcessor import updateLabel, extractDarwinCoreArchive, extractCsv
+from datasetProcessor import extractDarwinCoreArchive, extractCsv
+from species import Species
 
 
 # noinspection PyPep8Naming
@@ -26,8 +28,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.map = leafletMap
         self.dataset = MultiDict()
-        self.selectedSpecies = []
-        self.speciesLabel = QLabel()
+        self.selectedSpecies = {}
+        self.speciesList = QHBoxLayout()
         self.setupWidgets()
 
     # noinspection PyArgumentList
@@ -63,14 +65,15 @@ class MainWindow(QMainWindow):
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refreshMap()
-        updateLabel(self.speciesLabel)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(tabWidget)
-        mainLayout.addWidget(self.speciesLabel)
+        mainLayout.addLayout(self.speciesList)
+
 
         self.setCentralWidget(QWidget())
         self.centralWidget().setLayout(mainLayout)
+        self.speciesList.setAlignment(Qt.AlignLeft)
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def importData(self):
@@ -120,7 +123,7 @@ class MainWindow(QMainWindow):
             title, content = "Empty Dataset", "Please import data first."
             QMessageBox.critical(self, title, content)
 
-        elif len(self.selectedSpecies) == 14:
+        elif not Species.available():
             title = "Too Many Species"
             content = "Selecting more than 14 species is not supported."
             QMessageBox.critical(self, title, content)
@@ -128,11 +131,10 @@ class MainWindow(QMainWindow):
         else:
             species = [k for k in self.dataset.keys() if k not in self.selectedSpecies]
 
-            dialog = AddSpeciesDialog(species, self.selectedSpecies)
+            dialog = AddSpeciesDialog(species, self.selectedSpecies, self.speciesList)
             dialog.exec_()
 
             self.map.refreshMap(self.dataset, self.selectedSpecies)
-            updateLabel(self.speciesLabel, self.selectedSpecies)
 
     def clearData(self):
         """
@@ -146,4 +148,3 @@ class MainWindow(QMainWindow):
         self.selectedSpecies.clear()
 
         self.map.refreshMap()
-        updateLabel(self.speciesLabel)

@@ -40,7 +40,7 @@ class LeafletMap:
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def refreshMap(self, dataset=None, selectedSpecies=None, centerCoordinate=None):
+    def refreshMap(self, dataset=None, selectedSpecies={}, centerCoordinate=None):
         """
         Rerender folium map, given a list of species.
 
@@ -52,9 +52,6 @@ class LeafletMap:
 
         if dataset is None:
             dataset = {}
-
-        if selectedSpecies is None:
-            selectedSpecies = []
 
         if dataset and selectedSpecies and not centerCoordinate:
             allCoordinates = []
@@ -70,39 +67,19 @@ class LeafletMap:
             self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
 
         if selectedSpecies:
-            self.updateSpeciesMarkerColor(selectedSpecies)
-
             for species, coordinates in dataset.items():
                 if species in selectedSpecies:
                     for coordinate in coordinates:
+                        color = selectedSpecies[species].color
                         self.fMap.circle_marker(
                             popup=species,
                             location=coordinate,
                             radius=40,
-                            line_color=self.speciesMarkerColor[species],
-                            fill_color=self.speciesMarkerColor[species],
+                            line_color=color,
+                            fill_color=color,
                             fill_opacity=1
                         )
 
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()
         self.webView.setHtml(html)
-
-    def updateSpeciesMarkerColor(self, selectedSpecies):
-        """
-        Update the correspondence between species and their colors.
-
-        :param selectedSpecies: List of names of selected species.
-        :return: None.
-        """
-
-        cur, prev = set(selectedSpecies), set(self.speciesMarkerColor.keys())
-        common = cur.intersection(prev)
-
-        for newSpecies in cur - common:
-            color = self.markerColors.pop()
-            self.speciesMarkerColor[newSpecies] = color
-
-        for removedSpecies in prev - common:
-            self.markerColors.add(self.speciesMarkerColor[removedSpecies])
-            del self.speciesMarkerColor[removedSpecies]

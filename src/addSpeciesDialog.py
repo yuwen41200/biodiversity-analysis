@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, QHBoxLayout, QVBoxLayout, \
+                            QSizePolicy
+from species import Species
 
 
 # noinspection PyPep8Naming
 class AddSpeciesDialog(QDialog):
 
     # noinspection PyArgumentList
-    def __init__(self, species, selectedSpecies):
+    def __init__(self, species, selectedSpecies, speciesList):
         """
         Construct the dialog, given a list of species.
 
@@ -19,6 +21,7 @@ class AddSpeciesDialog(QDialog):
 
         super().__init__()
         self.selectedSpecies = selectedSpecies
+        self.speciesList = speciesList
 
         self.comboBox = QComboBox()
         self.comboBox.addItems(species)
@@ -53,5 +56,14 @@ class AddSpeciesDialog(QDialog):
         """
 
         item = self.comboBox.currentText()
-        self.selectedSpecies.append(item)
+        self.selectedSpecies[item] = Species()
+        label = QLabel(item)
+        label.setStyleSheet(
+                "background-color: " + self.selectedSpecies[item].color + ";"
+                "border-radius: 10px;"
+                "padding-left: 10px;"
+                "padding-right: 10px;"
+            )
+        label.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+        self.speciesList.addWidget(label)
         self.done(0)
