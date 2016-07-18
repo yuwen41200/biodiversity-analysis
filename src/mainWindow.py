@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QTabWidget, QVBoxLayout, QWidget, \
-                            QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QDesktopWidget, QTabWidget, QVBoxLayout, \
+                            QWidget, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 from multiDict import MultiDict
 from spaceWidget import SpaceWidget
@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
         """
 
         self.setWindowTitle("Biodiversity Analysis")
-        self.setGeometry(300, 200, 1000, 700)
+        self.resize(QDesktopWidget().availableGeometry().size())
 
         menuBar = self.menuBar()
         self.statusBar()
@@ -64,8 +64,8 @@ class MainWindow(QMainWindow):
         aboutAction.triggered.connect(self.about)
 
         tabWidget = QTabWidget(self)
-        tabWidget.addTab(SpaceWidget(self.map.webView), "&Space")
-        tabWidget.addTab(TimeWidget(), "&Time")
+        tabWidget.addTab(SpaceWidget(self.map.webView), "&Spatial Analysis")
+        tabWidget.addTab(TimeWidget(), "&Temporal Analysis")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refreshMap()
