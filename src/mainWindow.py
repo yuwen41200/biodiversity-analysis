@@ -129,7 +129,7 @@ class MainWindow(QMainWindow):
 
         elif not Species.available():
             title = "Too Many Species"
-            content = "Selecting more than " + Species.nColor + " species is not supported."
+            content = "Selecting more than " + str(Species.nColor) + " species is not supported."
             QMessageBox.critical(self, title, content)
 
         else:
