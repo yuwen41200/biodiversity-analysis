@@ -15,9 +15,9 @@ class AddSpeciesDialog(QDialog):
         Construct the dialog, given a list of species.
 
         :param species: List of distinct species in the dataset.
-        :param selectedSpecies: Dictionary of already selected species.
+        :param selectedSpecies: Dictionary of already selected species. |br|
                                 This dictionary will be modified.
-        :param speciesLayout: A layout which lists all selected species.
+        :param speciesLayout: A layout which lists all selected species. |br|
                               This layout will be modified.
         """
 
@@ -52,7 +52,7 @@ class AddSpeciesDialog(QDialog):
 
     def addSpeciesHandle(self):
         """
-        Add the chosen species to AddSpeciesDialog.selectedSpecies.
+        Add the chosen species to AddSpeciesDialog.selectedSpecies. |br|
         Also append it to AddSpeciesDialog.speciesLayout.
 
         :return: None.

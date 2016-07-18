@@ -9,7 +9,7 @@ class TimeWidget(QWidget):
 
     def __init__(self):
         """
-        Construct the Time page in the main window.
+        Construct the Time page in the main window. |br|
         <<< TODO >>>
         """
 

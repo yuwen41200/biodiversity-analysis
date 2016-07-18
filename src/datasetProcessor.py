@@ -49,7 +49,7 @@ def extractCsv(csvStr, selectedFields=None):
 
     :param csvStr: The string representing the CSV data.
     :param selectedFields: The list of selected fields.
-    :return: The list of records.
+    :return: The list of records. |br|
              Each record is a list containing only the selected fields.
     """
 

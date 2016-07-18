@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self, leafletMap):
         """
-        Initialize the main window, using a LeafletMap.
+        Initialize the main window, using a LeafletMap. |br|
         It will call MainWindow.setupWidgets().
 
         :param leafletMap: The LeafletMap object.
@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
     # noinspection PyArgumentList
     def setupWidgets(self):
         """
-        Construct all GUI elements.
+        Construct all GUI elements. |br|
         It is automatically called by MainWindow.__init__().
 
         :return: None.
@@ -77,7 +77,7 @@ class MainWindow(QMainWindow):
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def importData(self):
         """
-        Import data from a Darwin Core Archive (DwC-A).
+        Import data from a Darwin Core Archive (DwC-A). |br|
         Store them in MainWindow.dataset.
 
         :return: None.
@@ -111,8 +111,8 @@ class MainWindow(QMainWindow):
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
         """
-        Choose a species from the previous dataset.
-        Append it to MainWindow.selectedSpecies.
+        Choose a species from the previous dataset. |br|
+        Append it to MainWindow.selectedSpecies. |br|
         Then refresh the map.
 
         :return: None.
@@ -137,7 +137,7 @@ class MainWindow(QMainWindow):
 
     def clearData(self):
         """
-        Clear MainWindow.dataset and MainWindow.selectedSpecies.
+        Clear MainWindow.dataset and MainWindow.selectedSpecies. |br|
         Then refresh the map.
 
         :return: None.

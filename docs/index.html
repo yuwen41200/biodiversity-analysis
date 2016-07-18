@@ -46,11 +46,11 @@
 <span id="addspeciesdialog-py"></span><h2>addSpeciesDialog.py<a class="headerlink" href="#module-addSpeciesDialog" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="addSpeciesDialog.AddSpeciesDialog">
-<em class="property">class </em><code class="descclassname">addSpeciesDialog.</code><code class="descname">AddSpeciesDialog</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">addSpeciesDialog.</code><code class="descname">AddSpeciesDialog</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em>, <em>speciesLayout</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
 <dl class="method">
 <dt id="addSpeciesDialog.AddSpeciesDialog.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em>, <em>selectedSpecies</em>, <em>speciesLayout</em><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the dialog, given a list of species.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -58,8 +58,10 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>species</strong> &#8211; List of distinct species in the dataset.</li>
-<li><strong>selectedSpecies</strong> &#8211; List of already selected species.
-This list will be modified.</li>
+<li><strong>selectedSpecies</strong> &#8211; Dictionary of already selected species. <br>
+This dictionary will be modified.</li>
+<li><strong>speciesLayout</strong> &#8211; A layout which lists all selected species. <br>
+This layout will be modified.</li>
 </ul>
 </td>
 </tr>
@@ -75,7 +77,8 @@ This list will be modified.</li>
 <dl class="method">
 <dt id="addSpeciesDialog.AddSpeciesDialog.addSpeciesHandle">
 <code class="descname">addSpeciesHandle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#addSpeciesDialog.AddSpeciesDialog.addSpeciesHandle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append the chosen species to AddSpeciesDialog.selectedSpecies.</p>
+<dd><p>Add the chosen species to AddSpeciesDialog.selectedSpecies. <br>
+Also append it to AddSpeciesDialog.speciesLayout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -105,7 +108,7 @@ This list will be modified.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The list of records.
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The list of records. <br>
 Each record is a list containing only the selected fields.</p>
 </td>
 </tr>
@@ -166,27 +169,6 @@ Each record is a list containing only the selected fields.</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="datasetProcessor.updateLabel">
-<code class="descclassname">datasetProcessor.</code><code class="descname">updateLabel</code><span class="sig-paren">(</span><em>label</em>, <em>selectedSpecies=None</em><span class="sig-paren">)</span><a class="headerlink" href="#datasetProcessor.updateLabel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update a label which lists all selected species.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>label</strong> &#8211; A QLabel object.</li>
-<li><strong>selectedSpecies</strong> &#8211; List of names of selected species.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 <div class="section" id="module-leafletMap">
 <span id="leafletmap-py"></span><h2>leafletMap.py<a class="headerlink" href="#module-leafletMap" title="Permalink to this headline">¶</a></h2>
@@ -196,7 +178,7 @@ Each record is a list containing only the selected fields.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="leafletMap.LeafletMap.__dict__">
-<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__weakref__': &lt;attribute '__weakref__' of 'LeafletMap' objects&gt;, '__init__': &lt;function LeafletMap.__init__&gt;, '__dict__': &lt;attribute '__dict__' of 'LeafletMap' objects&gt;, '__doc__': None, '__module__': 'leafletMap', 'refreshMap': &lt;function LeafletMap.refreshMap&gt;, 'updateSpeciesMarkerColor': &lt;function LeafletMap.updateSpeciesMarkerColor&gt;})</em><a class="headerlink" href="#leafletMap.LeafletMap.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__dict__': &lt;attribute '__dict__' of 'LeafletMap' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'LeafletMap' objects&gt;, '__module__': 'leafletMap', '__doc__': None, '__init__': &lt;function LeafletMap.__init__&gt;, 'refreshMap': &lt;function LeafletMap.refreshMap&gt;})</em><a class="headerlink" href="#leafletMap.LeafletMap.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -238,30 +220,14 @@ Each record is a list containing only the selected fields.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dataset</strong> &#8211; Dictionary of {species name -&gt; list of coordinates}.</li>
-<li><strong>selectedSpecies</strong> &#8211; List of names of selected species.</li>
+<li><strong>dataset</strong> &#8211; Dictionary of {species name: list of coordinates}.</li>
+<li><strong>selectedSpecies</strong> &#8211; Dictionary of {selected species name: its Species object}.</li>
 <li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="leafletMap.LeafletMap.updateSpeciesMarkerColor">
-<code class="descname">updateSpeciesMarkerColor</code><span class="sig-paren">(</span><em>selectedSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#leafletMap.LeafletMap.updateSpeciesMarkerColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the correspondence between species and their colors.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>selectedSpecies</strong> &#8211; List of names of selected species.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -282,7 +248,7 @@ Each record is a list containing only the selected fields.</p>
 <dl class="method">
 <dt id="mainWindow.MainWindow.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>leafletMap</em><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the main window, using a LeafletMap.
+<dd><p>Initialize the main window, using a LeafletMap. <br>
 It will call MainWindow.setupWidgets().</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -302,8 +268,8 @@ It will call MainWindow.setupWidgets().</p>
 <dl class="method">
 <dt id="mainWindow.MainWindow.addSpecies">
 <code class="descname">addSpecies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow.addSpecies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Choose a species from the previous dataset.
-Append it to MainWindow.selectedSpecies.
+<dd><p>Choose a species from the previous dataset. <br>
+Append it to MainWindow.selectedSpecies. <br>
 Then refresh the map.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -318,7 +284,7 @@ Then refresh the map.</p>
 <dl class="method">
 <dt id="mainWindow.MainWindow.clearData">
 <code class="descname">clearData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow.clearData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear MainWindow.dataset and MainWindow.selectedSpecies.
+<dd><p>Clear MainWindow.dataset and MainWindow.selectedSpecies. <br>
 Then refresh the map.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -333,7 +299,7 @@ Then refresh the map.</p>
 <dl class="method">
 <dt id="mainWindow.MainWindow.importData">
 <code class="descname">importData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow.importData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import data from a Darwin Core Archive (DwC-A).
+<dd><p>Import data from a Darwin Core Archive (DwC-A). <br>
 Store them in MainWindow.dataset.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -348,7 +314,7 @@ Store them in MainWindow.dataset.</p>
 <dl class="method">
 <dt id="mainWindow.MainWindow.setupWidgets">
 <code class="descname">setupWidgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mainWindow.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct all GUI elements.
+<dd><p>Construct all GUI elements. <br>
 It is automatically called by MainWindow.__init__().</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -371,7 +337,7 @@ It is automatically called by MainWindow.__init__().</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
 <dl class="attribute">
 <dt id="multiDict.MultiDict.__dict__">
-<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__weakref__': &lt;attribute '__weakref__' of 'MultiDict' objects&gt;, '__setitem__': &lt;function MultiDict.__setitem__&gt;, '__module__': 'multiDict', '__dict__': &lt;attribute '__dict__' of 'MultiDict' objects&gt;, '__doc__': None})</em><a class="headerlink" href="#multiDict.MultiDict.__dict__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__dict__': &lt;attribute '__dict__' of 'MultiDict' objects&gt;, '__module__': 'multiDict', '__doc__': None, '__weakref__': &lt;attribute '__weakref__' of 'MultiDict' objects&gt;, '__setitem__': &lt;function MultiDict.__setitem__&gt;})</em><a class="headerlink" href="#multiDict.MultiDict.__dict__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -382,7 +348,7 @@ It is automatically called by MainWindow.__init__().</p>
 <dl class="method">
 <dt id="multiDict.MultiDict.__setitem__">
 <code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#multiDict.MultiDict.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override default dictionary behavior so that it can support duplicate keys.
+<dd><p>Override default dictionary behavior so that it can support duplicate keys. <br>
 e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8217;} will produce {&#8216;k&#8217;: [&#8216;v1&#8217;, &#8216;v2&#8217;]}.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -419,7 +385,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <dl class="method">
 <dt id="spaceWidget.SpaceWidget.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#spaceWidget.SpaceWidget.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct the Space page in the main window.
+<dd><p>Construct the Space page in the main window. <br>
 A LeafletMap.webView will be shown on this page.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -448,7 +414,7 @@ A LeafletMap.webView will be shown on this page.</p>
 <dl class="method">
 <dt id="timeWidget.TimeWidget.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#timeWidget.TimeWidget.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct the Time page in the main window.
+<dd><p>Construct the Time page in the main window. <br>
 &lt;&lt;&lt; TODO &gt;&gt;&gt;</p>
 </dd></dl>
 

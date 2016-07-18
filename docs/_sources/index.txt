@@ -4,6 +4,10 @@ Documentation
 .. toctree::
    :maxdepth: 2
 
+.. |br| raw:: html
+
+   <br>
+
 addSpeciesDialog.py
 -------------------
 
