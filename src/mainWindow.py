@@ -149,9 +149,26 @@ class MainWindow(QMainWindow):
         """
 
         self.dataset.clear()
-        self.selectedSpecies.clear()
-
+        self.removeSpeciesFromLayout()
         self.map.refreshMap()
+
+    def removeSpeciesFromLayout(self, name=None):
+        """
+        Remove a species from layout.  If species not given, remove all species.
+
+        :param name: Name of species
+        :return: None.
+        """
+        if name:
+            index = self.selectedSpecies.keys().index(name)
+            del self.selectedSpecies[name]
+            indexes = [index]
+        else:
+            indexes = range(len(self.selectedSpecies))
+            self.selectedSpecies.clear()
+
+        for i in reversed(indexes):
+            self.speciesLayout.itemAt(i).widget().setParent(None)
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def about(self):
