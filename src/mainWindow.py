@@ -4,6 +4,7 @@
 import os
 from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QTabWidget, QVBoxLayout, QWidget, \
                             QFileDialog, QMessageBox
+from PyQt5.QtCore import Qt
 from multiDict import MultiDict
 from spaceWidget import SpaceWidget
 from timeWidget import TimeWidget
@@ -58,6 +59,10 @@ class MainWindow(QMainWindow):
         clearDataAction.setStatusTip("Click to clear data.")
         clearDataAction.triggered.connect(self.clearData)
 
+        aboutAction = menuBar.addAction("A&bout")
+        aboutAction.setStatusTip("Show information about Biodiversity Analysis.")
+        aboutAction.triggered.connect(self.about)
+
         tabWidget = QTabWidget(self)
         tabWidget.addTab(SpaceWidget(self.map.webView), "&Space")
         tabWidget.addTab(TimeWidget(), "&Time")
@@ -69,7 +74,7 @@ class MainWindow(QMainWindow):
         mainLayout.addWidget(tabWidget)
         mainLayout.addLayout(self.speciesLayout)
 
-        self.speciesLayout.setAlignment(QHBoxLayout.AlignLeft)
+        self.speciesLayout.setAlignment(Qt.AlignLeft)
 
         self.setCentralWidget(QWidget())
         self.centralWidget().setLayout(mainLayout)
@@ -147,3 +152,33 @@ class MainWindow(QMainWindow):
         self.selectedSpecies.clear()
 
         self.map.refreshMap()
+
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+    def about(self):
+        """
+        Show information about this program.
+
+        :return: None.
+        """
+
+        title = "About Biodiversity Analysis"
+        content = (
+            "<h1>Biodiversity Analysis</h1>"
+            "<p><b>Biodiversity Data Analysis and Visualization</b><br>"
+            "Copyright (C) 2016 Yu-wen Pwu and Yun-chih Chen<br>"
+            "<a href='https://github.com/yuwen41200/biodiversity-analysis'>"
+            "https://github.com/yuwen41200/biodiversity-analysis</a></p>"
+            "<p>This program is free software: you can redistribute it and/or modify "
+            "it under the terms of the GNU General Public License as published by "
+            "the Free Software Foundation, either version 3 of the License, or "
+            "(at your option) any later version.</p>"
+            "<p>This program is distributed in the hope that it will be useful, "
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the "
+            "GNU General Public License for more details.</p>"
+            "<p>You should have received a copy of the GNU General Public License "
+            "along with this program. If not, see <a href='http://www.gnu.org/licenses/'>"
+            "http://www.gnu.org/licenses/</a>.</p>"
+            "<p>&nbsp;</p>"
+        )
+        QMessageBox.about(self, title, content)
