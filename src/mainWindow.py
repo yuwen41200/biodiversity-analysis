@@ -154,13 +154,15 @@ class MainWindow(QMainWindow):
 
     def removeSpeciesFromLayout(self, name=None):
         """
-        Remove a species from layout.  If species not given, remove all species.
+        Remove a species from the species layout. |br|
+        If no species is given, it will remove all species.
 
-        :param name: Name of species
+        :param name: Name of species to be removed.
         :return: None.
         """
+
         if name:
-            index = self.selectedSpecies.keys().index(name)
+            index = list(self.selectedSpecies.keys()).index(name)
             del self.selectedSpecies[name]
             indexes = [index]
         else:
