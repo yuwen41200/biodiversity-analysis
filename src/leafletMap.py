@@ -35,28 +35,19 @@ class LeafletMap:
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def refreshMap(self, dataset=None, selectedSpecies=None, centerCoordinate=None):
+    def addSpecies(self, dataset, species, selectedSpecies, centerCoordinate=None):
         """
-        Rerender folium map, given a list of species.
+        Add a new species to folium map
 
         :param dataset: Dictionary of {species name: list of coordinates}.
-        :param selectedSpecies: Dictionary of {selected species name: its Species object}.
+        :param species: Name of species to be added
+        :param selectedSpecies: List of selected species
         :param centerCoordinate: Coordinate of central point in map.
         :return: None.
         """
 
-        if dataset is None:
-            dataset = {}
-
-        if selectedSpecies is None:
-            selectedSpecies = {}
-
-        if dataset and selectedSpecies and not centerCoordinate:
-            allCoordinates = []
-            for species, coordinates in dataset.items():
-                if species in selectedSpecies:
-                    allCoordinates += coordinates
-            centerCoordinate = randomEstimateLocation(allCoordinates)
+        if not centerCoordinate:
+            centerCoordinate = randomEstimateLocation(dataset[species])
 
         if centerCoordinate:
             zoom = self.zoom + 5
@@ -64,20 +55,27 @@ class LeafletMap:
         else:
             self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
 
-        if selectedSpecies:
-            for species, coordinates in dataset.items():
-                if species in selectedSpecies:
-                    for coordinate in coordinates:
-                        color = selectedSpecies[species].color
-                        self.fMap.circle_marker(
-                            popup=species,
-                            location=coordinate,
-                            radius=40,
-                            line_color=color,
-                            fill_color=color,
-                            fill_opacity=1
-                        )
+        for coordinate in dataset[species]:
+            color = selectedSpecies[species].color
+            self.fMap.circle_marker(
+                popup=species,
+                location=coordinate,
+                radius=40,
+                line_color=color,
+                fill_color=color,
+                fill_opacity=1
+            )
 
+        # Render to LeafletMap.webView
+        html = self.fMap.toHTML()
+        self.webView.setHtml(html)
+
+    def refresh(self):
+        """
+        Rerender folium map.
+
+        :return: None.
+        """
         # Render to LeafletMap.webView
         html = self.fMap.toHTML()
         self.webView.setHtml(html)

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, QHBoxLayout, \
-                            QVBoxLayout, QSizePolicy
+                            QVBoxLayout
 from species import Species
 
 
@@ -10,7 +10,7 @@ from species import Species
 class AddSpeciesDialog(QDialog):
 
     # noinspection PyArgumentList
-    def __init__(self, species, selectedSpecies, speciesLayout):
+    def __init__(self, species, callback):
         """
         Construct the dialog, given a list of species.
 
@@ -22,8 +22,7 @@ class AddSpeciesDialog(QDialog):
         """
 
         super().__init__()
-        self.selectedSpecies = selectedSpecies
-        self.speciesLayout = speciesLayout
+        self.callback = callback
 
         self.comboBox = QComboBox()
         self.comboBox.addItems(species)
@@ -52,23 +51,11 @@ class AddSpeciesDialog(QDialog):
 
     def addSpeciesHandle(self):
         """
-        Add the chosen species to AddSpeciesDialog.selectedSpecies. |br|
-        Also append it to AddSpeciesDialog.speciesLayout.
+        Evoke the callback to add new species
 
         :return: None.
         """
 
         item = self.comboBox.currentText()
-        self.selectedSpecies[item] = Species()
-
-        label = QLabel(item)
-        label.setStyleSheet(
-            "background-color: " + self.selectedSpecies[item].color + ";"
-            "border-radius: 10px;"
-            "padding-left: 10px;"
-            "padding-right: 10px;"
-        )
-        label.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.speciesLayout.addWidget(label)
-
+        self.callback(item)
         self.done(0)

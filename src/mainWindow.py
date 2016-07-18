@@ -3,7 +3,8 @@
 
 import os
 from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QTabWidget, QVBoxLayout, QWidget, \
-                            QFileDialog, QMessageBox
+                            QFileDialog, QMessageBox, QLabel, QSizePolicy
+
 from PyQt5.QtCore import Qt
 from multiDict import MultiDict
 from spaceWidget import SpaceWidget
@@ -68,7 +69,7 @@ class MainWindow(QMainWindow):
         tabWidget.addTab(TimeWidget(), "&Time")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
-        self.map.refreshMap()
+        self.map.refresh()
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(tabWidget)
@@ -122,7 +123,6 @@ class MainWindow(QMainWindow):
 
         :return: None.
         """
-
         if not self.dataset:
             title, content = "Empty Dataset", "Please import data first."
             QMessageBox.critical(self, title, content)
@@ -131,14 +131,33 @@ class MainWindow(QMainWindow):
             title = "Too Many Species"
             content = "Selecting more than " + str(Species.nColor) + " species is not supported."
             QMessageBox.critical(self, title, content)
-
         else:
             species = [k for k in self.dataset.keys() if k not in self.selectedSpecies]
 
-            dialog = AddSpeciesDialog(species, self.selectedSpecies, self.speciesLayout)
-            dialog.exec_()
+            def addSpeciesCallback(newSpecies):
+                """
+                Add the new species to speciesLayout
 
-            self.map.refreshMap(self.dataset, self.selectedSpecies)
+                :param newSpecie: Name of new species
+                :return: None.
+                """
+
+                self.selectedSpecies[newSpecies] = Species()
+                self.map.addSpecies(self.dataset, newSpecies, self.selectedSpecies)
+                self.map.refresh()
+
+                label = QLabel(newSpecies)
+                label.setStyleSheet(
+                    "background-color: " + self.selectedSpecies[newSpecies].color + ";"
+                    "border-radius: 10px;"
+                    "padding-left: 10px;"
+                    "padding-right: 10px;"
+                )
+                label.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+                self.speciesLayout.addWidget(label)
+
+            dialog = AddSpeciesDialog(species, addSpeciesCallback)
+            dialog.exec_()
 
     def clearData(self):
         """
@@ -150,7 +169,7 @@ class MainWindow(QMainWindow):
 
         self.dataset.clear()
         self.removeSpeciesFromLayout()
-        self.map.refreshMap()
+        self.map.refresh()
 
     def removeSpeciesFromLayout(self, name=None):
         """
