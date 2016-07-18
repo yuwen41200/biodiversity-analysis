@@ -3,6 +3,7 @@
 
 import random
 
+
 class Species:
 
     nColor = 14
@@ -12,13 +13,29 @@ class Species:
     ]
 
     def __init__(self):
-        assert(Species.colors)
+        """
+        Register a new species, give it a unique color.
+        """
+
+        assert Species.colors
         random.shuffle(Species.colors)
         self.color = Species.colors.pop()
 
     @staticmethod
     def available():
-        return Species.colors
+        """
+        Check how many colors are currently available.
+
+        :return: The number of available colors.
+        """
+
+        return len(Species.colors)
 
     def __del__(self):
+        """
+        Delete the species, restore its color.
+
+        :return: None.
+        """
+
         Species.colors.append(self.color)

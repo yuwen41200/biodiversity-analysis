@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, QHBoxLayout, QVBoxLayout, \
-                            QSizePolicy
+from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, QHBoxLayout, \
+                            QVBoxLayout, QSizePolicy
 from species import Species
 
 
@@ -10,18 +10,20 @@ from species import Species
 class AddSpeciesDialog(QDialog):
 
     # noinspection PyArgumentList
-    def __init__(self, species, selectedSpecies, speciesList):
+    def __init__(self, species, selectedSpecies, speciesLayout):
         """
         Construct the dialog, given a list of species.
 
         :param species: List of distinct species in the dataset.
-        :param selectedSpecies: List of already selected species.
-                                This list will be modified.
+        :param selectedSpecies: Dictionary of already selected species.
+                                This dictionary will be modified.
+        :param speciesLayout: A layout which lists all selected species.
+                              This layout will be modified.
         """
 
         super().__init__()
         self.selectedSpecies = selectedSpecies
-        self.speciesList = speciesList
+        self.speciesLayout = speciesLayout
 
         self.comboBox = QComboBox()
         self.comboBox.addItems(species)
@@ -50,20 +52,23 @@ class AddSpeciesDialog(QDialog):
 
     def addSpeciesHandle(self):
         """
-        Append the chosen species to AddSpeciesDialog.selectedSpecies.
+        Add the chosen species to AddSpeciesDialog.selectedSpecies.
+        Also append it to AddSpeciesDialog.speciesLayout.
 
         :return: None.
         """
 
         item = self.comboBox.currentText()
         self.selectedSpecies[item] = Species()
+
         label = QLabel(item)
         label.setStyleSheet(
-                "background-color: " + self.selectedSpecies[item].color + ";"
-                "border-radius: 10px;"
-                "padding-left: 10px;"
-                "padding-right: 10px;"
-            )
+            "background-color: " + self.selectedSpecies[item].color + ";"
+            "border-radius: 10px;"
+            "padding-left: 10px;"
+            "padding-right: 10px;"
+        )
         label.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
-        self.speciesList.addWidget(label)
+        self.speciesLayout.addWidget(label)
+
         self.done(0)
