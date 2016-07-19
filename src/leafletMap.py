@@ -31,6 +31,7 @@ class LeafletMap:
         self.zoom = zoom
         self.defaultCenterCoordinate = centerCoordinate
         self.centerCoordinate = None
+        self.rebuild()
 
         # Ignore circle_marker future warnings
         import warnings
@@ -46,6 +47,9 @@ class LeafletMap:
         :return: None.
         """
 
+        if len(selectedSpecies) <= 1:
+            self.rebuild(dataset)
+
         for coordinate in dataset[species]:
             color = selectedSpecies[species].color
             self.fMap.circle_marker(
@@ -57,30 +61,29 @@ class LeafletMap:
                 fill_opacity=1
             )
 
-        if len(selectedSpecies) > 1:
-            self.refresh(dataset, rebuild=False)
-        else:
-            self.refresh(dataset, rebuild=True)
+        self.refresh()
 
-    def refresh(self, dataset={}, rebuild=True):
+    def refresh(self):
         """
         Rerender folium map.
 
+        :return: None.
+        """
+
+        html = self.fMap.toHTML()
+        self.webView.setHtml(html)
+
+    def rebuild(self, dataset={}):
+        """
+        Rebuild folium map.
+
         :param dataset: Dictionary of {species name: list of coordinates}.
-        :param rebuild: whether or not to rebuild the whole map
         :return: None.
         """
 
         if dataset:
-            if not self.centerCoordinate:
-                allCoordinates = sum(dataset.values(), [])
-                self.centerCoordinate = randomEstimateLocation(allCoordinates)
-
-            if rebuild:
-                self.fMap = folium.Map(location=self.centerCoordinate, zoom_start=self.zoom + 4, tiles=self.tiles)
+            allCoordinates = sum(dataset.values(), [])
+            centerCoordinate = randomEstimateLocation(allCoordinates)
+            self.fMap = folium.Map(location=centerCoordinate, zoom_start=self.zoom + 4, tiles=self.tiles)
         else:
             self.fMap = folium.Map(location=self.defaultCenterCoordinate, zoom_start=self.zoom, tiles=self.tiles)
-
-        # Render to LeafletMap.webView
-        html = self.fMap.toHTML()
-        self.webView.setHtml(html)
