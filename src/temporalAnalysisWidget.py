@@ -5,11 +5,11 @@ from PyQt5.QtWidgets import QWidget
 
 
 # noinspection PyPep8Naming
-class TimeWidget(QWidget):
+class TemporalAnalysisWidget(QWidget):
 
     def __init__(self):
         """
-        Construct the Time page in the main window. |br|
+        Construct the Temporal Analysis page in the main window. |br|
         <<< TODO >>>
         """
 

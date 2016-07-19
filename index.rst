@@ -68,8 +68,8 @@ multiDict.py
    :special-members:
    :show-inheritance:
 
-spaceWidget.py
---------------
+spatialAnalysisWidget.py
+------------------------
 
 .. automodule:: spaceWidget
    :members:
@@ -78,8 +78,8 @@ spaceWidget.py
    :special-members:
    :show-inheritance:
 
-timeWidget.py
--------------
+temporalAnalysisWidget.py
+-------------------------
 
 .. automodule:: timeWidget
    :members:

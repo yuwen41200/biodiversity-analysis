@@ -6,12 +6,12 @@ from PyQt5.QtWidgets import QWidget, QLabel, QTableWidget, QDesktopWidget, \
 
 
 # noinspection PyPep8Naming
-class SpaceWidget(QWidget):
+class SpatialAnalysisWidget(QWidget):
 
     # noinspection PyArgumentList
     def __init__(self, webView):
         """
-        Construct the Space page in the main window. |br|
+        Construct the Spatial Analysis page in the main window. |br|
         A LeafletMap.webView will be shown on this page.
 
         :param webView: The LeafletMap.webView widget.

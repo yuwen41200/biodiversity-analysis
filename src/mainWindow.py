@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QDesktopWidget, QTabWidget
                             QWidget, QFileDialog, QMessageBox, QLabel, QSizePolicy
 from PyQt5.QtCore import Qt
 from multiDict import MultiDict
-from spaceWidget import SpaceWidget
-from timeWidget import TimeWidget
+from spatialAnalysisWidget import SpatialAnalysisWidget
+from temporalAnalysisWidget import TemporalAnalysisWidget
 from addSpeciesDialog import AddSpeciesDialog
 from datasetProcessor import extractDarwinCoreArchive, extractCsv
 from species import Species
@@ -64,8 +64,8 @@ class MainWindow(QMainWindow):
         aboutAction.triggered.connect(self.about)
 
         tabWidget = QTabWidget(self)
-        tabWidget.addTab(SpaceWidget(self.map.webView), "&Spatial Analysis")
-        tabWidget.addTab(TimeWidget(), "&Temporal Analysis")
+        tabWidget.addTab(SpatialAnalysisWidget(self.map.webView), "&Spatial Analysis")
+        tabWidget.addTab(TemporalAnalysisWidget(), "&Temporal Analysis")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refresh()
