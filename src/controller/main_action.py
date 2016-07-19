@@ -1,10 +1,11 @@
-import os
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-from PyQt5 import QtWidgets
-
-from model import datasetProcessor
+from model.dataset import dataset, selectedSpecies
 from model.species import Species
-from view import addSpeciesDialog
+from view.main_window import MainWindow
+from view.add_species_dialog import AddSpeciesDialog
+from lib.dataset_processor import extractDarwinCoreArchive, extractCsv
 
 
 # noinspection PyPep8Naming, PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -17,20 +18,20 @@ def importData(self):
     """
 
     title, extension = "Select a DwC-A File", "DwC-A File (*.zip)"
-    filename = QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
+    filename = MainWindow.openFile(title, extension)
 
     if filename:
         try:
-            darwinCoreData = datasetProcessor.extractDarwinCoreArchive(filename)
+            darwinCoreData = extractDarwinCoreArchive(filename)
             columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-            dataList = datasetProcessor.extractCsv(darwinCoreData, columns)[1]
+            dataList = extractCsv(darwinCoreData, columns)[1]
         except:
             title = "Invalid DwC-A File"
             content = (
                 "The provided file is either not in DwC-A format or corrupted.\n"
                 "Please select a valid one."
             )
-            QtWidgets.QMessageBox.critical(self, title, content)
+            MainWindow.alert(title, content, 3)
             return
 
         for r in dataList:
@@ -38,7 +39,7 @@ def importData(self):
 
         title = "Dataset Successfully Imported"
         content = "{:,d} records have been loaded.".format(len(dataList))
-        QtWidgets.QMessageBox.information(self, title, content)
+        MainWindow.alert(title, content, 0)
 
 
 # noinspection PyPep8Naming, PyCallByClass, PyTypeChecker, PyArgumentList
@@ -53,12 +54,12 @@ def addSpecies(self):
 
     if not self.dataset:
         title, content = "Empty Dataset", "Please import data first."
-        QtWidgets.QMessageBox.critical(self, title, content)
+        MainWindow.alert(title, content, 3)
 
     elif not Species.available():
         title = "Too Many Species"
         content = "Selecting more than " + str(Species.nColor) + " species is not supported."
-        QtWidgets.QMessageBox.critical(self, title, content)
+        MainWindow.alert(title, content, 3)
 
     else:
         species = [k for k in self.dataset.keys() if k not in self.selectedSpecies]
@@ -87,7 +88,7 @@ def addSpecies(self):
             ))
             self.speciesLayout.addWidget(label)
 
-        dialog = addSpeciesDialog.AddSpeciesDialog(species, addSpeciesCallback)
+        dialog = AddSpeciesDialog(species, addSpeciesCallback)
         dialog.exec_()
 
 
@@ -100,8 +101,8 @@ def clearData(self):
     :return: None.
     """
 
-    self.dataset.clear()
-    self.removeSpeciesFromLayout()
+    dataset.clear()
+    removeSpeciesFromLayout()
     self.map.refresh()
 
 
@@ -116,19 +117,19 @@ def removeSpeciesFromLayout(self, name=None):
     """
 
     if name:
-        index = list(self.selectedSpecies.keys()).index(name)
-        del self.selectedSpecies[name]
+        index = list(selectedSpecies.keys()).index(name)
+        del selectedSpecies[name]
         indexes = [index]
     else:
-        indexes = range(len(self.selectedSpecies))
-        self.selectedSpecies.clear()
+        indexes = range(len(selectedSpecies))
+        selectedSpecies.clear()
 
     for i in reversed(indexes):
         self.speciesLayout.itemAt(i).widget().setParent(None)
 
 
 # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
-def about(self):
+def about():
     """
     Show information about this program.
 
@@ -155,4 +156,4 @@ def about(self):
         "http://www.gnu.org/licenses/</a>.</p>"
         "<p>&nbsp;</p>"
     )
-    QtWidgets.QMessageBox.about(self, title, content)
+    MainWindow.alert(title, content, 4)

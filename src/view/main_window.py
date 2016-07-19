@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QDesktopWidget, QTabWidget, QVBoxLayout, \
-                            QWidget, QFileDialog, QMessageBox, QLabel, QSizePolicy
+import os
+
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
-from multiDict import MultiDict
-from spatialAnalysisWidget import SpatialAnalysisWidget
-from temporalAnalysisWidget import TemporalAnalysisWidget
-from addSpeciesDialog import AddSpeciesDialog
-from species import Species
+
+from view.spatial_analysis_widget import SpatialAnalysisWidget
+from view.temporal_analysis_widget import TemporalAnalysisWidget
+from controller.main_action import importData, addSpecies, clearData, about
 
 
 # noinspection PyPep8Naming
-class MainWindow(QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
 
+    # noinspection PyArgumentList
     def __init__(self, leafletMap):
         """
         Initialize the main window, using a LeafletMap. |br|
@@ -22,12 +23,9 @@ class MainWindow(QMainWindow):
         :param leafletMap: The LeafletMap object.
         """
 
-        # noinspection PyArgumentList
         super().__init__()
         self.map = leafletMap
-        self.dataset = MultiDict()
-        self.selectedSpecies = {}
-        self.speciesLayout = QHBoxLayout()
+        self.speciesLayout = QtWidgets.QHBoxLayout()
         self.setupWidgets()
 
     # noinspection PyArgumentList
@@ -40,40 +38,73 @@ class MainWindow(QMainWindow):
         """
 
         self.setWindowTitle("Biodiversity Analysis")
-        self.resize(QDesktopWidget().availableGeometry().size())
+        self.resize(QtWidgets.QDesktopWidget().availableGeometry().size())
 
         menuBar = self.menuBar()
         self.statusBar()
 
         importDataAction = menuBar.addAction("&Import Data")
         importDataAction.setStatusTip("Click to import data.")
-        importDataAction.triggered.connect(self.importData)
+        importDataAction.triggered.connect(importData)
 
         addSpeciesAction = menuBar.addAction("&Add Species")
         addSpeciesAction.setStatusTip("Click to add species.")
-        addSpeciesAction.triggered.connect(self.addSpecies)
+        addSpeciesAction.triggered.connect(addSpecies)
 
         clearDataAction = menuBar.addAction("&Clear Data")
         clearDataAction.setStatusTip("Click to clear data.")
-        clearDataAction.triggered.connect(self.clearData)
+        clearDataAction.triggered.connect(clearData)
 
         aboutAction = menuBar.addAction("A&bout")
         aboutAction.setStatusTip("Show information about Biodiversity Analysis.")
-        aboutAction.triggered.connect(self.about)
+        aboutAction.triggered.connect(about)
 
-        tabWidget = QTabWidget(self)
+        tabWidget = QtWidgets.QTabWidget(self)
         tabWidget.addTab(SpatialAnalysisWidget(self.map.webView), "&Spatial Analysis")
         tabWidget.addTab(TemporalAnalysisWidget(), "&Temporal Analysis")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")
         self.map.refresh()
 
-        mainLayout = QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addWidget(tabWidget)
         mainLayout.addLayout(self.speciesLayout)
 
         self.speciesLayout.setAlignment(Qt.AlignLeft)
 
-        self.setCentralWidget(QWidget())
+        self.setCentralWidget(QtWidgets.QWidget())
         self.centralWidget().setLayout(mainLayout)
 
+    def alert(self, title, text, alertType):
+        """
+        Show an alert window according to the given alert type.
+
+        :param title: Window title.
+        :param text: Window text.
+        :param alertType: Alert type.
+        :return: None.
+        """
+
+        funcTable = {
+            0: QtWidgets.QMessageBox.information,
+            1: QtWidgets.QMessageBox.question,
+            2: QtWidgets.QMessageBox.warning,
+            3: QtWidgets.QMessageBox.critical,
+            4: QtWidgets.QMessageBox.about,
+        }
+
+        func = funcTable.get(alertType, QtWidgets.QMessageBox.information)
+        func(self, title, text)
+
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+    def openFile(self, title, extension):
+        """
+        Open a file dialog. |br|
+        Let the user choose a file to open.
+
+        :param title: Dialog title.
+        :param extension: Acceptable file extension.
+        :return: The name of the file chosen by the user.
+        """
+
+        return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
