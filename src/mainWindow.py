@@ -145,7 +145,6 @@ class MainWindow(QMainWindow):
 
                 self.selectedSpecies[newSpecies] = Species()
                 self.map.addSpecies(self.dataset, newSpecies, self.selectedSpecies)
-                self.map.refresh()
 
                 label = QLabel(newSpecies)
                 label.setStyleSheet(

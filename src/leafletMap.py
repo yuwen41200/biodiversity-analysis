@@ -66,9 +66,7 @@ class LeafletMap:
                 fill_opacity=1
             )
 
-        # Render to LeafletMap.webView
-        html = self.fMap.toHTML()
-        self.webView.setHtml(html)
+        self.refresh()
 
     def refresh(self):
         """
