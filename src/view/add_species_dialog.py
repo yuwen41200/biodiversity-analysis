@@ -9,16 +9,15 @@ from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, \
 class AddSpeciesDialog(QDialog):
 
     # noinspection PyArgumentList
-    def __init__(self, species, callback):
+    def __init__(self, species):
         """
         Construct the dialog, given a list of species.
 
         :param species: List of distinct species in the dataset.
-        :param callback: Callback function when click event is triggered.
         """
 
         super().__init__()
-        self.callback = callback
+        self.newSpecies = ""
 
         self.comboBox = QComboBox()
         self.comboBox.addItems(species)
@@ -52,6 +51,5 @@ class AddSpeciesDialog(QDialog):
         :return: None.
         """
 
-        item = self.comboBox.currentText()
-        self.callback(item)
+        self.newSpecies = self.comboBox.currentText()
         self.done(0)

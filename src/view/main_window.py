@@ -6,16 +6,18 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
+from model.species import Species
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
-from controller.main_action import importData, addSpecies, clearData, about
+from controller.main_action import MainAction
+from controller.leaflet_map import LeafletMap
 
 
 # noinspection PyPep8Naming
 class MainWindow(QtWidgets.QMainWindow):
 
     # noinspection PyArgumentList
-    def __init__(self, leafletMap):
+    def __init__(self, mainAction: MainAction, leafletMap: LeafletMap) -> None:
         """
         Initialize the main window, using a LeafletMap. |br|
         It will call MainWindow.setupWidgets().
@@ -24,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         super().__init__()
+        self.action = mainAction
         self.map = leafletMap
         self.speciesLayout = QtWidgets.QHBoxLayout()
         self.setupWidgets()
@@ -45,19 +48,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
         importDataAction = menuBar.addAction("&Import Data")
         importDataAction.setStatusTip("Click to import data.")
-        importDataAction.triggered.connect(importData)
+        importDataAction.triggered.connect(self.action.importData)
 
         addSpeciesAction = menuBar.addAction("&Add Species")
         addSpeciesAction.setStatusTip("Click to add species.")
-        addSpeciesAction.triggered.connect(addSpecies)
+        addSpeciesAction.triggered.connect(self.action.addSpecies)
 
         clearDataAction = menuBar.addAction("&Clear Data")
         clearDataAction.setStatusTip("Click to clear data.")
-        clearDataAction.triggered.connect(clearData)
+        clearDataAction.triggered.connect(self.action.clearData)
 
         aboutAction = menuBar.addAction("A&bout")
         aboutAction.setStatusTip("Show information about Biodiversity Analysis.")
-        aboutAction.triggered.connect(about)
+        aboutAction.triggered.connect(self.action.about)
 
         tabWidget = QtWidgets.QTabWidget(self)
         tabWidget.addTab(SpatialAnalysisWidget(self.map.webView), "&Spatial Analysis")
@@ -108,3 +111,44 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
+
+    # noinspection PyPep8Naming, PyArgumentList
+    def addSpeciesToLayout(self, dataset, newSpecies, selectedSpecies):
+        """
+        Add the new species to MainWindow.speciesLayout.
+
+        :param dataset:
+        :param newSpecies: Name of the new species.
+        :param selectedSpecies:
+        :return: None.
+        """
+
+        self.map.addSpecies(dataset, newSpecies, selectedSpecies)
+
+        label = QtWidgets.QLabel(newSpecies)
+        label.setStyleSheet(
+            "background-color: " + selectedSpecies[newSpecies].color + ";"
+            "border-radius: 10px;"
+            "padding-left: 10px;"
+            "padding-right: 10px;"
+        )
+        label.setSizePolicy(QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        ))
+
+        self.speciesLayout.addWidget(label)
+
+    # noinspection PyPep8Naming
+    def removeSpeciesFromLayout(self, indices):
+        """
+        Remove a species from the species layout. |br|
+        If no species is given, it will remove all species.
+
+        :param indices: Indices of species to be removed.
+        :return: None.
+        """
+
+        self.map.refresh()
+
+        for i in reversed(indices):
+            self.speciesLayout.itemAt(i).widget().setParent(None)

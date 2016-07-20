@@ -6,7 +6,8 @@ import folium
 from OpenGL import GL
 # noinspection PyUnresolvedReferences
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from datasetProcessor import randomEstimateLocation
+
+from lib.dataset_processor import DatasetProcessor
 
 
 # noinspection PyPep8Naming
@@ -47,7 +48,7 @@ class LeafletMap:
         """
 
         if not centerCoordinate:
-            centerCoordinate = randomEstimateLocation(dataset[species])
+            centerCoordinate = DatasetProcessor.randomEstimateLocation(dataset[species])
 
         if centerCoordinate:
             zoom = self.zoom + 5
