@@ -8,84 +8,112 @@ Documentation
 
    <br>
 
-addSpeciesDialog.py
--------------------
+app
+----
 
-.. automodule:: addSpeciesDialog
+.. automodule:: app
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-datasetProcessor.py
--------------------
+controller.leaflet_map
+----------------------
 
-.. automodule:: datasetProcessor
+.. automodule:: controller.leaflet_map
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-leafletMap.py
+controller.main_action
+----------------------
+
+.. automodule:: controller.main_action
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+lib.correlation_calculator
+--------------------------
+
+.. automodule:: lib.correlation_calculator
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+lib.dataset_processor
+---------------------
+
+.. automodule:: lib.dataset_processor
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+lib.multi_dict
+--------------
+
+.. automodule:: lib.multi_dict
+   :members:
+   :undoc-members:
+   :special-members: __setitem__
+   :show-inheritance:
+
+model.dataset
 -------------
 
-.. automodule:: leafletMap
+.. automodule:: model.dataset
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-main.py
--------
-
-.. automodule:: main
-   :members:
-   :undoc-members:
-   :private-members:
-   :special-members:
-   :show-inheritance:
-
-mainWindow.py
+model.species
 -------------
 
-.. automodule:: mainWindow
+.. automodule:: model.species
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-multiDict.py
-------------
+view.add_species_dialog
+-----------------------
 
-.. automodule:: multiDict
+.. automodule:: view.add_species_dialog
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-spatialAnalysisWidget.py
-------------------------
+view.main_window
+----------------
 
-.. automodule:: spaceWidget
+.. automodule:: view.main_window
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
    :show-inheritance:
 
-temporalAnalysisWidget.py
--------------------------
+view.spatial_analysis_widget
+----------------------------
 
-.. automodule:: timeWidget
+.. automodule:: view.spatial_analysis_widget
    :members:
    :undoc-members:
-   :private-members:
-   :special-members:
+   :special-members: __init__
+   :show-inheritance:
+
+view.temporal_analysis_widget
+-----------------------------
+
+.. automodule:: view.temporal_analysis_widget
+   :members:
+   :undoc-members:
+   :special-members: __init__
    :show-inheritance:
 
 Advanced

@@ -28,8 +28,9 @@ class LeafletMap:
         folium.element.Element.toHTML = toHTML
 
         self.webView = QtWebEngineWidgets.QWebEngineView()
-        self.tiles = tiles
+        self.location = centerCoordinate
         self.zoom = zoom
+        self.tiles = tiles
         self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
 
         # Ignore circle_marker future warnings.
@@ -54,7 +55,7 @@ class LeafletMap:
             zoom = self.zoom + 5
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tiles)
         else:
-            self.fMap = folium.Map(location=(23.5, 120), zoom_start=self.zoom, tiles=self.tiles)
+            self.fMap = folium.Map(location=self.location, zoom_start=self.zoom, tiles=self.tiles)
 
         for coordinate in dataset[species]:
             color = selectedSpecies[species].color

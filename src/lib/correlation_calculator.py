@@ -10,7 +10,7 @@ class CorrelationCalculator:
     @staticmethod
     def calculateSimilarity(groupA, groupB):
         """
-        Calculate the Hausdorff distance between two groups of coordinates.
+        Calculate the Hausdorff distance between two groups of coordinates. |br|
         See http://goo.gl/ik71mP.
 
         :param groupA: List of coordinates.
@@ -26,7 +26,7 @@ class CorrelationCalculator:
     @staticmethod
     def distance(p1, p2):
         """
-        Calculate the **relative** distance between two coordinates.
+        Calculate the **relative** distance between two coordinates. |br|
         See http://goo.gl/4VSrg6.
 
         :param p1: Point 1 in (latitude, longitude).
