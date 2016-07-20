@@ -149,6 +149,7 @@ class MainWindow(QMainWindow):
                 label = QLabel(newSpecies)
                 label.setStyleSheet(
                     "background-color: " + self.selectedSpecies[newSpecies].color + ";"
+                    "color: white;"
                     "border-radius: 10px;"
                     "padding-left: 10px;"
                     "padding-right: 10px;"

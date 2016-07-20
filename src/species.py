@@ -8,10 +8,9 @@ class Species:
 
     nColor = 14
     colors = [
-        "#142b44", "#1d508d", "#297cbb", "#288ad6", "#0fdebd", "#16c98d", "#feef6d",
-        "#ffc83f", "#fa5e5b", "#bf538d", "#841e1b", "#582c2b", "#2c3643", "#2c3643"
+        "#bf538d", "#67747c", "#142b44", "#1d508d", "#297cbb", "#288ad6", "#0fdebd",
+        "#16c98d", "#684e79", "#ff708e", "#47a899", "#841e1b", "#582c2b", "#fa5e5b"
     ]
-
     def __init__(self):
         """
         Register a new species, give it a unique color.

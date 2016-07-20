@@ -55,7 +55,7 @@ class LeafletMap:
             self.fMap.circle_marker(
                 popup=species,
                 location=coordinate,
-                radius=40,
+                radius=150,
                 line_color=color,
                 fill_color=color,
                 fill_opacity=1
