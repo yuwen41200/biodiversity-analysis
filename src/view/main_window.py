@@ -6,7 +6,6 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-from model.species import Species
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
 from controller.main_action import MainAction
@@ -17,28 +16,28 @@ from controller.leaflet_map import LeafletMap
 class MainWindow(QtWidgets.QMainWindow):
 
     # noinspection PyArgumentList
-    def __init__(self, mainAction: MainAction, leafletMap: LeafletMap) -> None:
+    def __init__(self) -> None:
         """
         Initialize the main window, using a LeafletMap. |br|
         It will call MainWindow.setupWidgets().
-
-        :param leafletMap: The LeafletMap object.
         """
 
         super().__init__()
-        self.action = mainAction
-        self.map = leafletMap
+        self.action = None
+        self.map = None
         self.speciesLayout = QtWidgets.QHBoxLayout()
-        self.setupWidgets()
 
     # noinspection PyArgumentList
-    def setupWidgets(self):
+    def setupWidgets(self, mainAction: MainAction, leafletMap: LeafletMap):
         """
         Construct all GUI elements. |br|
         It is automatically called by MainWindow.__init__().
 
         :return: None.
         """
+
+        self.action = mainAction
+        self.map = leafletMap
 
         self.setWindowTitle("Biodiversity Analysis")
         self.resize(QtWidgets.QDesktopWidget().availableGeometry().size())

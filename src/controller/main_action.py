@@ -3,18 +3,21 @@
 
 from model.dataset import Dataset
 from model.species import Species
-from view.main_window import MainWindow
 from view.add_species_dialog import AddSpeciesDialog
+from controller.leaflet_map import LeafletMap
 from lib.dataset_processor import DatasetProcessor
 
 
 class MainAction:
 
     # noinspection PyPep8Naming
-    def __init__(self, dataset: Dataset, mainWindow: MainWindow) -> None:
+    def __init__(self, dataset: Dataset, mainWindow) -> None:
         self.dataset = dataset.dataset
         self.selectedSpecies = dataset.selectedSpecies
+
         self.mainWindow = mainWindow
+        self.mainWindow.setupWidgets(self, LeafletMap())
+        self.mainWindow.show()
 
     # noinspection PyPep8Naming, PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
     def importData(self) -> None:
