@@ -174,7 +174,9 @@ class MainWindow(QMainWindow):
         def callback(result, label):
             # TODO: setup the tooltip properly
             # see: http://www.gbif.org/developer/species
-            tooltip = result["kingdom"] # ...etc
+
+            taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
+            tooltip = "<br/>".join([ "<strong>" + key.title() + "</strong>: " + result[key] for key in taxonomyKeys])
             label.setToolTip(tooltip)
 
         speciesQuery(species, callback, [label])
