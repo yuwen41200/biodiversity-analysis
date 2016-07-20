@@ -5,7 +5,7 @@ import folium
 # noinspection PyUnresolvedReferences
 from OpenGL import GL
 # noinspection PyUnresolvedReferences
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5 import QtWebEngineWidgets
 
 from lib.dataset_processor import DatasetProcessor
 
@@ -15,33 +15,33 @@ class LeafletMap:
 
     def __init__(self, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=3):
         """
-        Initialize folium map.
+        Initialize the folium map.
 
         :param tiles: Tile source, defaults to OpenStreetMap.
-        :param centerCoordinate: Coordinate of central point in map.
+        :param centerCoordinate: Coordinate of central point in map, defaults to (23.5, 120).
         :param zoom: Zoom level, defaults to 3.
         """
 
-        # Instead of writing to file, just write to memory
+        # Instead of writing to file, just write to memory.
         def toHTML(_self, **kwargs):
             return _self.get_root().render(**kwargs)
         folium.element.Element.toHTML = toHTML
 
-        self.webView = QWebEngineView()
+        self.webView = QtWebEngineWidgets.QWebEngineView()
         self.tiles = tiles
         self.zoom = zoom
         self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=tiles)
 
-        # Ignore circle_marker future warnings
+        # Ignore circle_marker future warnings.
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def addSpecies(self, dataset, species, selectedSpecies, centerCoordinate=None):
+    def add(self, dataset, species, selectedSpecies, centerCoordinate=None):
         """
-        Add a new species to folium map.
+        Add a new species to the folium map.
 
         :param dataset: Dictionary of {species name: list of coordinates}.
-        :param species: Name of the species to be added.
+        :param species: Name of the new species to be added.
         :param selectedSpecies: Dictionary of {selected species name: its Species object}.
         :param centerCoordinate: Coordinate of central point in map.
         :return: None.
@@ -71,11 +71,11 @@ class LeafletMap:
 
     def refresh(self):
         """
-        Rerender folium map.
+        Refresh the folium map.
 
         :return: None.
         """
 
-        # Render to LeafletMap.webView
+        # Render to ``LeafletMap.webView``.
         html = self.fMap.toHTML()
         self.webView.setHtml(html)

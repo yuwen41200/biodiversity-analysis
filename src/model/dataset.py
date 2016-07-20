@@ -7,11 +7,21 @@ from lib.multi_dict import MultiDict
 class Dataset:
 
     def __init__(self):
+        """
+        Initialize the dataset.
+        """
+
         self.dataset = MultiDict()
         self.selectedSpecies = {}
 
     @staticmethod
     def license():
+        """
+        Return the license of this program.
+
+        :return: The license, in HTML format.
+        """
+
         return (
             "<h1>Biodiversity Analysis</h1>"
             "<p><b>Biodiversity Data Analysis and Visualization</b><br>"

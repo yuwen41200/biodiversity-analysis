@@ -1,52 +1,50 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import QDialog, QComboBox, QLabel, QPushButton, \
-                            QHBoxLayout, QVBoxLayout
+from PyQt5 import QtWidgets
 
 
 # noinspection PyPep8Naming
-class AddSpeciesDialog(QDialog):
+class AddSpeciesDialog(QtWidgets.QDialog):
 
-    # noinspection PyArgumentList
+    # noinspection PyArgumentList, PyUnresolvedReferences
     def __init__(self, species):
         """
-        Construct the dialog, given a list of species.
+        Construct a dialog that allow the user to select a new species.
 
-        :param species: List of distinct species in the dataset.
+        :param species: List of distinct and unselected species in ``Dataset.dataset``.
         """
 
         super().__init__()
         self.newSpecies = ""
 
-        self.comboBox = QComboBox()
+        self.comboBox = QtWidgets.QComboBox()
         self.comboBox.addItems(species)
 
-        label = QLabel("&Select a species: ")
+        label = QtWidgets.QLabel("&Select a species: ")
         label.setBuddy(self.comboBox)
 
-        pushButton = QPushButton("&Add")
+        pushButton = QtWidgets.QPushButton("&Add")
         pushButton.setDefault(True)
 
-        # noinspection PyUnresolvedReferences
-        pushButton.clicked.connect(self.addSpeciesHandle)
+        pushButton.clicked.connect(self.addSpeciesHandler)
 
-        topLayout = QHBoxLayout()
+        topLayout = QtWidgets.QHBoxLayout()
         topLayout.addWidget(label)
         topLayout.addWidget(self.comboBox)
 
-        mainLayout = QVBoxLayout()
+        mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addLayout(topLayout)
         mainLayout.addWidget(pushButton)
-        mainLayout.setSizeConstraint(QVBoxLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QtWidgets.QVBoxLayout.SetFixedSize)
 
         self.setWindowTitle("Add Species")
         self.setLayout(mainLayout)
         self.show()
 
-    def addSpeciesHandle(self):
+    def addSpeciesHandler(self):
         """
-        Evoke the callback function to add the new species.
+        Handler function for the "Add" button.
 
         :return: None.
         """

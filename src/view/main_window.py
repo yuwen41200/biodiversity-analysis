@@ -8,31 +8,30 @@ from PyQt5.QtCore import Qt
 
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
-from controller.main_action import MainAction
-from controller.leaflet_map import LeafletMap
 
 
 # noinspection PyPep8Naming
 class MainWindow(QtWidgets.QMainWindow):
 
     # noinspection PyArgumentList
-    def __init__(self) -> None:
+    def __init__(self):
         """
-        Initialize the main window, using a LeafletMap. |br|
-        It will call MainWindow.setupWidgets().
+        Initialize the main window.
         """
 
         super().__init__()
+
         self.action = None
         self.map = None
         self.speciesLayout = QtWidgets.QHBoxLayout()
 
     # noinspection PyArgumentList
-    def setupWidgets(self, mainAction: MainAction, leafletMap: LeafletMap):
+    def setupWidgets(self, mainAction, leafletMap):
         """
-        Construct all GUI elements. |br|
-        It is automatically called by MainWindow.__init__().
+        Construct all GUI elements on the main window.
 
+        :param mainAction: MainAction controller.
+        :param leafletMap: LeafletMap controller.
         :return: None.
         """
 
@@ -101,8 +100,7 @@ class MainWindow(QtWidgets.QMainWindow):
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def openFile(self, title, extension):
         """
-        Open a file dialog. |br|
-        Let the user choose a file to open.
+        Open a file dialog so that the user can choose a file.
 
         :param title: Dialog title.
         :param extension: Acceptable file extension.
@@ -114,15 +112,15 @@ class MainWindow(QtWidgets.QMainWindow):
     # noinspection PyPep8Naming, PyArgumentList
     def addSpeciesToLayout(self, dataset, newSpecies, selectedSpecies):
         """
-        Add the new species to MainWindow.speciesLayout.
+        Add a new species to the map and the species layout.
 
-        :param dataset:
-        :param newSpecies: Name of the new species.
-        :param selectedSpecies:
+        :param dataset: Dictionary of {species name: list of coordinates}.
+        :param newSpecies: Name of the new species to be added.
+        :param selectedSpecies: Dictionary of {selected species name: its Species object}.
         :return: None.
         """
 
-        self.map.addSpecies(dataset, newSpecies, selectedSpecies)
+        self.map.add(dataset, newSpecies, selectedSpecies)
 
         label = QtWidgets.QLabel(newSpecies)
         label.setStyleSheet(
@@ -137,13 +135,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.speciesLayout.addWidget(label)
 
-    # noinspection PyPep8Naming
     def removeSpeciesFromLayout(self, indices):
         """
-        Remove a species from the species layout. |br|
-        If no species is given, it will remove all species.
+        Remove all species from the map and the species layout.
 
-        :param indices: Indices of species to be removed.
+        :param indices: Indices of the species to be removed.
         :return: None.
         """
 

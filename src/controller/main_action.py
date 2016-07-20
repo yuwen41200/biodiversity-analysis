@@ -1,29 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from model.dataset import Dataset
 from model.species import Species
 from view.add_species_dialog import AddSpeciesDialog
 from controller.leaflet_map import LeafletMap
 from lib.dataset_processor import DatasetProcessor
 
 
+# noinspection PyPep8Naming
 class MainAction:
 
-    # noinspection PyPep8Naming
-    def __init__(self, dataset: Dataset, mainWindow) -> None:
+    def __init__(self, dataset, mainWindow):
+        """
+        Initialize the controller for the main window.
+
+        :param dataset: Dataset model.
+        :param mainWindow: MainWindow view.
+        """
+
         self.dataset = dataset.dataset
         self.selectedSpecies = dataset.selectedSpecies
+        self.license = dataset.license
 
         self.mainWindow = mainWindow
         self.mainWindow.setupWidgets(self, LeafletMap())
         self.mainWindow.show()
 
-    # noinspection PyPep8Naming, PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
-    def importData(self) -> None:
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
+    def importData(self):
         """
-        Import data from a Darwin Core Archive (DwC-A). |br|
-        Store them in Dataset.dataset.
+        Import data from a Darwin Core Archive (DwC-A) file. |br|
+        Store them in ``Dataset.dataset``.
 
         :return: None.
         """
@@ -53,12 +60,12 @@ class MainAction:
             content = "{:,d} records have been loaded.".format(len(dataList))
             self.mainWindow.alert(title, content, 0)
 
-    # noinspection PyPep8Naming, PyCallByClass, PyTypeChecker, PyArgumentList
-    def addSpecies(self) -> None:
+    # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
+    def addSpecies(self):
         """
-        Choose a species from the previous dataset. |br|
-        Append it to MainWindow.selectedSpecies. |br|
-        Then refresh the map.
+        Select a species from ``Dataset.dataset``. |br|
+        Append it to ``Dataset.selectedSpecies``. |br|
+        Then call ``MainWindow.addSpeciesToLayout()``.
 
         :return: None.
         """
@@ -82,11 +89,10 @@ class MainAction:
             self.selectedSpecies[newSpecies] = Species()
             self.mainWindow.addSpeciesToLayout(self.dataset, newSpecies, self.selectedSpecies)
 
-    # noinspection PyPep8Naming
-    def clearData(self) -> None:
+    def clearData(self):
         """
-        Clear MainWindow.dataset and MainWindow.selectedSpecies. |br|
-        Then refresh the map.
+        Call ``MainWindow.removeSpeciesFromLayout()``. |br|
+        Then clear ``Dataset.dataset`` and ``Dataset.selectedSpecies``.
 
         :return: None.
         """
@@ -98,7 +104,7 @@ class MainAction:
         self.selectedSpecies.clear()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
-    def about(self) -> None:
+    def about(self):
         """
         Show information about this program.
 
@@ -106,5 +112,5 @@ class MainAction:
         """
 
         title = "About Biodiversity Analysis"
-        content = Dataset.license()
+        content = self.license()
         self.mainWindow.alert(title, content, 4)
