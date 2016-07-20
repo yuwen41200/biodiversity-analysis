@@ -11,7 +11,7 @@ from temporalAnalysisWidget import TemporalAnalysisWidget
 from addSpeciesDialog import AddSpeciesDialog
 from datasetProcessor import extractDarwinCoreArchive, extractCsv
 from species import Species
-
+from speciesQuery import speciesQuery
 
 # noinspection PyPep8Naming
 class MainWindow(QMainWindow):
@@ -155,11 +155,29 @@ class MainWindow(QMainWindow):
                     "padding-right: 10px;"
                 )
                 label.setSizePolicy(QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed))
+                self.setLabelTooltip(newSpecies, label)
                 # noinspection PyArgumentList
                 self.speciesLayout.addWidget(label)
 
             dialog = AddSpeciesDialog(species, addSpeciesCallback)
             dialog.exec_()
+
+    def setLabelTooltip(self, species, label):
+        """
+        Set the tooltip of a given label
+
+        :param species: Name of species
+        :param label: the QLabel to be tooltipped
+        :return: None.
+        """
+
+        def callback(result, label):
+            # TODO: setup the tooltip properly
+            # see: http://www.gbif.org/developer/species
+            tooltip = result["kingdom"] # ...etc
+            label.setToolTip(tooltip)
+
+        speciesQuery(species, callback, [label])
 
     def clearData(self):
         """
