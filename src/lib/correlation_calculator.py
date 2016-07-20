@@ -4,9 +4,9 @@
 from math import cos
 
 
+# noinspection PyPep8Naming
 class CorrelationCalculator:
 
-    # noinspection PyPep8Naming
     @staticmethod
     def calculateSimilarity(groupA, groupB):
         """
