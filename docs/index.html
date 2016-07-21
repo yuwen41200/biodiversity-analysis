@@ -1,0 +1,779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentation &mdash; Biodiversity Analysis 0.1-pre documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1-pre',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Biodiversity Analysis 0.1-pre documentation" href="#" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-app">
+<span id="app"></span><h2>app<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-controller.leaflet_map">
+<span id="controller-leaflet-map"></span><h2>controller.leaflet_map<a class="headerlink" href="#module-controller.leaflet_map" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="controller.leaflet_map.LeafletMap">
+<em class="property">class </em><code class="descclassname">controller.leaflet_map.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>dataset</em>, <em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="controller.leaflet_map.LeafletMap.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>tiles</strong> &#8211; Tile source, defaults to OpenStreetMap.</li>
+<li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map, defaults to (23.5, 120).</li>
+<li><strong>zoom</strong> &#8211; Zoom level, defaults to 4.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.leaflet_map.LeafletMap.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new species to the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.leaflet_map.LeafletMap.rebuild">
+<code class="descname">rebuild</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.rebuild" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.leaflet_map.LeafletMap.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-controller.main_action">
+<span id="controller-main-action"></span><h2>controller.main_action<a class="headerlink" href="#module-controller.main_action" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="controller.main_action.MainAction">
+<em class="property">class </em><code class="descclassname">controller.main_action.</code><code class="descname">MainAction</code><span class="sig-paren">(</span><em>dataset</em>, <em>mainWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="controller.main_action.MainAction.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>mainWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the controller for the main window.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>mainWindow</strong> &#8211; MainWindow view.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.main_action.MainAction.about">
+<code class="descname">about</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.about" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show information about this program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.main_action.MainAction.addSpecies">
+<code class="descname">addSpecies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.addSpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select a species from <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>. <br>
+Append it to <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>. <br>
+Then call <code class="docutils literal"><span class="pre">MainWindow.addSpeciesToLayout()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.main_action.MainAction.clearData">
+<code class="descname">clearData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.clearData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <code class="docutils literal"><span class="pre">MainWindow.removeSpeciesFromLayout()</span></code>. <br>
+And clear <code class="docutils literal"><span class="pre">Dataset.dataset</span></code> and <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.main_action.MainAction.importData">
+<code class="descname">importData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.importData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import data from a Darwin Core Archive (DwC-A) file. <br>
+Store them in <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.correlation_calculator">
+<span id="lib-correlation-calculator"></span><h2>lib.correlation_calculator<a class="headerlink" href="#module-lib.correlation_calculator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.correlation_calculator.CorrelationCalculator">
+<em class="property">class </em><code class="descclassname">lib.correlation_calculator.</code><code class="descname">CorrelationCalculator</code><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="lib.correlation_calculator.CorrelationCalculator.calculateSimilarity">
+<em class="property">static </em><code class="descname">calculateSimilarity</code><span class="sig-paren">(</span><em>groupA</em>, <em>groupB</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.calculateSimilarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Hausdorff distance between two groups of coordinates. <br>
+See <a class="reference external" href="http://goo.gl/ik71mP">http://goo.gl/ik71mP</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>groupA</strong> &#8211; List of coordinates.</li>
+<li><strong>groupB</strong> &#8211; List of coordinates.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Hausdorff distance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.correlation_calculator.CorrelationCalculator.distance">
+<em class="property">static </em><code class="descname">distance</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the <strong>relative</strong> distance between two coordinates. <br>
+See <a class="reference external" href="http://goo.gl/4VSrg6">http://goo.gl/4VSrg6</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>p1</strong> &#8211; Point 1 in (latitude, longitude).</li>
+<li><strong>p2</strong> &#8211; Point 2 in (latitude, longitude).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Relative distance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.dataset_processor">
+<span id="lib-dataset-processor"></span><h2>lib.dataset_processor<a class="headerlink" href="#module-lib.dataset_processor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.dataset_processor.DatasetProcessor">
+<em class="property">class </em><code class="descclassname">lib.dataset_processor.</code><code class="descname">DatasetProcessor</code><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.extractCsv">
+<em class="property">static </em><code class="descname">extractCsv</code><span class="sig-paren">(</span><em>csvStr</em>, <em>selectedFields=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractCsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select data from a CSV-formatted string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>csvStr</strong> &#8211; The string representing the CSV data.</li>
+<li><strong>selectedFields</strong> &#8211; The list of selected fields.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The list of records. <br>
+Each record is a list containing only the selected fields.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.extractDarwinCoreArchive">
+<em class="property">static </em><code class="descname">extractDarwinCoreArchive</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractDarwinCoreArchive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data from a Darwin Core Archive (DwC-A) file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; The name of the Darwin Core Archive (DwC-A) file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The extracted data.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.randomEstimateLocation">
+<em class="property">static </em><code class="descname">randomEstimateLocation</code><span class="sig-paren">(</span><em>coordinates</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.randomEstimateLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the center coordinate by averaging 10% of all coordinates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinates</strong> &#8211; The list of coordinates, in tuple.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The center coordinate, in tuple.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.readFileFromZip">
+<em class="property">static </em><code class="descname">readFileFromZip</code><span class="sig-paren">(</span><em>zipHandle</em>, <em>basename</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.readFileFromZip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full filename from a ZIP handle, then extract the file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>zipHandle</strong> &#8211; The ZIP handle.</li>
+<li><strong>basename</strong> &#8211; The base of the full filename.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The extracted data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.multi_dict">
+<span id="lib-multi-dict"></span><h2>lib.multi_dict<a class="headerlink" href="#module-lib.multi_dict" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.multi_dict.MultiDict">
+<em class="property">class </em><code class="descclassname">lib.multi_dict.</code><code class="descname">MultiDict</code><a class="headerlink" href="#lib.multi_dict.MultiDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
+<dl class="method">
+<dt id="lib.multi_dict.MultiDict.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.multi_dict.MultiDict.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override default dictionary behavior so that it can support duplicate keys. <br>
+e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8217;} will produce {&#8216;k&#8217;: [&#8216;v1&#8217;, &#8216;v2&#8217;]}.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; Key of the key-value pair to be inserted.</li>
+<li><strong>value</strong> &#8211; Value of the key-value pair to be inserted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lib.taxonomy_query">
+<span id="lib-taxonomy-query"></span><h2>lib.taxonomy_query<a class="headerlink" href="#module-lib.taxonomy_query" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lib.taxonomy_query.TaxonomyQuery">
+<em class="property">class </em><code class="descclassname">lib.taxonomy_query.</code><code class="descname">TaxonomyQuery</code><span class="sig-paren">(</span><em>species</em>, <em>callback</em>, <em>callbackArgs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.taxonomy_query.TaxonomyQuery" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="lib.taxonomy_query.TaxonomyQuery.API_GBIF">
+<code class="descname">API_GBIF</code><em class="property"> = 'http://api.gbif.org/v1/species'</em><a class="headerlink" href="#lib.taxonomy_query.TaxonomyQuery.API_GBIF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.taxonomy_query.TaxonomyQuery.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em>, <em>callback</em>, <em>callbackArgs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.taxonomy_query.TaxonomyQuery.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query detailed information of a given species from GBIF, asynchronously.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>species</strong> &#8211; Name of the species to be looked up.</li>
+<li><strong>callback</strong> &#8211; Callback function when lookup returns.</li>
+<li><strong>callbackArgs</strong> &#8211; Arguments for the callback function.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.taxonomy_query.TaxonomyQuery.lookUp">
+<code class="descname">lookUp</code><span class="sig-paren">(</span><em>species</em>, <em>callback</em>, <em>callbackArgs</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.taxonomy_query.TaxonomyQuery.lookUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evoke GBIF API to look up a species.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>species</strong> &#8211; Name of the species to be looked up.</li>
+<li><strong>callback</strong> &#8211; Callback function when lookup returns.</li>
+<li><strong>callbackArgs</strong> &#8211; Arguments for the callback function.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-model.dataset">
+<span id="model-dataset"></span><h2>model.dataset<a class="headerlink" href="#module-model.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.dataset.Dataset">
+<em class="property">class </em><code class="descclassname">model.dataset.</code><code class="descname">Dataset</code><a class="headerlink" href="#model.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Store program data here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>self.dataset</strong> &#8211; Dictionary of {species name: list of coordinates}.</li>
+<li><strong>self.selectedSpecies</strong> &#8211; Dictionary of {selected species name: its Species object}.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="model.dataset.Dataset.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.dataset.Dataset.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the dataset.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="model.dataset.Dataset.license">
+<em class="property">static </em><code class="descname">license</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.dataset.Dataset.license" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the license of this program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The license, in HTML format.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-model.species">
+<span id="model-species"></span><h2>model.species<a class="headerlink" href="#module-model.species" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.species.Species">
+<em class="property">class </em><code class="descclassname">model.species.</code><code class="descname">Species</code><a class="headerlink" href="#model.species.Species" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="model.species.Species.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.species.Species.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a new species, give it a unique color.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="model.species.Species.available">
+<em class="property">static </em><code class="descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.species.Species.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check how many colors are currently available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The number of available colors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="model.species.Species.colors">
+<code class="descname">colors</code><em class="property"> = ['#bf538d', '#67747c', '#142b44', '#1d508d', '#297cbb', '#288ad6', '#0fdebd', '#16c98d', '#684e79', '#ff708e', '#47a899', '#841e1b', '#582c2b', '#fa5e5b']</em><a class="headerlink" href="#model.species.Species.colors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="model.species.Species.nColor">
+<code class="descname">nColor</code><em class="property"> = 14</em><a class="headerlink" href="#model.species.Species.nColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.add_species_dialog">
+<span id="view-add-species-dialog"></span><h2>view.add_species_dialog<a class="headerlink" href="#module-view.add_species_dialog" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.add_species_dialog.AddSpeciesDialog">
+<em class="property">class </em><code class="descclassname">view.add_species_dialog.</code><code class="descname">AddSpeciesDialog</code><span class="sig-paren">(</span><em>species</em><span class="sig-paren">)</span><a class="headerlink" href="#view.add_species_dialog.AddSpeciesDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<dl class="method">
+<dt id="view.add_species_dialog.AddSpeciesDialog.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em><span class="sig-paren">)</span><a class="headerlink" href="#view.add_species_dialog.AddSpeciesDialog.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a dialog that allow the user to select a new species.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>species</strong> &#8211; List of distinct and unselected species in <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.add_species_dialog.AddSpeciesDialog.addSpeciesHandler">
+<code class="descname">addSpeciesHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.add_species_dialog.AddSpeciesDialog.addSpeciesHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler function for the &#8220;Add&#8221; button.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.main_window">
+<span id="view-main-window"></span><h2>view.main_window<a class="headerlink" href="#module-view.main_window" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.main_window.MainWindow">
+<em class="property">class </em><code class="descclassname">view.main_window.</code><code class="descname">MainWindow</code><a class="headerlink" href="#view.main_window.MainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<dl class="method">
+<dt id="view.main_window.MainWindow.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the main window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.main_window.MainWindow.addSpeciesToLayout">
+<code class="descname">addSpeciesToLayout</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.addSpeciesToLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new species to the map and the species layout.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.main_window.MainWindow.alert">
+<code class="descname">alert</code><span class="sig-paren">(</span><em>title</em>, <em>text</em>, <em>alertType=0</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.alert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show an alert window according to the given alert type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>title</strong> &#8211; Window title.</li>
+<li><strong>text</strong> &#8211; Window text.</li>
+<li><strong>alertType</strong> &#8211; Alert type.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.main_window.MainWindow.openFile">
+<code class="descname">openFile</code><span class="sig-paren">(</span><em>title</em>, <em>extension=''</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.openFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file dialog so that the user can choose a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>title</strong> &#8211; Dialog title.</li>
+<li><strong>extension</strong> &#8211; Acceptable file extension.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The name of the file chosen by the user.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.main_window.MainWindow.removeSpeciesFromLayout">
+<code class="descname">removeSpeciesFromLayout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.removeSpeciesFromLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all species from the map and the species layout.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.main_window.MainWindow.setupWidgets">
+<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>mainAction</em>, <em>leafletMap</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct all GUI elements on the main window.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mainAction</strong> &#8211; MainAction controller.</li>
+<li><strong>leafletMap</strong> &#8211; LeafletMap controller.</li>
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.spatial_analysis_widget">
+<span id="view-spatial-analysis-widget"></span><h2>view.spatial_analysis_widget<a class="headerlink" href="#module-view.spatial_analysis_widget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget">
+<em class="property">class </em><code class="descclassname">view.spatial_analysis_widget.</code><code class="descname">SpatialAnalysisWidget</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="method">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Spatial Analysis page in the main window. <br>
+A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></code> will be shown on this page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>webView</strong> &#8211; The <code class="docutils literal"><span class="pre">LeafletMap.webView</span></code> widget.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.temporal_analysis_widget">
+<span id="view-temporal-analysis-widget"></span><h2>view.temporal_analysis_widget<a class="headerlink" href="#module-view.temporal_analysis_widget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget">
+<em class="property">class </em><code class="descclassname">view.temporal_analysis_widget.</code><code class="descname">TemporalAnalysisWidget</code><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="method">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Temporal Analysis page in the main window. <br>
+&lt;&lt;&lt; TODO &gt;&gt;&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="advanced">
+<h2>Advanced<a class="headerlink" href="#advanced" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Documentation</a><ul>
+<li><a class="reference internal" href="#module-app">app</a></li>
+<li><a class="reference internal" href="#module-controller.leaflet_map">controller.leaflet_map</a></li>
+<li><a class="reference internal" href="#module-controller.main_action">controller.main_action</a></li>
+<li><a class="reference internal" href="#module-lib.correlation_calculator">lib.correlation_calculator</a></li>
+<li><a class="reference internal" href="#module-lib.dataset_processor">lib.dataset_processor</a></li>
+<li><a class="reference internal" href="#module-lib.multi_dict">lib.multi_dict</a></li>
+<li><a class="reference internal" href="#module-lib.taxonomy_query">lib.taxonomy_query</a></li>
+<li><a class="reference internal" href="#module-model.dataset">model.dataset</a></li>
+<li><a class="reference internal" href="#module-model.species">model.species</a></li>
+<li><a class="reference internal" href="#module-view.add_species_dialog">view.add_species_dialog</a></li>
+<li><a class="reference internal" href="#module-view.main_window">view.main_window</a></li>
+<li><a class="reference internal" href="#module-view.spatial_analysis_widget">view.spatial_analysis_widget</a></li>
+<li><a class="reference internal" href="#module-view.temporal_analysis_widget">view.temporal_analysis_widget</a></li>
+<li><a class="reference internal" href="#advanced">Advanced</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Yu-wen Pwu and Yun-chih Chen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
