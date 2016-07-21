@@ -5,6 +5,7 @@ from model.species import Species
 from view.add_species_dialog import AddSpeciesDialog
 from controller.leaflet_map import LeafletMap
 from lib.dataset_processor import DatasetProcessor
+from lib.taxonomy_query import TaxonomyQuery
 
 
 # noinspection PyPep8Naming
@@ -87,7 +88,7 @@ class MainAction:
 
             newSpecies = dialog.newSpecies
             self.selectedSpecies[newSpecies] = Species()
-            self.mainWindow.addSpeciesToLayout(self.dataset, newSpecies, self.selectedSpecies)
+            TaxonomyQuery(newSpecies, self.mainWindow.addSpeciesToLayout, [self.dataset, self.selectedSpecies])
 
     def clearData(self):
         """

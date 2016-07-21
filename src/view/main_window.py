@@ -110,12 +110,13 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
 
     # noinspection PyPep8Naming, PyArgumentList
-    def addSpeciesToLayout(self, dataset, newSpecies, selectedSpecies):
+    def addSpeciesToLayout(self, newSpecies, taxonomy, dataset, selectedSpecies):
         """
         Add a new species to the map and the species layout.
 
-        :param dataset: Dictionary of {species name: list of coordinates}.
         :param newSpecies: Name of the new species to be added.
+        :param taxonomy: The scientific classification of the new species.
+        :param dataset: Dictionary of {species name: list of coordinates}.
         :param selectedSpecies: Dictionary of {selected species name: its Species object}.
         :return: None.
         """
@@ -125,6 +126,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label = QtWidgets.QLabel(newSpecies)
         label.setStyleSheet(
             "background-color: " + selectedSpecies[newSpecies].color + ";"
+            "color: white;"
             "border-radius: 10px;"
             "padding-left: 10px;"
             "padding-right: 10px;"
@@ -132,6 +134,10 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setSizePolicy(QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         ))
+
+        taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
+        toolTip = "<br/>".join(["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys])
+        label.setToolTip(toolTip)
 
         self.speciesLayout.addWidget(label)
 
