@@ -20,23 +20,28 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         super().__init__()
+        self.speciesLayout = QtWidgets.QHBoxLayout()
 
         self.action = None
         self.map = None
-        self.speciesLayout = QtWidgets.QHBoxLayout()
+        self.dataset = None
+        self.selectedSpecies = None
 
     # noinspection PyArgumentList
-    def setupWidgets(self, mainAction, leafletMap):
+    def setupWidgets(self, mainAction, leafletMap, dataset):
         """
         Construct all GUI elements on the main window.
 
         :param mainAction: MainAction controller.
         :param leafletMap: LeafletMap controller.
+        :param dataset: Dataset model.
         :return: None.
         """
 
         self.action = mainAction
         self.map = leafletMap
+        self.dataset = dataset.dataset
+        self.selectedSpecies = dataset.selectedSpecies
 
         self.setWindowTitle("Biodiversity Analysis")
         self.resize(QtWidgets.QDesktopWidget().availableGeometry().size())
@@ -76,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(QtWidgets.QWidget())
         self.centralWidget().setLayout(mainLayout)
 
-    def alert(self, title, text, alertType):
+    def alert(self, title, text, alertType=0):
         """
         Show an alert window according to the given alert type.
 
@@ -98,7 +103,7 @@ class MainWindow(QtWidgets.QMainWindow):
         func(self, title, text)
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
-    def openFile(self, title, extension):
+    def openFile(self, title, extension=""):
         """
         Open a file dialog so that the user can choose a file.
 
@@ -110,22 +115,20 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
 
     # noinspection PyPep8Naming, PyArgumentList
-    def addSpeciesToLayout(self, newSpecies, taxonomy, dataset, selectedSpecies):
+    def addSpeciesToLayout(self, newSpecies, taxonomy):
         """
         Add a new species to the map and the species layout.
 
         :param newSpecies: Name of the new species to be added.
         :param taxonomy: The scientific classification of the new species.
-        :param dataset: Dictionary of {species name: list of coordinates}.
-        :param selectedSpecies: Dictionary of {selected species name: its Species object}.
         :return: None.
         """
 
-        self.map.add(dataset, newSpecies, selectedSpecies)
+        self.map.add(newSpecies)
 
         label = QtWidgets.QLabel(newSpecies)
         label.setStyleSheet(
-            "background-color: " + selectedSpecies[newSpecies].color + ";"
+            "background-color: " + self.selectedSpecies[newSpecies].color + ";"
             "color: white;"
             "border-radius: 10px;"
             "padding-left: 10px;"
@@ -136,20 +139,22 @@ class MainWindow(QtWidgets.QMainWindow):
         ))
 
         taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
-        toolTip = "<br/>".join(["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys])
+        toolTip = "<br/>".join(
+            ["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys]
+        )
         label.setToolTip(toolTip)
 
         self.speciesLayout.addWidget(label)
 
-    def removeSpeciesFromLayout(self, indices):
+    def removeSpeciesFromLayout(self):
         """
         Remove all species from the map and the species layout.
 
-        :param indices: Indices of the species to be removed.
         :return: None.
         """
 
         self.map.refresh()
 
+        indices = range(len(self.selectedSpecies))
         for i in reversed(indices):
             self.speciesLayout.itemAt(i).widget().setParent(None)

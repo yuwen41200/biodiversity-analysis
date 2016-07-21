@@ -13,14 +13,18 @@ from lib.dataset_processor import DatasetProcessor
 # noinspection PyPep8Naming
 class LeafletMap:
 
-    def __init__(self, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=4):
+    def __init__(self, dataset, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=4):
         """
         Initialize the folium map.
 
+        :param dataset: Dataset model.
         :param tiles: Tile source, defaults to OpenStreetMap.
         :param centerCoordinate: Coordinate of central point in map, defaults to (23.5, 120).
-        :param zoom: Zoom level, defaults to 3.
+        :param zoom: Zoom level, defaults to 4.
         """
+
+        self.dataset = dataset.dataset
+        self.selectedSpecies = dataset.selectedSpecies
 
         # Instead of writing to file, just write to memory.
         def toHTML(_self, **kwargs):
@@ -35,27 +39,25 @@ class LeafletMap:
         self.fMap = None
         self.rebuild()
 
-        # Ignore circle_marker future warnings.
+        # Ignore ``folium.Map.circle_marker()`` future warnings.
         import warnings
         warnings.filterwarnings("ignore", category=FutureWarning)
 
-    def add(self, dataset, species, selectedSpecies):
+    def add(self, newSpecies):
         """
         Add a new species to the folium map.
 
-        :param dataset: Dictionary of {species name: list of coordinates}.
-        :param species: Name of the new species to be added.
-        :param selectedSpecies: Dictionary of {selected species name: its Species object}.
+        :param newSpecies: Name of the new species to be added.
         :return: None.
         """
 
-        if len(selectedSpecies) <= 1:
-            self.rebuild(dataset)
+        if len(self.selectedSpecies) <= 1:
+            self.rebuild()
 
-        for coordinate in dataset[species]:
-            color = selectedSpecies[species].color
+        for coordinate in self.dataset[newSpecies]:
+            color = self.selectedSpecies[newSpecies].color
             self.fMap.circle_marker(
-                popup=species,
+                popup=newSpecies,
                 location=coordinate,
                 radius=150,
                 line_color=color,
@@ -75,19 +77,15 @@ class LeafletMap:
         html = self.fMap.toHTML()
         self.webView.setHtml(html)
 
-    def rebuild(self, dataset=None):
+    def rebuild(self):
         """
         Rebuild the folium map.
 
-        :param dataset: Dictionary of {species name: list of coordinates}.
         :return: None.
         """
 
-        if dataset is None:
-            dataset = {}
-
-        if dataset:
-            allCoordinates = sum(dataset.values(), [])
+        if self.dataset:
+            allCoordinates = sum(self.dataset.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tiles)

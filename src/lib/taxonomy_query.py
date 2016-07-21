@@ -12,7 +12,7 @@ class TaxonomyQuery:
 
     API_GBIF = "http://api.gbif.org/v1/species"
 
-    def __init__(self, species, callback, callbackArgs):
+    def __init__(self, species, callback, callbackArgs=None):
         """
         Query detailed information of a given species from GBIF, asynchronously.
 
@@ -20,6 +20,9 @@ class TaxonomyQuery:
         :param callback: Callback function when lookup returns.
         :param callbackArgs: Arguments for the callback function.
         """
+
+        if callbackArgs is None:
+            callbackArgs = []
 
         thread = Thread(target=self.lookUp, args=(species, callback, callbackArgs), daemon=True)
         thread.start()

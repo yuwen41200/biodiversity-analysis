@@ -24,7 +24,7 @@ class MainAction:
         self.license = dataset.license
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(self, LeafletMap())
+        self.mainWindow.setupWidgets(self, LeafletMap(dataset), dataset)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -88,7 +88,7 @@ class MainAction:
 
             newSpecies = dialog.newSpecies
             self.selectedSpecies[newSpecies] = Species()
-            TaxonomyQuery(newSpecies, self.mainWindow.addSpeciesToLayout, [self.dataset, self.selectedSpecies])
+            TaxonomyQuery(newSpecies, self.mainWindow.addSpeciesToLayout)
 
     def clearData(self):
         """
@@ -98,9 +98,7 @@ class MainAction:
         :return: None.
         """
 
-        indices = range(len(self.selectedSpecies))
-        self.mainWindow.removeSpeciesFromLayout(indices)
-
+        self.mainWindow.removeSpeciesFromLayout()
         self.dataset.clear()
         self.selectedSpecies.clear()
 

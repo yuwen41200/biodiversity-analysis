@@ -5,6 +5,12 @@ from lib.multi_dict import MultiDict
 
 
 class Dataset:
+    """
+    Store program data here.
+
+    :var self.dataset: Dictionary of {species name: list of coordinates}.
+    :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
+    """
 
     def __init__(self):
         """
