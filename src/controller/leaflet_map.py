@@ -51,7 +51,7 @@ class LeafletMap:
         :return: None.
         """
 
-        if len(self.selectedSpecies) <= 1:
+        if len(self.selectedSpecies) == 1:
             self.rebuild()
 
         for coordinate in self.dataset[newSpecies]:

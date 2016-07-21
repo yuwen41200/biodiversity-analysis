@@ -62,6 +62,15 @@ lib.multi_dict
    :special-members: __setitem__
    :show-inheritance:
 
+lib.taxonomy_query
+------------------
+
+.. automodule:: lib.taxonomy_query
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 model.dataset
 -------------
 

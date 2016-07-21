@@ -8,6 +8,7 @@ from PyQt5.QtCore import Qt
 
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
+from lib.taxonomy_query import TaxonomyQuery
 
 
 # noinspection PyPep8Naming
@@ -114,13 +115,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
 
-    # noinspection PyPep8Naming, PyArgumentList
-    def addSpeciesToLayout(self, newSpecies, taxonomy):
+    # noinspection PyArgumentList
+    def addSpeciesToLayout(self, newSpecies):
         """
         Add a new species to the map and the species layout.
 
         :param newSpecies: Name of the new species to be added.
-        :param taxonomy: The scientific classification of the new species.
         :return: None.
         """
 
@@ -138,11 +138,22 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         ))
 
-        taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
-        toolTip = "<br/>".join(
-            ["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys]
-        )
-        label.setToolTip(toolTip)
+        def addTaxonomyToolTip(taxonomy, tLabel):
+            """
+            Add a taxonomy tool tip to the label of the new species.
+
+            :param taxonomy: The scientific classification of the new species.
+            :param tLabel: The label of the new species.
+            :return: None.
+            """
+
+            taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
+            toolTip = "<br/>".join(
+                ["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys]
+            )
+            tLabel.setToolTip(toolTip)
+
+        TaxonomyQuery(newSpecies, addTaxonomyToolTip, [label])
 
         self.speciesLayout.addWidget(label)
 
@@ -153,7 +164,7 @@ class MainWindow(QtWidgets.QMainWindow):
         :return: None.
         """
 
-        self.map.refresh()
+        self.map.rebuild()
 
         indices = range(len(self.selectedSpecies))
         for i in reversed(indices):

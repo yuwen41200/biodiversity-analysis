@@ -54,4 +54,4 @@ class TaxonomyQuery:
         except:
             return
 
-        callback(species, results[0], *callbackArgs)
+        callback(results[0], *callbackArgs)
