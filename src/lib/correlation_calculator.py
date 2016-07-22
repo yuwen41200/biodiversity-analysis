@@ -3,6 +3,7 @@
 
 from math import cos, asin, sqrt
 
+
 # noinspection PyPep8Naming
 class CorrelationCalculator:
 
@@ -41,10 +42,12 @@ class CorrelationCalculator:
 
         lat1, lon1 = p1
         lat2, lon2 = p2
+        # pi / 180 = 0.0174532925199433
         P = 0.0174532925199433
-        val = 0.5 - cos((lat2 - lat1) * P)/2 + \
-              cos(lat1 * P) * cos(lat2 * P) * \
-              (1 - cos((lon2 - lon1) * P)) / 2
 
-        # 2 * 6371 km
+        val = 0.5 - cos((lat2 - lat1) * P)/2 + \
+            cos(lat1 * P) * cos(lat2 * P) * \
+            (1 - cos((lon2 - lon1) * P)) / 2
+
+        # Diameter of Earth = 2 * 6371 = 12742 km
         return 12742 * asin(sqrt(val))

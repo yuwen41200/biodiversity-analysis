@@ -33,7 +33,6 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
             1, QtWidgets.QDesktopWidget().availableGeometry().width() * 0.34
         )
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
-        # self.tableWidget.setSortingEnabled(True)
 
         lowerLabel = QtWidgets.QLabel("Spatial Correlation Quotient:")
         lowerLabel.setBuddy(self.tableWidget)
@@ -50,9 +49,9 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
         """
         Insert a new row to ``SpatialAnalysisWidget.tableWidget``.
 
-        :param species1: "Species 1" column.
-        :param species2: "Species 2" column.
-        :param correlation: "Correlation Quotient" column.
+        :param species1: Value for "Species 1" column.
+        :param species2: Value for "Species 2" column.
+        :param correlation: Value for "Correlation Quotient" column.
         :return: None.
         """
 
@@ -62,3 +61,22 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
         self.tableWidget.setItem(rowCount, 0, QtWidgets.QTableWidgetItem(species1))
         self.tableWidget.setItem(rowCount, 1, QtWidgets.QTableWidgetItem(species2))
         self.tableWidget.setItem(rowCount, 2, QtWidgets.QTableWidgetItem(str(correlation)))
+
+    def enableAutoSort(self):
+        """
+        Enable automatic sorting by "Correlation Quotient" column in ascending order.
+
+        :return: None.
+        """
+
+        self.tableWidget.setSortingEnabled(True)
+        self.tableWidget.sortItems(2)
+
+    def disableAutoSort(self):
+        """
+        When inserting rows, automatic sorting should be disabled.
+
+        :return: None.
+        """
+
+        self.tableWidget.setSortingEnabled(False)

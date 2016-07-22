@@ -27,9 +27,11 @@ class CorrelationTable:
         :return: None.
         """
 
+        self.spatialTable.disableAutoSort()
         for species in self.selectedSpecies:
             if species != newSpecies:
                 similarity = CorrelationCalculator.calculateSimilarity(
                     self.dataset[newSpecies], self.dataset[species]
                 )
                 self.spatialTable.addSpeciesToTable(newSpecies, species, similarity)
+        self.spatialTable.enableAutoSort()
