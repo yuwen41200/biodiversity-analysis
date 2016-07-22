@@ -8,7 +8,7 @@ A Project by Institute of Information Science, Academia Sinica
 
 * Spatial distribution graph
 
-  ![screenshot 1](http://i.imgur.com/y1J6QP0.png "screenshot 1")
+  ![screenshot 1](http://i.imgur.com/Jmq3obY.png "screenshot 1")
 
 * Spatial correlation quotient
 
