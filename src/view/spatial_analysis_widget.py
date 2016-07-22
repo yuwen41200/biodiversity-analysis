@@ -47,7 +47,7 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
 
     def addSpeciesToTable(self, species1, species2, correlation):
         """
-        Insert a new row to ``SpatialAnalysisWidget.tableWidget``.
+        Insert a new row into ``SpatialAnalysisWidget.tableWidget``.
 
         :param species1: Value for "Species 1" column.
         :param species2: Value for "Species 2" column.
@@ -62,6 +62,15 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
         self.tableWidget.setItem(rowCount, 1, QtWidgets.QTableWidgetItem(species2))
         correlationStr = "{:08.3f}".format(correlation)
         self.tableWidget.setItem(rowCount, 2, QtWidgets.QTableWidgetItem(correlationStr))
+
+    def removeSpeciesFromTable(self):
+        """
+        Delete all rows from ``SpatialAnalysisWidget.tableWidget``.
+
+        :return: None.
+        """
+
+        self.tableWidget.setRowCount(0)
 
     def enableAutoSort(self):
         """

@@ -41,3 +41,12 @@ class CorrelationTable:
                 )
 
         self.spatialAnalysisWidget.enableAutoSort()
+
+    def clear(self):
+        """
+        Delete all rows from the correlation quotient table.
+
+        :return: None.
+        """
+
+        self.spatialAnalysisWidget.removeSpeciesFromTable()

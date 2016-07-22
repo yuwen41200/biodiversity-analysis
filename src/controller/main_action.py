@@ -26,16 +26,12 @@ class MainAction:
         self.license = dataset.license
 
         self.map = LeafletMap(dataset)
-        spatialAnalysisWidget = SpatialAnalysisWidget(self.map.webView)
-        temporalAnalysisWidget = TemporalAnalysisWidget()
-        self.correlationTable = CorrelationTable(
-            dataset, spatialAnalysisWidget, temporalAnalysisWidget
-        )
+        spatial = SpatialAnalysisWidget(self.map.webView)
+        temporal = TemporalAnalysisWidget()
+        self.correlationTable = CorrelationTable(dataset, spatial, temporal)
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(
-            dataset, spatialAnalysisWidget, temporalAnalysisWidget, self
-        )
+        self.mainWindow.setupWidgets(dataset, spatial, temporal, self)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -114,6 +110,7 @@ class MainAction:
         self.mainWindow.removeSpeciesFromLayout()
         self.map.rebuild()
         self.map.refresh()
+        self.correlationTable.clear()
         self.selectedSpecies.clear()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
