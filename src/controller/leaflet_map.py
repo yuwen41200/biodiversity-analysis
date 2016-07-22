@@ -13,7 +13,16 @@ from lib.dataset_processor import DatasetProcessor
 # noinspection PyPep8Naming
 class LeafletMap:
 
-    def __init__(self, dataset, tiles="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=4):
+    tiles = {
+            "Landscape": ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
+                          '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>,'
+                          '&copy;<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
+            "Grayscale": ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/'
+                          'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+                          'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ')
+    }
+
+    def __init__(self, dataset, tile="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=4):
         """
         Initialize the folium map.
 
@@ -33,7 +42,13 @@ class LeafletMap:
 
         self.location = centerCoordinate
         self.zoom = zoom
-        self.tiles = tiles
+
+        if not tile in self.tiles:
+            self.tile = tile
+            self.attr = None
+        else:
+            self.tile = self.tiles[tile][0]
+            self.attr = self.tiles[tile][1]
 
         self.webView = QtWebEngineWidgets.QWebEngineView()
         self.fMap = None
@@ -89,7 +104,9 @@ class LeafletMap:
             allCoordinates = sum(self.dataset.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4
-            self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tiles)
+            self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tile,
+                    attr=self.attr)
 
         else:
-            self.fMap = folium.Map(location=self.location, zoom_start=self.zoom, tiles=self.tiles)
+            self.fMap = folium.Map(location=self.location, zoom_start=self.zoom, tiles=self.tile,
+                    attr=self.attr)
