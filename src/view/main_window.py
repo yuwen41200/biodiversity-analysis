@@ -6,7 +6,6 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
 from lib.taxonomy_query import TaxonomyQuery
 
@@ -29,13 +28,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.selectedSpecies = None
 
     # noinspection PyArgumentList
-    def setupWidgets(self, mainAction, leafletMap, dataset):
+    def setupWidgets(self, mainAction, leafletMap, dataset, spatialAnalysisWidget):
         """
         Construct all GUI elements on the main window.
 
         :param mainAction: MainAction controller.
         :param leafletMap: LeafletMap controller.
         :param dataset: Dataset model.
+        :param spatialAnalysisWidget: SpatialAnalysisWidget view.
         :return: None.
         """
 
@@ -67,7 +67,7 @@ class MainWindow(QtWidgets.QMainWindow):
         aboutAction.triggered.connect(self.action.about)
 
         tabWidget = QtWidgets.QTabWidget(self)
-        tabWidget.addTab(SpatialAnalysisWidget(self.map.webView), "&Spatial Analysis")
+        tabWidget.addTab(spatialAnalysisWidget, "&Spatial Analysis")
         tabWidget.addTab(TemporalAnalysisWidget(), "&Temporal Analysis")
 
         self.map.webView.setStatusTip("Drag to change the displayed region.")

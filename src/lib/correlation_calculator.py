@@ -18,6 +18,12 @@ class CorrelationCalculator:
         :return: Hausdorff distance.
         """
 
+        # Ensure they are floats, not strings.
+        for idx, val in enumerate(groupA):
+            groupA[idx] = (float(val[0]), float(val[1]))
+        for idx, val in enumerate(groupB):
+            groupB[idx] = (float(val[0]), float(val[1]))
+
         distances = [[CorrelationCalculator.distance(a, b) for a in groupA] for b in groupB]
         h1 = max(map(min, distances))
         h2 = max([min([ds[i] for ds in distances]) for i in range(len(groupA))])

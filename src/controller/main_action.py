@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from model.species import Species
+from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.add_species_dialog import AddSpeciesDialog
 from controller.leaflet_map import LeafletMap
+from controller.correlation_table import CorrelationTable
 from lib.dataset_processor import DatasetProcessor
 
 
@@ -22,8 +24,12 @@ class MainAction:
         self.selectedSpecies = dataset.selectedSpecies
         self.license = dataset.license
 
+        self.map = LeafletMap(dataset)
+        spatialAnalysisWidget = SpatialAnalysisWidget(self.map.webView)
+        self.correlationTable = CorrelationTable(dataset, spatialAnalysisWidget)
+
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(self, LeafletMap(dataset), dataset)
+        self.mainWindow.setupWidgets(self, self.map, dataset, spatialAnalysisWidget)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -89,6 +95,7 @@ class MainAction:
             if newSpecies:
                 self.selectedSpecies[newSpecies] = Species()
                 self.mainWindow.addSpeciesToLayout(newSpecies)
+                self.correlationTable.add(newSpecies)
 
     def clearData(self):
         """
