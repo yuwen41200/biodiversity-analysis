@@ -165,6 +165,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         self.map.rebuild()
+        self.map.refresh()
 
         indices = range(len(self.selectedSpecies))
         for i in reversed(indices):
