@@ -236,7 +236,7 @@ See <a class="reference external" href="http://goo.gl/ik71mP">http://goo.gl/ik71
 <dl class="staticmethod">
 <dt id="lib.correlation_calculator.CorrelationCalculator.distance">
 <em class="property">static </em><code class="descname">distance</code><span class="sig-paren">(</span><em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the <strong>relative</strong> distance between two coordinates. <br>
+<dd><p>Calculate the distance between two coordinates. <br>
 See <a class="reference external" href="http://goo.gl/4VSrg6">http://goo.gl/4VSrg6</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -633,7 +633,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.setupWidgets">
-<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>mainAction</em>, <em>leafletMap</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>mainAction</em>, <em>leafletMap</em>, <em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct all GUI elements on the main window.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -643,6 +643,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <li><strong>mainAction</strong> &#8211; MainAction controller.</li>
 <li><strong>leafletMap</strong> &#8211; LeafletMap controller.</li>
 <li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>spatialAnalysisWidget</strong> &#8211; SpatialAnalysisWidget view.</li>
 </ul>
 </td>
 </tr>
@@ -672,6 +673,56 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>webView</strong> &#8211; The <code class="docutils literal"><span class="pre">LeafletMap.webView</span></code> widget.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable">
+<code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new row to <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>species1</strong> &#8211; Value for &#8220;Species 1&#8221; column.</li>
+<li><strong>species2</strong> &#8211; Value for &#8220;Species 2&#8221; column.</li>
+<li><strong>correlation</strong> &#8211; Value for &#8220;Correlation Quotient&#8221; column.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.disableAutoSort">
+<code class="descname">disableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.disableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>When inserting rows, automatic sorting should be disabled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort">
+<code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
