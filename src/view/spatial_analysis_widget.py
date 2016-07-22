@@ -60,7 +60,8 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
 
         self.tableWidget.setItem(rowCount, 0, QtWidgets.QTableWidgetItem(species1))
         self.tableWidget.setItem(rowCount, 1, QtWidgets.QTableWidgetItem(species2))
-        self.tableWidget.setItem(rowCount, 2, QtWidgets.QTableWidgetItem(str(correlation)))
+        correlationStr = "{:08.3f}".format(correlation)
+        self.tableWidget.setItem(rowCount, 2, QtWidgets.QTableWidgetItem(correlationStr))
 
     def enableAutoSort(self):
         """

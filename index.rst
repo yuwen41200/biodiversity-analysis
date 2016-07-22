@@ -17,6 +17,15 @@ app
    :special-members: __init__
    :show-inheritance:
 
+controller.correlation_table
+----------------------------
+
+.. automodule:: controller.correlation_table
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 controller.leaflet_map
 ----------------------
 

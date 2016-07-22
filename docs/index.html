@@ -45,6 +45,49 @@
 <div class="section" id="module-app">
 <span id="app"></span><h2>app<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-controller.correlation_table">
+<span id="controller-correlation-table"></span><h2>controller.correlation_table<a class="headerlink" href="#module-controller.correlation_table" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="controller.correlation_table.CorrelationTable">
+<em class="property">class </em><code class="descclassname">controller.correlation_table.</code><code class="descname">CorrelationTable</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="controller.correlation_table.CorrelationTable.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the controller for the correlation quotient table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>spatialAnalysisWidget</strong> &#8211; SpatialAnalysisWidget view.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.correlation_table.CorrelationTable.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert all possible combinations into the correlation quotient table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-controller.leaflet_map">
 <span id="controller-leaflet-map"></span><h2>controller.leaflet_map<a class="headerlink" href="#module-controller.leaflet_map" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -767,6 +810,7 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
   <ul>
 <li><a class="reference internal" href="#">Documentation</a><ul>
 <li><a class="reference internal" href="#module-app">app</a></li>
+<li><a class="reference internal" href="#module-controller.correlation_table">controller.correlation_table</a></li>
 <li><a class="reference internal" href="#module-controller.leaflet_map">controller.leaflet_map</a></li>
 <li><a class="reference internal" href="#module-controller.main_action">controller.main_action</a></li>
 <li><a class="reference internal" href="#module-lib.correlation_calculator">lib.correlation_calculator</a></li>
