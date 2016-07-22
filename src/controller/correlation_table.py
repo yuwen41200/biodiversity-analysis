@@ -7,17 +7,19 @@ from lib.correlation_calculator import CorrelationCalculator
 # noinspection PyPep8Naming
 class CorrelationTable:
 
-    def __init__(self, dataset, spatialAnalysisWidget):
+    def __init__(self, dataset, spatialAnalysisWidget, temporalAnalysisWidget):
         """
         Initialize the controller for the correlation quotient table.
 
         :param dataset: Dataset model.
         :param spatialAnalysisWidget: SpatialAnalysisWidget view.
+        :param temporalAnalysisWidget: TemporalAnalysisWidget view.
         """
 
         self.dataset = dataset.dataset
         self.selectedSpecies = dataset.selectedSpecies
-        self.spatialTable = spatialAnalysisWidget
+        self.spatialAnalysisWidget = spatialAnalysisWidget
+        self.temporalAnalysisWidget = temporalAnalysisWidget
 
     def add(self, newSpecies):
         """
@@ -27,11 +29,15 @@ class CorrelationTable:
         :return: None.
         """
 
-        self.spatialTable.disableAutoSort()
+        self.spatialAnalysisWidget.disableAutoSort()
+
         for species in self.selectedSpecies:
             if species != newSpecies:
                 similarity = CorrelationCalculator.calculateSimilarity(
                     self.dataset[newSpecies], self.dataset[species]
                 )
-                self.spatialTable.addSpeciesToTable(newSpecies, species, similarity)
-        self.spatialTable.enableAutoSort()
+                self.spatialAnalysisWidget.addSpeciesToTable(
+                    newSpecies, species, similarity
+                )
+
+        self.spatialAnalysisWidget.enableAutoSort()

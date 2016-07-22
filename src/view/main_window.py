@@ -6,7 +6,6 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-from view.temporal_analysis_widget import TemporalAnalysisWidget
 from lib.taxonomy_query import TaxonomyQuery
 
 
@@ -23,24 +22,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.speciesLayout = QtWidgets.QHBoxLayout()
 
         self.action = None
-        self.map = None
         self.dataset = None
         self.selectedSpecies = None
 
     # noinspection PyArgumentList
-    def setupWidgets(self, mainAction, leafletMap, dataset, spatialAnalysisWidget):
+    def setupWidgets(self, dataset, spatialAnalysisWidget, temporalAnalysisWidget, mainAction):
         """
         Construct all GUI elements on the main window.
 
-        :param mainAction: MainAction controller.
-        :param leafletMap: LeafletMap controller.
         :param dataset: Dataset model.
         :param spatialAnalysisWidget: SpatialAnalysisWidget view.
+        :param temporalAnalysisWidget: TemporalAnalysisWidget view.
+        :param mainAction: MainAction controller.
         :return: None.
         """
 
         self.action = mainAction
-        self.map = leafletMap
         self.dataset = dataset.dataset
         self.selectedSpecies = dataset.selectedSpecies
 
@@ -68,10 +65,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         tabWidget = QtWidgets.QTabWidget(self)
         tabWidget.addTab(spatialAnalysisWidget, "&Spatial Analysis")
-        tabWidget.addTab(TemporalAnalysisWidget(), "&Temporal Analysis")
-
-        self.map.webView.setStatusTip("Drag to change the displayed region.")
-        self.map.refresh()
+        tabWidget.addTab(temporalAnalysisWidget, "&Temporal Analysis")
 
         mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addWidget(tabWidget)
@@ -118,13 +112,11 @@ class MainWindow(QtWidgets.QMainWindow):
     # noinspection PyArgumentList
     def addSpeciesToLayout(self, newSpecies):
         """
-        Add a new species to the map and the species layout.
+        Add a new species to the species layout.
 
         :param newSpecies: Name of the new species to be added.
         :return: None.
         """
-
-        self.map.add(newSpecies)
 
         label = QtWidgets.QLabel(newSpecies)
         label.setStyleSheet(
@@ -159,13 +151,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def removeSpeciesFromLayout(self):
         """
-        Remove all species from the map and the species layout.
+        Remove all species from the species layout.
 
         :return: None.
         """
-
-        self.map.rebuild()
-        self.map.refresh()
 
         indices = range(len(self.selectedSpecies))
         for i in reversed(indices):

@@ -3,6 +3,7 @@
 
 from model.species import Species
 from view.spatial_analysis_widget import SpatialAnalysisWidget
+from view.temporal_analysis_widget import TemporalAnalysisWidget
 from view.add_species_dialog import AddSpeciesDialog
 from controller.leaflet_map import LeafletMap
 from controller.correlation_table import CorrelationTable
@@ -26,10 +27,15 @@ class MainAction:
 
         self.map = LeafletMap(dataset)
         spatialAnalysisWidget = SpatialAnalysisWidget(self.map.webView)
-        self.correlationTable = CorrelationTable(dataset, spatialAnalysisWidget)
+        temporalAnalysisWidget = TemporalAnalysisWidget()
+        self.correlationTable = CorrelationTable(
+            dataset, spatialAnalysisWidget, temporalAnalysisWidget
+        )
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(self, self.map, dataset, spatialAnalysisWidget)
+        self.mainWindow.setupWidgets(
+            dataset, spatialAnalysisWidget, temporalAnalysisWidget, self
+        )
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -69,9 +75,7 @@ class MainAction:
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
         """
-        Select a species from ``Dataset.dataset``. |br|
-        Append it to ``Dataset.selectedSpecies``. |br|
-        Then call ``MainWindow.addSpeciesToLayout()``.
+        Select a species from ``Dataset.dataset``, append it to ``Dataset.selectedSpecies``.
 
         :return: None.
         """
@@ -82,7 +86,8 @@ class MainAction:
 
         elif not Species.available():
             title = "Too Many Species"
-            content = "Selecting more than " + str(Species.nColor) + " species is not supported."
+            content = ("Selecting more than " + str(Species.nColor) +
+                       " species is not supported.")
             self.mainWindow.alert(title, content, 3)
 
         else:
@@ -95,18 +100,20 @@ class MainAction:
             if newSpecies:
                 self.selectedSpecies[newSpecies] = Species()
                 self.mainWindow.addSpeciesToLayout(newSpecies)
+                self.map.add(newSpecies)
                 self.correlationTable.add(newSpecies)
 
     def clearData(self):
         """
-        Call ``MainWindow.removeSpeciesFromLayout()``. |br|
-        And clear ``Dataset.dataset`` and ``Dataset.selectedSpecies``.
+        Clear ``Dataset.dataset`` and ``Dataset.selectedSpecies``.
 
         :return: None.
         """
 
         self.dataset.clear()
         self.mainWindow.removeSpeciesFromLayout()
+        self.map.rebuild()
+        self.map.refresh()
         self.selectedSpecies.clear()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList

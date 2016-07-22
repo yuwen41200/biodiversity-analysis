@@ -38,6 +38,7 @@ class LeafletMap:
         self.webView = QtWebEngineWidgets.QWebEngineView()
         self.fMap = None
         self.rebuild()
+        self.refresh()
 
         # Ignore ``folium.Map.circle_marker()`` future warnings.
         import warnings
