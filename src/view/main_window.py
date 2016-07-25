@@ -20,17 +20,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
         super().__init__()
         self.speciesLayout = QtWidgets.QHBoxLayout()
-
         self.action = None
-        self.dataset = None
-        self.selectedSpecies = None
 
     # noinspection PyArgumentList
-    def setupWidgets(self, dataset, spatialAnalysisWidget, temporalAnalysisWidget, mainAction):
+    def setupWidgets(self, spatialAnalysisWidget, temporalAnalysisWidget, mainAction):
         """
         Construct all GUI elements on the main window.
 
-        :param dataset: Dataset model.
         :param spatialAnalysisWidget: SpatialAnalysisWidget view.
         :param temporalAnalysisWidget: TemporalAnalysisWidget view.
         :param mainAction: MainAction controller.
@@ -38,8 +34,6 @@ class MainWindow(QtWidgets.QMainWindow):
         """
 
         self.action = mainAction
-        self.dataset = dataset.dataset
-        self.selectedSpecies = dataset.selectedSpecies
 
         self.setWindowTitle("Biodiversity Analysis")
         self.resize(QtWidgets.QDesktopWidget().availableGeometry().size())
@@ -110,17 +104,18 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
 
     # noinspection PyArgumentList
-    def addSpeciesToLayout(self, newSpecies):
+    def addSpeciesToLayout(self, newSpecies, newColor):
         """
         Add a new species to the species layout.
 
         :param newSpecies: Name of the new species to be added.
+        :param newColor: Color of the new species to be added.
         :return: None.
         """
 
         label = QtWidgets.QLabel(newSpecies)
         label.setStyleSheet(
-            "background-color: " + self.selectedSpecies[newSpecies].color + ";"
+            "background-color: " + newColor + ";"
             "color: white;"
             "border-radius: 10px;"
             "padding-left: 10px;"
@@ -149,13 +144,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.speciesLayout.addWidget(label)
 
-    def removeSpeciesFromLayout(self):
+    def removeSpeciesFromLayout(self, indices):
         """
-        Remove all species from the species layout.
+        Remove the specified species from the species layout.
 
+        :param indices: Indices of the species to be removed.
         :return: None.
         """
 
-        indices = range(len(self.selectedSpecies))
         for i in reversed(indices):
             self.speciesLayout.itemAt(i).widget().setParent(None)

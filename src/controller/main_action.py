@@ -31,7 +31,7 @@ class MainAction:
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(dataset, spatial, temporal, self)
+        self.mainWindow.setupWidgets(spatial, temporal, self)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -95,7 +95,8 @@ class MainAction:
 
             if newSpecies:
                 self.selectedSpecies[newSpecies] = Species()
-                self.mainWindow.addSpeciesToLayout(newSpecies)
+                newColor = self.selectedSpecies[newSpecies].color
+                self.mainWindow.addSpeciesToLayout(newSpecies, newColor)
                 self.map.add(newSpecies)
                 self.correlationTable.add(newSpecies)
 
@@ -107,7 +108,7 @@ class MainAction:
         """
 
         self.dataset.clear()
-        self.mainWindow.removeSpeciesFromLayout()
+        self.mainWindow.removeSpeciesFromLayout(range(len(self.selectedSpecies)))
         self.map.rebuild()
         self.map.refresh()
         self.correlationTable.clear()
