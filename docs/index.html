@@ -49,11 +49,11 @@
 <span id="controller-correlation-table"></span><h2>controller.correlation_table<a class="headerlink" href="#module-controller.correlation_table" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="controller.correlation_table.CorrelationTable">
-<em class="property">class </em><code class="descclassname">controller.correlation_table.</code><code class="descname">CorrelationTable</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">controller.correlation_table.</code><code class="descname">CorrelationTable</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em>, <em>temporalAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="controller.correlation_table.CorrelationTable.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>spatialAnalysisWidget</em>, <em>temporalAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the controller for the correlation quotient table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -62,6 +62,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>dataset</strong> &#8211; Dataset model.</li>
 <li><strong>spatialAnalysisWidget</strong> &#8211; SpatialAnalysisWidget view.</li>
+<li><strong>temporalAnalysisWidget</strong> &#8211; TemporalAnalysisWidget view.</li>
 </ul>
 </td>
 </tr>
@@ -80,6 +81,20 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.correlation_table.CorrelationTable.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.correlation_table.CorrelationTable.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all rows from the correlation quotient table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -202,9 +217,7 @@
 <dl class="method">
 <dt id="controller.main_action.MainAction.addSpecies">
 <code class="descname">addSpecies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.addSpecies" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select a species from <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>. <br>
-Append it to <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>. <br>
-Then call <code class="docutils literal"><span class="pre">MainWindow.addSpeciesToLayout()</span></code>.</p>
+<dd><p>Select a species from <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>, append it to <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -218,8 +231,7 @@ Then call <code class="docutils literal"><span class="pre">MainWindow.addSpecies
 <dl class="method">
 <dt id="controller.main_action.MainAction.clearData">
 <code class="descname">clearData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.clearData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call <code class="docutils literal"><span class="pre">MainWindow.removeSpeciesFromLayout()</span></code>. <br>
-And clear <code class="docutils literal"><span class="pre">Dataset.dataset</span></code> and <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>.</p>
+<dd><p>Clear <code class="docutils literal"><span class="pre">Dataset.dataset</span></code> and <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -603,15 +615,20 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.addSpeciesToLayout">
-<code class="descname">addSpeciesToLayout</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.addSpeciesToLayout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new species to the map and the species layout.</p>
+<code class="descname">addSpeciesToLayout</code><span class="sig-paren">(</span><em>newSpecies</em>, <em>newColor</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.addSpeciesToLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new species to the species layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>newSpecies</strong> &#8211; Name of the new species to be added.</li>
+<li><strong>newColor</strong> &#8211; Color of the new species to be added.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -662,13 +679,15 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.removeSpeciesFromLayout">
-<code class="descname">removeSpeciesFromLayout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.removeSpeciesFromLayout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all species from the map and the species layout.</p>
+<code class="descname">removeSpeciesFromLayout</code><span class="sig-paren">(</span><em>indices</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.removeSpeciesFromLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified species from the species layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>indices</strong> &#8211; Indices of the species to be removed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -676,17 +695,16 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.setupWidgets">
-<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>mainAction</em>, <em>leafletMap</em>, <em>dataset</em>, <em>spatialAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>spatialAnalysisWidget</em>, <em>temporalAnalysisWidget</em>, <em>mainAction</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct all GUI elements on the main window.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>mainAction</strong> &#8211; MainAction controller.</li>
-<li><strong>leafletMap</strong> &#8211; LeafletMap controller.</li>
-<li><strong>dataset</strong> &#8211; Dataset model.</li>
 <li><strong>spatialAnalysisWidget</strong> &#8211; SpatialAnalysisWidget view.</li>
+<li><strong>temporalAnalysisWidget</strong> &#8211; TemporalAnalysisWidget view.</li>
+<li><strong>mainAction</strong> &#8211; MainAction controller.</li>
 </ul>
 </td>
 </tr>
@@ -724,7 +742,7 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <dl class="method">
 <dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable">
 <code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Insert a new row to <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
+<dd><p>Insert a new row into <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -761,6 +779,20 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort">
 <code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.removeSpeciesFromTable">
+<code class="descname">removeSpeciesFromTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.removeSpeciesFromTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all rows from <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
