@@ -14,12 +14,16 @@ from lib.dataset_processor import DatasetProcessor
 class LeafletMap:
 
     tiles = {
-            "Landscape": ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
-                          '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>,'
-                          '&copy;<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
-            "Grayscale": ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/'
-                          'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-                          'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ')
+        "Landscape": (
+            'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
+            '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, '
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        ),
+        "Grayscale": (
+            'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/'
+            'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+            'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+        )
     }
 
     def __init__(self, dataset, tile="OpenStreetMap", centerCoordinate=(23.5, 120), zoom=4):
@@ -27,7 +31,7 @@ class LeafletMap:
         Initialize the folium map.
 
         :param dataset: Dataset model.
-        :param tiles: Tile source, defaults to OpenStreetMap.
+        :param tile: Tile source, defaults to OpenStreetMap.
         :param centerCoordinate: Coordinate of central point in map, defaults to (23.5, 120).
         :param zoom: Zoom level, defaults to 4.
         """
@@ -43,7 +47,7 @@ class LeafletMap:
         self.location = centerCoordinate
         self.zoom = zoom
 
-        if not tile in self.tiles:
+        if tile not in self.tiles:
             self.tile = tile
             self.attr = None
         else:
@@ -104,9 +108,9 @@ class LeafletMap:
             allCoordinates = sum(self.dataset.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4
-            self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom, tiles=self.tile,
-                    attr=self.attr)
+            self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom,
+                                   tiles=self.tile, attr=self.attr)
 
         else:
-            self.fMap = folium.Map(location=self.location, zoom_start=self.zoom, tiles=self.tile,
-                    attr=self.attr)
+            self.fMap = folium.Map(location=self.location, zoom_start=self.zoom,
+                                   tiles=self.tile, attr=self.attr)
