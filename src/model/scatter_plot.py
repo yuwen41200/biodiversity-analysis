@@ -1,33 +1,20 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-# embedding_in_qt5.py --- Simple Qt5 application embedding matplotlib canvases
-#
-# Copyright (C) 2005 Florent Rougon
-#               2006 Darren Dale
-#               2015 Jens H Nielsen
-#
-# This file is an example program for matplotlib. It may be used and
-# modified with no restriction; raw copies as well as modified versions
-# may be distributed without limitation.
-
-from __future__ import unicode_literals
-import sys
-import os
 import random
 import matplotlib
-# Make sure that we are using QT5
-matplotlib.use('Qt5Agg')
-from PyQt5 import QtCore, QtWidgets
 
+from PyQt5 import QtWidgets
+from PyQt5 import QtCore
 from numpy import arange, sin, pi
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
-progname = os.path.basename(sys.argv[0])
-progversion = "0.1"
+# Make sure that we are using QT5.
+matplotlib.use('Qt5Agg')
 
 
-class MyMplCanvas(FigureCanvas):
+class MyMplCanvas(FigureCanvasQTAgg):
     """Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
 
     def __init__(self, parent=None, width=5, height=4, dpi=100):
@@ -39,13 +26,13 @@ class MyMplCanvas(FigureCanvas):
         self.compute_initial_figure()
 
         #
-        FigureCanvas.__init__(self, fig)
+        FigureCanvasQTAgg.__init__(self, fig)
         self.setParent(parent)
 
-        FigureCanvas.setSizePolicy(self,
+        FigureCanvasQTAgg.setSizePolicy(self,
                                    QtWidgets.QSizePolicy.Expanding,
                                    QtWidgets.QSizePolicy.Expanding)
-        FigureCanvas.updateGeometry(self)
+        FigureCanvasQTAgg.updateGeometry(self)
 
     def compute_initial_figure(self):
         pass
@@ -130,12 +117,3 @@ modified versions may be distributed without limitation.
 This is modified from the embedding in qt4 example to show the difference
 between qt4 and qt5"""
                                 )
-
-
-qApp = QtWidgets.QApplication(sys.argv)
-
-aw = ApplicationWindow()
-aw.setWindowTitle("%s" % progname)
-aw.show()
-sys.exit(qApp.exec_())
-#qApp.exec_()

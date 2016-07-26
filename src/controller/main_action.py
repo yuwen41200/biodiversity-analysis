@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from model.species import Species
+from model.leaflet_map import LeafletMap
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
 from view.add_species_dialog import AddSpeciesDialog
-from controller.leaflet_map import LeafletMap
 from controller.correlation_table import CorrelationTable
 from lib.dataset_processor import DatasetProcessor
 

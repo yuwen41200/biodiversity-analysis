@@ -17,10 +17,9 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
         """
 
         super().__init__()
-        self.view = webView
 
         upperLabel = QtWidgets.QLabel("Spatial Distribution Graph:")
-        upperLabel.setBuddy(self.view)
+        upperLabel.setBuddy(webView)
 
         self.tableWidget = QtWidgets.QTableWidget(0, 3, self)
         self.tableWidget.setHorizontalHeaderLabels((
@@ -39,7 +38,7 @@ class SpatialAnalysisWidget(QtWidgets.QWidget):
 
         mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addWidget(upperLabel)
-        mainLayout.addWidget(self.view)
+        mainLayout.addWidget(webView)
         mainLayout.addWidget(lowerLabel)
         mainLayout.addWidget(self.tableWidget)
 
