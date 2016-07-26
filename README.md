@@ -31,7 +31,7 @@ source ./install.sh
 Make sure you have installed all dependencies:
 
 ```bash
-sudo apt-get install python3.5 python3.5-venv
+sudo apt-get install python3.5 python3.5-venv python3-matplotlib
 ```
 
 This program has been tested on Ubuntu 15.10 and above,  

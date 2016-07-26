@@ -91,3 +91,8 @@ ENV/
 
 # Pip
 pip-selfcheck.json
+
+# Vim swap files
+.swp
+.swo
+.swn
