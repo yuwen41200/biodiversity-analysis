@@ -3,6 +3,7 @@
 
 from model.species import Species
 from model.leaflet_map import LeafletMap
+from model.scatter_plot import ScatterPlot
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
 from view.add_species_dialog import AddSpeciesDialog
@@ -26,8 +27,9 @@ class MainAction:
         self.license = dataset.license
 
         self.map = LeafletMap(dataset)
+        self.plot = ScatterPlot(dataset)
         spatial = SpatialAnalysisWidget(self.map.webView)
-        temporal = TemporalAnalysisWidget()
+        temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
 
         self.mainWindow = mainWindow
