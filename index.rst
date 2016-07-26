@@ -26,15 +26,6 @@ controller.correlation_table
    :special-members: __init__
    :show-inheritance:
 
-controller.leaflet_map
-----------------------
-
-.. automodule:: controller.leaflet_map
-   :members:
-   :undoc-members:
-   :special-members: __init__
-   :show-inheritance:
-
 controller.main_action
 ----------------------
 
@@ -84,6 +75,24 @@ model.dataset
 -------------
 
 .. automodule:: model.dataset
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+model.leaflet_map
+-----------------
+
+.. automodule:: model.leaflet_map
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+model.scatter_plot
+------------------
+
+.. automodule:: model.scatter_plot
    :members:
    :undoc-members:
    :special-members: __init__

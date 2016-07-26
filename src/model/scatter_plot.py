@@ -7,6 +7,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
 
+# TODO: Use the plot in http://matplotlib.org/examples/pylab_examples/scatter_demo2.html
 class ScatterPlot:
 
     def __init__(self, dataset):
