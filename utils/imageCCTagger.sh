@@ -34,9 +34,18 @@
 #
 
 function print_help {
-    echo "Usage: $0 -i INPUT_FILE_NAME -c CC_TYPE -m CC_NOTICE -b [BACKGROUND_COLOR] -o [OUTPUT_FILE_NAME]"
+    echo " Usage: $0 -i INPUT_FILE_NAME -c CC_TYPE -m CC_NOTICE -f [FONTSIZE] -b [BACKGROUND_COLOR] "
+    echo "                           -s [SIZE] -p [MESSAGE_POSITION] -o OUTPUT_FILE_NAME "
+    echo "    [required] INPUT_FILE_NAME: Name of input file"
+    echo "    [required] CC_TYPE: required, Type of CC, can be: by, by-nc, by-nd, by-sa, by-nc-sa, by-nc-nd"
+    echo "               icons from http://www.creativecommons.org.tw"
+    echo "    [required] CC_NOTICE: a message to be attached, ex: 'CC(3.0) by John Doe, 2016'"
+    echo "    [optional] FONTSIZE (default: 12): font size of cc message"
+    echo "    [optional] BACKGROUND_COLOR (default: black): if image is enlarged, fill background with this color"
+    echo "    [optional] SIZE: (default: 1800x1350) resize image to width W, height H"
+    echo "    [optional] MESSAGE_POSITION: (default: CENTER) the position of CC message/icon in the image, either CENTER or CORNER"
+    echo "    [required] OUTPUT_FILE_NAME: if not provided, display the output directly"
 }
-
 function die {
     echo "$1"
     exit 1
