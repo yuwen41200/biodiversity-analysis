@@ -11,7 +11,7 @@ class AddSpeciesDialog(QtWidgets.QDialog):
     # noinspection PyArgumentList, PyUnresolvedReferences
     def __init__(self, species):
         """
-        Construct a dialog that allow the user to select a new species.
+        Construct a dialog that allows the user to select a new species.
 
         :param species: List of distinct and unselected species in ``Dataset.dataset``.
         """
