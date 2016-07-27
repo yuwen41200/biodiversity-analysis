@@ -6,6 +6,7 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
+from view.clickable_label import ClickableLabel
 from lib.taxonomy_query import TaxonomyQuery
 
 
@@ -121,7 +122,7 @@ class MainWindow(QtWidgets.QMainWindow):
         :return: None.
         """
 
-        label = QtWidgets.QLabel(newSpecies)
+        label = ClickableLabel(newSpecies)
         label.setStyleSheet(
             "background-color: " + newColor + ";"
             "color: white;"
@@ -132,6 +133,7 @@ class MainWindow(QtWidgets.QMainWindow):
         label.setSizePolicy(QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         ))
+        label.labelClicked.connect(self.action.removeSpecies)
 
         def addTaxonomyToolTip(taxonomy, tLabel):
             """
@@ -156,7 +158,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         Remove the specified species from the species layout.
 
-        :param indices: Indices of the species to be removed.
+        :param indices: Indices of the old species to be removed.
         :return: None.
         """
 

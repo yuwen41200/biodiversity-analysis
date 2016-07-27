@@ -102,6 +102,16 @@ class MainAction:
                 self.map.add(newSpecies)
                 self.correlationTable.add(newSpecies)
 
+    def removeSpecies(self, oldSpecies):
+        """
+        Remove the specified species from ``Dataset.selectedSpecies``.
+
+        :param oldSpecies: Name of the old species to be removed.
+        :return: None.
+        """
+
+        print("Remove:", oldSpecies)
+
     def clearData(self):
         """
         Clear ``Dataset.dataset`` and ``Dataset.selectedSpecies``.
