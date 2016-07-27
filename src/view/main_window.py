@@ -61,11 +61,19 @@ class MainWindow(QtWidgets.QMainWindow):
         tabWidget.addTab(spatialAnalysisWidget, "&Spatial Analysis")
         tabWidget.addTab(temporalAnalysisWidget, "&Temporal Analysis")
 
+        self.speciesLayout.setAlignment(Qt.AlignLeft)
+
+        speciesWidget = QtWidgets.QWidget()
+        speciesWidget.setLayout(self.speciesLayout)
+
+        scrollArea = QtWidgets.QScrollArea(self)
+        scrollArea.setWidget(speciesWidget)
+        scrollArea.setWidgetResizable(True)
+        scrollArea.setMaximumHeight(55)
+
         mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addWidget(tabWidget)
-        mainLayout.addLayout(self.speciesLayout)
-
-        self.speciesLayout.setAlignment(Qt.AlignLeft)
+        mainLayout.addWidget(scrollArea)
 
         self.setCentralWidget(QtWidgets.QWidget())
         self.centralWidget().setLayout(mainLayout)

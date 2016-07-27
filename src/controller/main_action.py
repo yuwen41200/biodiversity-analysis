@@ -26,7 +26,7 @@ class MainAction:
         self.selectedSpecies = dataset.selectedSpecies
         self.license = dataset.license
 
-        self.map = LeafletMap(dataset)
+        self.map = LeafletMap(dataset, "Landscape")
         self.plot = ScatterPlot(dataset)
         spatial = SpatialAnalysisWidget(self.map.webView)
         temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
