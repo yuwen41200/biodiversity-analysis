@@ -98,7 +98,7 @@ esac
 shift
 done
 
-CC_ICON_DIR=icons
+CC_ICON_DIR=$(dirname "$0")/icons
 CC_ICON_FILE="$CC_ICON_DIR/cc-$CC_TYPE.png"
 
 # Required arguments
