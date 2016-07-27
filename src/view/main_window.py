@@ -134,6 +134,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
         ))
         label.labelClicked.connect(self.action.removeSpecies)
+        label.setStatusTip("Click to remove " + newSpecies + ".")
 
         def addTaxonomyToolTip(taxonomy, tLabel):
             """
