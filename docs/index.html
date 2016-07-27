@@ -103,79 +103,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-controller.leaflet_map">
-<span id="controller-leaflet-map"></span><h2>controller.leaflet_map<a class="headerlink" href="#module-controller.leaflet_map" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="controller.leaflet_map.LeafletMap">
-<em class="property">class </em><code class="descclassname">controller.leaflet_map.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>dataset</em>, <em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="controller.leaflet_map.LeafletMap.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>tiles='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the folium map.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dataset</strong> &#8211; Dataset model.</li>
-<li><strong>tiles</strong> &#8211; Tile source, defaults to OpenStreetMap.</li>
-<li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map, defaults to (23.5, 120).</li>
-<li><strong>zoom</strong> &#8211; Zoom level, defaults to 4.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="controller.leaflet_map.LeafletMap.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new species to the folium map.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="controller.leaflet_map.LeafletMap.rebuild">
-<code class="descname">rebuild</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.rebuild" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rebuild the folium map.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="controller.leaflet_map.LeafletMap.refresh">
-<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.leaflet_map.LeafletMap.refresh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Refresh the folium map.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="module-controller.main_action">
 <span id="controller-main-action"></span><h2>controller.main_action<a class="headerlink" href="#module-controller.main_action" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -252,6 +179,22 @@ Store them in <code class="docutils literal"><span class="pre">Dataset.dataset</
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.main_action.MainAction.removeSpecies">
+<code class="descname">removeSpecies</code><span class="sig-paren">(</span><em>oldSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.removeSpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the specified species from <code class="docutils literal"><span class="pre">Dataset.selectedSpecies</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>oldSpecies</strong> &#8211; Name of the old species to be removed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -525,6 +468,134 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 </dd></dl>
 
 </div>
+<div class="section" id="module-model.leaflet_map">
+<span id="model-leaflet-map"></span><h2>model.leaflet_map<a class="headerlink" href="#module-model.leaflet_map" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.leaflet_map.LeafletMap">
+<em class="property">class </em><code class="descclassname">model.leaflet_map.</code><code class="descname">LeafletMap</code><span class="sig-paren">(</span><em>dataset</em>, <em>tile='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#model.leaflet_map.LeafletMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="model.leaflet_map.LeafletMap.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>tile='OpenStreetMap'</em>, <em>centerCoordinate=(23.5</em>, <em>120)</em>, <em>zoom=4</em><span class="sig-paren">)</span><a class="headerlink" href="#model.leaflet_map.LeafletMap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>tile</strong> &#8211; Tile source, defaults to OpenStreetMap.</li>
+<li><strong>centerCoordinate</strong> &#8211; Coordinate of central point in map, defaults to (23.5, 120).</li>
+<li><strong>zoom</strong> &#8211; Zoom level, defaults to 4.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.leaflet_map.LeafletMap.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>newSpecies</em><span class="sig-paren">)</span><a class="headerlink" href="#model.leaflet_map.LeafletMap.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new species to the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newSpecies</strong> &#8211; Name of the new species to be added.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.leaflet_map.LeafletMap.rebuild">
+<code class="descname">rebuild</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.leaflet_map.LeafletMap.rebuild" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.leaflet_map.LeafletMap.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.leaflet_map.LeafletMap.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refresh the folium map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="model.leaflet_map.LeafletMap.tiles">
+<code class="descname">tiles</code><em class="property"> = {'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &amp;copy; &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;'), 'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-model.scatter_plot">
+<span id="model-scatter-plot"></span><h2>model.scatter_plot<a class="headerlink" href="#module-model.scatter_plot" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.scatter_plot.ScatterPlot">
+<em class="property">class </em><code class="descclassname">model.scatter_plot.</code><code class="descname">ScatterPlot</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="model.scatter_plot.ScatterPlot.MplCanvas">
+<em class="property">class </em><code class="descname">MplCanvas</code><span class="sig-paren">(</span><em>width=5</em>, <em>height=4</em>, <em>dpi=100</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.MplCanvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg</span></code></p>
+<dl class="method">
+<dt id="model.scatter_plot.ScatterPlot.MplCanvas.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>width=5</em>, <em>height=4</em>, <em>dpi=100</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.MplCanvas.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the canvas for the temporal distribution graph. <br>
+&lt;&lt;&lt; TODO &gt;&gt;&gt; <br>
+Use the plot in <a class="reference external" href="http://matplotlib.org/examples/pylab_examples/scatter_demo2.html">http://matplotlib.org/examples/pylab_examples/scatter_demo2.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>width</strong> &#8211; N/A.</li>
+<li><strong>height</strong> &#8211; N/A.</li>
+<li><strong>dpi</strong> &#8211; N/A.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="model.scatter_plot.ScatterPlot.__init__">
+<code class="descclassname">ScatterPlot.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the matplotlib plot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> &#8211; Dataset model.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-model.species">
 <span id="model-species"></span><h2>model.species<a class="headerlink" href="#module-model.species" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -553,7 +624,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="attribute">
 <dt id="model.species.Species.colors">
-<code class="descname">colors</code><em class="property"> = ['#bf538d', '#67747c', '#142b44', '#1d508d', '#297cbb', '#288ad6', '#0fdebd', '#16c98d', '#684e79', '#ff708e', '#47a899', '#841e1b', '#582c2b', '#fa5e5b']</em><a class="headerlink" href="#model.species.Species.colors" title="Permalink to this definition">¶</a></dt>
+<code class="descname">colors</code><em class="property"> = ['#bf538d', '#67747c', '#142b44', '#ffc83f', '#297cbb', '#ff4500', '#0003ff', '#ff003b', '#9700ff', '#ff3d66', '#4400ff', '#841e1b', '#069900', '#e0000f']</em><a class="headerlink" href="#model.species.Species.colors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -573,7 +644,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <dl class="method">
 <dt id="view.add_species_dialog.AddSpeciesDialog.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>species</em><span class="sig-paren">)</span><a class="headerlink" href="#view.add_species_dialog.AddSpeciesDialog.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct a dialog that allow the user to select a new species.</p>
+<dd><p>Construct a dialog that allows the user to select a new species.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -593,6 +664,56 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.clickable_label">
+<span id="view-clickable-label"></span><h2>view.clickable_label<a class="headerlink" href="#module-view.clickable_label" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.clickable_label.ClickableLabel">
+<em class="property">class </em><code class="descclassname">view.clickable_label.</code><code class="descname">ClickableLabel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#view.clickable_label.ClickableLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QLabel</span></code></p>
+<dl class="method">
+<dt id="view.clickable_label.ClickableLabel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#view.clickable_label.ClickableLabel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Customize a clickable QLabel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>args</strong> &#8211; Arguments for the QLabel.</li>
+<li><strong>kwargs</strong> &#8211; Keyword arguments for the QLabel.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="view.clickable_label.ClickableLabel.labelClicked">
+<code class="descname">labelClicked</code><a class="headerlink" href="#view.clickable_label.ClickableLabel.labelClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="view.clickable_label.ClickableLabel.mouseReleaseEvent">
+<code class="descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em>mouseEvent</em><span class="sig-paren">)</span><a class="headerlink" href="#view.clickable_label.ClickableLabel.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emit signal <code class="docutils literal"><span class="pre">ClickableLabel.labelClicked()</span></code> when clicked. <br>
+The signal contains one argument, which is the label&#8217;s text. <br>
+This method overrides that in QLabel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mouseEvent</strong> &#8211; A QMouseEvent object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -685,7 +806,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>indices</strong> &#8211; Indices of the species to be removed.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>indices</strong> &#8211; Indices of the old species to be removed.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
@@ -810,13 +931,85 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <span id="view-temporal-analysis-widget"></span><h2>view.temporal_analysis_widget<a class="headerlink" href="#module-view.temporal_analysis_widget" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="view.temporal_analysis_widget.TemporalAnalysisWidget">
-<em class="property">class </em><code class="descclassname">view.temporal_analysis_widget.</code><code class="descname">TemporalAnalysisWidget</code><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">view.temporal_analysis_widget.</code><code class="descname">TemporalAnalysisWidget</code><span class="sig-paren">(</span><em>mplCanvas</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
 <dl class="method">
 <dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mplCanvas</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the Temporal Analysis page in the main window. <br>
-&lt;&lt;&lt; TODO &gt;&gt;&gt;</p>
+A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span></code> will be shown on this page.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mplCanvas</strong> &#8211; The <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span></code> widget.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.addSpeciesToTable">
+<code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new row into <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>species1</strong> &#8211; Value for &#8220;Species 1&#8221; column.</li>
+<li><strong>species2</strong> &#8211; Value for &#8220;Species 2&#8221; column.</li>
+<li><strong>correlation</strong> &#8211; Value for &#8220;Correlation Quotient&#8221; column.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.disableAutoSort">
+<code class="descname">disableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.disableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>When inserting rows, automatic sorting should be disabled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.enableAutoSort">
+<code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.removeSpeciesFromTable">
+<code class="descname">removeSpeciesFromTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.removeSpeciesFromTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all rows from <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -843,15 +1036,17 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <li><a class="reference internal" href="#">Documentation</a><ul>
 <li><a class="reference internal" href="#module-app">app</a></li>
 <li><a class="reference internal" href="#module-controller.correlation_table">controller.correlation_table</a></li>
-<li><a class="reference internal" href="#module-controller.leaflet_map">controller.leaflet_map</a></li>
 <li><a class="reference internal" href="#module-controller.main_action">controller.main_action</a></li>
 <li><a class="reference internal" href="#module-lib.correlation_calculator">lib.correlation_calculator</a></li>
 <li><a class="reference internal" href="#module-lib.dataset_processor">lib.dataset_processor</a></li>
 <li><a class="reference internal" href="#module-lib.multi_dict">lib.multi_dict</a></li>
 <li><a class="reference internal" href="#module-lib.taxonomy_query">lib.taxonomy_query</a></li>
 <li><a class="reference internal" href="#module-model.dataset">model.dataset</a></li>
+<li><a class="reference internal" href="#module-model.leaflet_map">model.leaflet_map</a></li>
+<li><a class="reference internal" href="#module-model.scatter_plot">model.scatter_plot</a></li>
 <li><a class="reference internal" href="#module-model.species">model.species</a></li>
 <li><a class="reference internal" href="#module-view.add_species_dialog">view.add_species_dialog</a></li>
+<li><a class="reference internal" href="#module-view.clickable_label">view.clickable_label</a></li>
 <li><a class="reference internal" href="#module-view.main_window">view.main_window</a></li>
 <li><a class="reference internal" href="#module-view.spatial_analysis_widget">view.spatial_analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.temporal_analysis_widget">view.temporal_analysis_widget</a></li>

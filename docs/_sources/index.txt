@@ -26,15 +26,6 @@ controller.correlation_table
    :special-members: __init__
    :show-inheritance:
 
-controller.leaflet_map
-----------------------
-
-.. automodule:: controller.leaflet_map
-   :members:
-   :undoc-members:
-   :special-members: __init__
-   :show-inheritance:
-
 controller.main_action
 ----------------------
 
@@ -89,6 +80,24 @@ model.dataset
    :special-members: __init__
    :show-inheritance:
 
+model.leaflet_map
+-----------------
+
+.. automodule:: model.leaflet_map
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+model.scatter_plot
+------------------
+
+.. automodule:: model.scatter_plot
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 model.species
 -------------
 
@@ -102,6 +111,15 @@ view.add_species_dialog
 -----------------------
 
 .. automodule:: view.add_species_dialog
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+view.clickable_label
+--------------------
+
+.. automodule:: view.clickable_label
    :members:
    :undoc-members:
    :special-members: __init__
