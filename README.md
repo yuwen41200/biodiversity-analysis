@@ -7,16 +7,17 @@ A Project by Institute of Information Science, Academia Sinica
 ## Features ##
 
 * Spatial distribution graph
-
-  ![screenshot 1](http://i.imgur.com/Jmq3obY.png "screenshot 1")
-
 * Spatial correlation quotient
-
 * Temporal distribution graph
-
 * Temporal correlation quotient
 
 Supported file format: Darwin Core Archive (DwC-A)
+
+## Screenshots ##
+
+![screenshot 1](http://i.imgur.com/OzGaaYa.png "screenshot 1")
+
+![screenshot 2](http://i.imgur.com/aLUQ9Kk.png "screenshot 2")
 
 ## Getting Started ##
 
