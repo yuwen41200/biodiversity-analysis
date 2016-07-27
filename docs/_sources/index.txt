@@ -116,6 +116,15 @@ view.add_species_dialog
    :special-members: __init__
    :show-inheritance:
 
+view.analysis_widget
+--------------------
+
+.. automodule:: view.analysis_widget
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 view.clickable_label
 --------------------
 

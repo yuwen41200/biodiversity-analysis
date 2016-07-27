@@ -540,7 +540,7 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 
 <dl class="attribute">
 <dt id="model.leaflet_map.LeafletMap.tiles">
-<code class="descname">tiles</code><em class="property"> = {'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &amp;copy; &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;'), 'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tiles</code><em class="property"> = {'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ'), 'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &amp;copy; &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -659,6 +659,85 @@ Use the plot in <a class="reference external" href="http://matplotlib.org/exampl
 <dt id="view.add_species_dialog.AddSpeciesDialog.addSpeciesHandler">
 <code class="descname">addSpeciesHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.add_species_dialog.AddSpeciesDialog.addSpeciesHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler function for the &#8220;Add&#8221; button.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-view.analysis_widget">
+<span id="view-analysis-widget"></span><h2>view.analysis_widget<a class="headerlink" href="#module-view.analysis_widget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="view.analysis_widget.AnalysisWidget">
+<em class="property">class </em><code class="descclassname">view.analysis_widget.</code><code class="descname">AnalysisWidget</code><a class="headerlink" href="#view.analysis_widget.AnalysisWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dl class="method">
+<dt id="view.analysis_widget.AnalysisWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.analysis_widget.AnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a table widget <code class="docutils literal"><span class="pre">AnalysisWidget.tableWidget</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.analysis_widget.AnalysisWidget.addSpeciesToTable">
+<code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.analysis_widget.AnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a new row into <code class="docutils literal"><span class="pre">AnalysisWidget.tableWidget</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>species1</strong> &#8211; Value for &#8220;Species 1&#8221; column.</li>
+<li><strong>species2</strong> &#8211; Value for &#8220;Species 2&#8221; column.</li>
+<li><strong>correlation</strong> &#8211; Value for &#8220;Correlation Quotient&#8221; column.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.analysis_widget.AnalysisWidget.disableAutoSort">
+<code class="descname">disableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.analysis_widget.AnalysisWidget.disableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>When inserting rows, automatic sorting should be disabled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.analysis_widget.AnalysisWidget.enableAutoSort">
+<code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.analysis_widget.AnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.analysis_widget.AnalysisWidget.removeSpeciesFromTable">
+<code class="descname">removeSpeciesFromTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.analysis_widget.AnalysisWidget.removeSpeciesFromTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all rows from <code class="docutils literal"><span class="pre">AnalysisWidget.tableWidget</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -844,7 +923,7 @@ This method overrides that in QLabel.</p>
 <dl class="class">
 <dt id="view.spatial_analysis_widget.SpatialAnalysisWidget">
 <em class="property">class </em><code class="descclassname">view.spatial_analysis_widget.</code><code class="descname">SpatialAnalysisWidget</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#view.analysis_widget.AnalysisWidget" title="view.analysis_widget.AnalysisWidget"><code class="xref py py-class docutils literal"><span class="pre">view.analysis_widget.AnalysisWidget</span></code></a></p>
 <dl class="method">
 <dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>webView</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
@@ -860,70 +939,6 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable">
-<code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Insert a new row into <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>species1</strong> &#8211; Value for &#8220;Species 1&#8221; column.</li>
-<li><strong>species2</strong> &#8211; Value for &#8220;Species 2&#8221; column.</li>
-<li><strong>correlation</strong> &#8211; Value for &#8220;Correlation Quotient&#8221; column.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.disableAutoSort">
-<code class="descname">disableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.disableAutoSort" title="Permalink to this definition">¶</a></dt>
-<dd><p>When inserting rows, automatic sorting should be disabled.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort">
-<code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.spatial_analysis_widget.SpatialAnalysisWidget.removeSpeciesFromTable">
-<code class="descname">removeSpeciesFromTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.spatial_analysis_widget.SpatialAnalysisWidget.removeSpeciesFromTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all rows from <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -932,7 +947,7 @@ A <code class="docutils literal"><span class="pre">LeafletMap.webView</span></co
 <dl class="class">
 <dt id="view.temporal_analysis_widget.TemporalAnalysisWidget">
 <em class="property">class </em><code class="descclassname">view.temporal_analysis_widget.</code><code class="descname">TemporalAnalysisWidget</code><span class="sig-paren">(</span><em>mplCanvas</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QWidget</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#view.analysis_widget.AnalysisWidget" title="view.analysis_widget.AnalysisWidget"><code class="xref py py-class docutils literal"><span class="pre">view.analysis_widget.AnalysisWidget</span></code></a></p>
 <dl class="method">
 <dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>mplCanvas</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
@@ -943,70 +958,6 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mplCanvas</strong> &#8211; The <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span></code> widget.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.addSpeciesToTable">
-<code class="descname">addSpeciesToTable</code><span class="sig-paren">(</span><em>species1</em>, <em>species2</em>, <em>correlation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.addSpeciesToTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Insert a new row into <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>species1</strong> &#8211; Value for &#8220;Species 1&#8221; column.</li>
-<li><strong>species2</strong> &#8211; Value for &#8220;Species 2&#8221; column.</li>
-<li><strong>correlation</strong> &#8211; Value for &#8220;Correlation Quotient&#8221; column.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.disableAutoSort">
-<code class="descname">disableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.disableAutoSort" title="Permalink to this definition">¶</a></dt>
-<dd><p>When inserting rows, automatic sorting should be disabled.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.enableAutoSort">
-<code class="descname">enableAutoSort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.enableAutoSort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable automatic sorting by &#8220;Correlation Quotient&#8221; column in ascending order.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="view.temporal_analysis_widget.TemporalAnalysisWidget.removeSpeciesFromTable">
-<code class="descname">removeSpeciesFromTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.temporal_analysis_widget.TemporalAnalysisWidget.removeSpeciesFromTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete all rows from <code class="docutils literal"><span class="pre">SpatialAnalysisWidget.tableWidget</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -1046,6 +997,7 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 <li><a class="reference internal" href="#module-model.scatter_plot">model.scatter_plot</a></li>
 <li><a class="reference internal" href="#module-model.species">model.species</a></li>
 <li><a class="reference internal" href="#module-view.add_species_dialog">view.add_species_dialog</a></li>
+<li><a class="reference internal" href="#module-view.analysis_widget">view.analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.clickable_label">view.clickable_label</a></li>
 <li><a class="reference internal" href="#module-view.main_window">view.main_window</a></li>
 <li><a class="reference internal" href="#module-view.spatial_analysis_widget">view.spatial_analysis_widget</a></li>
