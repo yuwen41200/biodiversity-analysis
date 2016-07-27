@@ -12,27 +12,29 @@
 #
 # Requirement: ImageMagick 
 #
-# Usage: ./imageCCTagger.sh -i [INPUT_FILE_NAME] -c [CC_TYPE] -f [FONTSIZE] -n [CC_NOTICE] -b [BACKGROUND_COLOR] -o [OUTPUT_FILE_NAME]
+# Usage: ./imageCCTagger.sh -i INPUT_FILE_NAME -c CC_TYPE -m CC_NOTICE -f [FONTSIZE] -b [BACKGROUND_COLOR] \
+#                           -s [SIZE] -p [MESSAGE_POSITION] -o OUTPUT_FILE_NAME 
 #    [required] INPUT_FILE_NAME: Name of input file
 #    [required] CC_TYPE: required, Type of CC, can be: by, by-nc, by-nd, by-sa, by-nc-sa, by-nc-nd
 #               icons from http://www.creativecommons.org.tw
 #    [required] CC_NOTICE: a message to be attached, ex: "CC(3.0) by John Doe, 2016"
-#    [optional] FONTSIZE: font size of cc message
-#    [optional] BACKGROUND_COLOR: if image is enlarged, fill background with this color
-#    [optional] OUTPUT_FILE_NAME: if not provided, display the output directly
+#    [optional] FONTSIZE (default: 12): font size of cc message
+#    [optional] BACKGROUND_COLOR (default: black): if image is enlarged, fill background with this color
+#    [optional] SIZE: (default: 1800x1350) resize image to width W, height H
+#    [optional] MESSAGE_POSITION: (default: CENTER) the position of CC message/icon in the image, either CENTER or CORNER
+#    [required] OUTPUT_FILE_NAME: if not provided, display the output directly
 #
 # Environment variables:
-#   DISPLAY=1: display the result image
-#   SIZE=WxH: resize image to width W, height H
 #
 # Notice: MimeType of OUTPUT_FILE_NAME determines the resulting image format.
 #         Thus, if OUTPUT_FILE_NAME=foo.jpg, output image will be in JPEG
 #
 # Example usage:
-#   SIZE=1200x1600 ./imageCCTagger.sh -i cat.jpg -f 12 -c by -n "CC by Tom" -b black -o out.jpg
+#   ./imageCCTagger.sh -i cat.jpg -f 12 -c by -m "CC by Tom" -o out.jpg
 #
+
 function print_help {
-    echo "Usage: $0 -i INPUT_FILE_NAME -c CC_TYPE -n CC_NOTICE -b [BACKGROUND_COLOR] -o [OUTPUT_FILE_NAME]"
+    echo "Usage: $0 -i INPUT_FILE_NAME -c CC_TYPE -m CC_NOTICE -b [BACKGROUND_COLOR] -o [OUTPUT_FILE_NAME]"
 }
 
 function die {
@@ -68,8 +70,16 @@ case $key in
     CC_TYPE="$2"
     shift
     ;;
-    -n|--cc_notice)
+    -m|--cc_notice)
     CC_NOTICE="$2"
+    shift
+    ;;
+    -s|--size)
+    SIZE="$2"
+    shift
+    ;;
+    -p|--position)
+    MESSAGE_POSITION="$2"
     shift
     ;;
     -h|--help)
@@ -95,38 +105,56 @@ CC_ICON_FILE="$CC_ICON_DIR/cc-$CC_TYPE.png"
 [ "_$INPUT_FILE" = "_" ]  && argument_missing "INPUT_FILE"
 [ "_$CC_TYPE" = "_" ]     && argument_missing "CC_TYPE"
 [ "_$CC_NOTICE" = "_" ]   && argument_missing "CC_NOTICE"
+[ "_$OUTPUT_FILE" = "_" ] && argument_missing "OUTPUT_FILE"
 
 # Optional arguments
-[ "_$SIZE" = "_" ]        && SIZE=1800x1350
-[ "_$FONTSIZE" = "_" ]    && FONTSIZE="12"
-[ "_$FILL_COLOR" = "_" ]  && FILL_COLOR=black
-[ "_$OUTPUT_FILE" = "_" ] && NO_OUTPUT=1 && OUTPUT_FILE=$(mktemp)
+[ "_$SIZE" = "_" ]             && SIZE=1800x1350
+[ "_$FONTSIZE" = "_" ]         && FONTSIZE="12"
+[ "_$FILL_COLOR" = "_" ]       && FILL_COLOR=black
+[ "_$MESSAGE_POSITION" = "_" ] && MESSAGE_POSITION=CORNER
 
 # Verify output file mimetype
-OUTPUT_FILE_MIMETYPE=$(echo "$OUTPUT_FILE" | cut -f2 -d'.')
+OUTPUT_FILE_MIMETYPE=$(echo "$OUTPUT_FILE" | sed 's/^.*\.//' | tr '[:upper:]' '[:lower:]')
 IMAGE_MIMETYPE="jpg jpeg gif tif png gif"
 for m in $IMAGE_MIMETYPE;
 do
-    if [ "x$m" = "x$IMAGE_MIMETYPE" ];
+    if [ "x$m" = "x$OUTPUT_FILE_MIMETYPE" ];
     then
         OK=1
+        break
     fi
 done
 
 [ "$OK" ] || die "Invalid output file mimetype, please specify a valid image mimetype"
 [ -f $CC_ICON_FILE ] || die "Invalid CC type: $CC_TYPE"
 
+iconw=$(identify -format %w ${CC_ICON_FILE})
+iconh=$((6+${FONTSIZE}))
+
+if [ "$MESSAGE_POSITION" = "CENTER" ]; then
+
+TMP=$(mktemp --suffix=.png)
+convert ${CC_ICON_FILE} -resize "${iconw}x${iconh}"\> jpg:- | \
+convert - -background '#00000001' -pointsize ${FONTSIZE} -fill white label:"$CC_NOTICE" \
+    -bordercolor '#00000070' -border 6x6 -gravity Center -geometry +5+5 +append $TMP
+convert ${INPUT_FILE} -resize ${SIZE}\> jpg:- | \
+convert - -gravity Center  -background ${FILL_COLOR} -extent ${SIZE} jpg:- | \
+composite -gravity South -geometry +5+5 $TMP - "$OUTPUT_FILE"
+rm $TMP
+
+elif [ "$MESSAGE_POSITION" = "CORNER" ]; then
+
+TMP=$(mktemp --suffix=.jpg)
+convert ${CC_ICON_FILE} -resize "${iconw}x${iconh}"\> $TMP
 convert ${INPUT_FILE} -resize ${SIZE}\> jpg:- | \
 convert - -gravity Center  -background ${FILL_COLOR} -extent ${SIZE} jpg:- | \
 convert -background '#00000005' -pointsize ${FONTSIZE} -fill white label:"$CC_NOTICE" \
     -bordercolor '#00000070' -border 6x6 - +swap -gravity SouthEast -geometry +5+5 -composite jpg:- | \
-composite -gravity SouthWest -geometry +5+5 ${CC_ICON_FILE} - "$OUTPUT_FILE"
+composite -gravity SouthWest -geometry +5+5 ${TMP} - "$OUTPUT_FILE"
+rm $TMP
 
-if [ "$DISPLAY" = 1 ] || [ "$NO_OUTPUT" = 1 ]; then
-    display $OUTPUT_FILE
-    if [ "$NO_OUTPUT" = 1 ]; then
-        rm $OUTPUT_FILE
-    else
-        echo $OUTPUT_FILE
-    fi
+else
+
+die "Unknown position: $MESSAGE_POSITION"
+
 fi
