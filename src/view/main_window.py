@@ -155,13 +155,21 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.speciesLayout.addWidget(label)
 
-    def removeSpeciesFromLayout(self, indices):
+    def removeSpeciesFromLayout(self, oldSpecies=None):
         """
-        Remove the specified species from the species layout.
+        Remove the specified species from the species layout. |br|
+        If an old species is not given, remove all species.
 
-        :param indices: Indices of the old species to be removed.
+        :param oldSpecies: Name of the old species to be removed.
         :return: None.
         """
 
-        for i in reversed(indices):
-            self.speciesLayout.itemAt(i).widget().setParent(None)
+        if oldSpecies is None:
+            for i in reversed(range(self.speciesLayout.count())):
+                self.speciesLayout.itemAt(i).widget().setParent(None)
+
+        else:
+            for i in range(self.speciesLayout.count()):
+                if self.speciesLayout.itemAt(i).widget().text() == oldSpecies:
+                    self.speciesLayout.itemAt(i).widget().setParent(None)
+                    return

@@ -85,7 +85,18 @@ class LeafletMap:
                 fill_opacity=1
             )
 
-        self.refresh()
+    def remove(self):
+        """
+        Remove an old species from the folium map.
+
+        :return: None.
+        """
+
+        if len(self.selectedSpecies) != 1:
+            self.rebuild()
+
+        for species in self.selectedSpecies:
+            self.add(species)
 
     def refresh(self):
         """
@@ -104,7 +115,7 @@ class LeafletMap:
         :return: None.
         """
 
-        if self.dataset:
+        if self.selectedSpecies:
             allCoordinates = sum(self.dataset.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4

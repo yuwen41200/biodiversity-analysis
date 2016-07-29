@@ -100,6 +100,7 @@ class MainAction:
                 newColor = self.selectedSpecies[newSpecies].color
                 self.mainWindow.addSpeciesToLayout(newSpecies, newColor)
                 self.map.add(newSpecies)
+                self.map.refresh()
                 self.correlationTable.add(newSpecies)
 
     def removeSpecies(self, oldSpecies):
@@ -110,7 +111,10 @@ class MainAction:
         :return: None.
         """
 
-        print("Remove:", oldSpecies)
+        del self.selectedSpecies[oldSpecies]
+        self.mainWindow.removeSpeciesFromLayout(oldSpecies)
+        self.map.remove()
+        self.map.refresh()
 
     def clearData(self):
         """
@@ -120,7 +124,7 @@ class MainAction:
         """
 
         self.dataset.clear()
-        self.mainWindow.removeSpeciesFromLayout(range(len(self.selectedSpecies)))
+        self.mainWindow.removeSpeciesFromLayout()
         self.map.rebuild()
         self.map.refresh()
         self.correlationTable.clear()
