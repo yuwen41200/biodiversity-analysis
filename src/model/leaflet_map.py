@@ -117,7 +117,7 @@ class LeafletMap:
         :return: None.
         """
 
-        if self.selectedSpecies:
+        if self.dataset and self.selectedSpecies:
             allCoordinates = sum(self.dataset.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4

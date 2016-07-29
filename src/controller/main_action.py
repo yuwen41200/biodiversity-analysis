@@ -125,11 +125,11 @@ class MainAction:
         """
 
         self.dataset.clear()
+        self.selectedSpecies.clear()
         self.mainWindow.removeSpeciesFromLayout()
         self.map.rebuild()
         self.map.refresh()
         self.correlationTable.remove()
-        self.selectedSpecies.clear()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def about(self):

@@ -52,5 +52,10 @@ class CorrelationTable:
         """
 
         self.spatialAnalysisWidget.disableAutoSort()
-        self.spatialAnalysisWidget.removeSpeciesFromTable(oldSpecies)
+
+        if oldSpecies is None:
+            self.spatialAnalysisWidget.removeSpeciesFromTable()
+        else:
+            self.spatialAnalysisWidget.removeSpeciesFromTable(oldSpecies)
+
         self.spatialAnalysisWidget.enableAutoSort()
