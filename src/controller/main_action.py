@@ -50,9 +50,9 @@ class MainAction:
 
         if filename:
             try:
-                darwinCoreData = DatasetProcessor.extractDarwinCoreArchive(filename)
+                archiveData = DatasetProcessor.extractDarwinCoreArchive(filename)
                 columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-                dataList = DatasetProcessor.extractCsv(darwinCoreData, columns)[1]
+                dataList = DatasetProcessor.extractCsv(archiveData, columns)[1]
 
             except:
                 title = "Invalid DwC-A File"
