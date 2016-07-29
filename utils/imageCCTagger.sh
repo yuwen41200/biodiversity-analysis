@@ -50,6 +50,7 @@ function die {
 }
 function argument_missing {
     print_help
+    echo ""
     die "Missing required argument: $1"
 }
 
