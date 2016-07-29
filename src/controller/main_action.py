@@ -115,6 +115,7 @@ class MainAction:
         self.mainWindow.removeSpeciesFromLayout(oldSpecies)
         self.map.remove()
         self.map.refresh()
+        self.correlationTable.remove(oldSpecies)
 
     def clearData(self):
         """
@@ -127,7 +128,7 @@ class MainAction:
         self.mainWindow.removeSpeciesFromLayout()
         self.map.rebuild()
         self.map.refresh()
-        self.correlationTable.clear()
+        self.correlationTable.remove()
         self.selectedSpecies.clear()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList

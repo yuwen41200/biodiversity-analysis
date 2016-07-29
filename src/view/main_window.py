@@ -158,7 +158,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def removeSpeciesFromLayout(self, oldSpecies=None):
         """
         Remove the specified species from the species layout. |br|
-        If an old species is not given, remove all species.
+        If the old species is not given, remove all species.
 
         :param oldSpecies: Name of the old species to be removed.
         :return: None.

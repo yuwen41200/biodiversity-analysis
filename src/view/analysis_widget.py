@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 
 
 # noinspection PyPep8Naming
@@ -26,6 +27,10 @@ class AnalysisWidget(QtWidgets.QWidget):
             1, QtWidgets.QDesktopWidget().availableGeometry().width() * 0.34
         )
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.setStatusTip(
+            "Correlation quotient indicates how similar the distributions of the two "
+            "species are. The lower the quotient is, the higher their similarity is."
+        )
 
     def addSpeciesToTable(self, species1, species2, correlation):
         """
@@ -45,14 +50,22 @@ class AnalysisWidget(QtWidgets.QWidget):
         correlationStr = "{:08.3f}".format(correlation)
         self.tableWidget.setItem(rowCount, 2, QtWidgets.QTableWidgetItem(correlationStr))
 
-    def removeSpeciesFromTable(self):
+    def removeSpeciesFromTable(self, species=None):
         """
-        Delete all rows from ``AnalysisWidget.tableWidget``.
+        Delete all rows containing the specified species from ``AnalysisWidget.tableWidget``. |br|
+        If the species is not given, truncate ``AnalysisWidget.tableWidget``.
 
+        :param species: Name of the species to be removed.
         :return: None.
         """
 
-        self.tableWidget.setRowCount(0)
+        if species is None:
+            self.tableWidget.setRowCount(0)
+
+        else:
+            itemList = self.tableWidget.findItems(species, Qt.MatchExactly)
+            for item in itemList:
+                self.tableWidget.removeRow(self.tableWidget.row(item))
 
     def enableAutoSort(self):
         """
@@ -66,7 +79,7 @@ class AnalysisWidget(QtWidgets.QWidget):
 
     def disableAutoSort(self):
         """
-        When inserting rows, automatic sorting should be disabled.
+        When inserting or deleting rows, automatic sorting should be disabled.
 
         :return: None.
         """

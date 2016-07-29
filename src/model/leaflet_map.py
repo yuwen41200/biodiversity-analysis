@@ -17,7 +17,7 @@ class LeafletMap:
         "Landscape": (
             'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
             '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, '
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         ),
         "Grayscale": (
             'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/'
@@ -55,7 +55,9 @@ class LeafletMap:
             self.attr = self.tiles[tile][1]
 
         self.webView = QtWebEngineWidgets.QWebEngineView()
+        self.webView.setStatusTip("Drag to change the displayed region.")
         self.fMap = None
+
         self.rebuild()
         self.refresh()
 

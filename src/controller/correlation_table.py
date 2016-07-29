@@ -23,7 +23,7 @@ class CorrelationTable:
 
     def add(self, newSpecies):
         """
-        Insert all possible combinations into the correlation quotient table.
+        Insert all possible combinations of the new species into the correlation quotient table.
 
         :param newSpecies: Name of the new species to be added.
         :return: None.
@@ -42,11 +42,15 @@ class CorrelationTable:
 
         self.spatialAnalysisWidget.enableAutoSort()
 
-    def clear(self):
+    def remove(self, oldSpecies=None):
         """
-        Delete all rows from the correlation quotient table.
+        Delete all rows containing the specified species from the correlation quotient table. |br|
+        If the old species is not given, clear the whole table.
 
+        :param oldSpecies: Name of the old species to be removed.
         :return: None.
         """
 
-        self.spatialAnalysisWidget.removeSpeciesFromTable()
+        self.spatialAnalysisWidget.disableAutoSort()
+        self.spatialAnalysisWidget.removeSpeciesFromTable(oldSpecies)
+        self.spatialAnalysisWidget.enableAutoSort()
