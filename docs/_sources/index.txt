@@ -1,24 +1,12 @@
-Documentation
-=============
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
 .. |br| raw:: html
 
    <br>
 
-app
-----
-
-.. automodule:: app
-   :members:
-   :undoc-members:
-   :special-members: __init__
-   :show-inheritance:
-
 controller.correlation_table
-----------------------------
+============================
 
 .. automodule:: controller.correlation_table
    :members:
@@ -27,7 +15,7 @@ controller.correlation_table
    :show-inheritance:
 
 controller.main_action
-----------------------
+======================
 
 .. automodule:: controller.main_action
    :members:
@@ -36,7 +24,7 @@ controller.main_action
    :show-inheritance:
 
 lib.correlation_calculator
---------------------------
+==========================
 
 .. automodule:: lib.correlation_calculator
    :members:
@@ -45,7 +33,7 @@ lib.correlation_calculator
    :show-inheritance:
 
 lib.dataset_processor
----------------------
+=====================
 
 .. automodule:: lib.dataset_processor
    :members:
@@ -54,7 +42,7 @@ lib.dataset_processor
    :show-inheritance:
 
 lib.multi_dict
---------------
+==============
 
 .. automodule:: lib.multi_dict
    :members:
@@ -63,7 +51,7 @@ lib.multi_dict
    :show-inheritance:
 
 lib.taxonomy_query
-------------------
+==================
 
 .. automodule:: lib.taxonomy_query
    :members:
@@ -72,7 +60,7 @@ lib.taxonomy_query
    :show-inheritance:
 
 model.dataset
--------------
+=============
 
 .. automodule:: model.dataset
    :members:
@@ -81,7 +69,7 @@ model.dataset
    :show-inheritance:
 
 model.leaflet_map
------------------
+=================
 
 .. automodule:: model.leaflet_map
    :members:
@@ -90,7 +78,7 @@ model.leaflet_map
    :show-inheritance:
 
 model.scatter_plot
-------------------
+==================
 
 .. automodule:: model.scatter_plot
    :members:
@@ -99,7 +87,7 @@ model.scatter_plot
    :show-inheritance:
 
 model.species
--------------
+=============
 
 .. automodule:: model.species
    :members:
@@ -108,7 +96,7 @@ model.species
    :show-inheritance:
 
 view.add_species_dialog
------------------------
+=======================
 
 .. automodule:: view.add_species_dialog
    :members:
@@ -117,7 +105,7 @@ view.add_species_dialog
    :show-inheritance:
 
 view.analysis_widget
---------------------
+====================
 
 .. automodule:: view.analysis_widget
    :members:
@@ -126,7 +114,7 @@ view.analysis_widget
    :show-inheritance:
 
 view.clickable_label
---------------------
+====================
 
 .. automodule:: view.clickable_label
    :members:
@@ -135,7 +123,7 @@ view.clickable_label
    :show-inheritance:
 
 view.main_window
-----------------
+================
 
 .. automodule:: view.main_window
    :members:
@@ -144,7 +132,7 @@ view.main_window
    :show-inheritance:
 
 view.spatial_analysis_widget
-----------------------------
+============================
 
 .. automodule:: view.spatial_analysis_widget
    :members:
@@ -153,17 +141,10 @@ view.spatial_analysis_widget
    :show-inheritance:
 
 view.temporal_analysis_widget
------------------------------
+=============================
 
 .. automodule:: view.temporal_analysis_widget
    :members:
    :undoc-members:
    :special-members: __init__
    :show-inheritance:
-
-Advanced
---------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

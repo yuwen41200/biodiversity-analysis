@@ -8,7 +8,10 @@ class Dataset:
     """
     Store program data here.
 
-    :var self.dataset: Dictionary of {species name: list of coordinates}.
+    :var self.spatialData: Dictionary of {species name: list of |br|
+                           (x-coordinate, y-coordinate, amount) tuples}.
+    :var self.temporalData: Dictionary of {species name: list of timestamps}.
+    :var self.auxiliaryData: Dictionary of {species name: its vernacular name}.
     :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
     """
 
@@ -17,7 +20,9 @@ class Dataset:
         Initialize the dataset.
         """
 
-        self.dataset = MultiDict()
+        self.spatialData = MultiDict()
+        self.temporalData = MultiDict()
+        self.auxiliaryData = dict()
         self.selectedSpecies = {}
 
     @staticmethod
