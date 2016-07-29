@@ -24,8 +24,6 @@
 #    [optional] MESSAGE_POSITION: (default: CENTER) the position of CC message/icon in the image, either CENTER or CORNER
 #    [required] OUTPUT_FILE_NAME: if not provided, display the output directly
 #
-# Environment variables:
-#
 # Notice: MimeType of OUTPUT_FILE_NAME determines the resulting image format.
 #         Thus, if OUTPUT_FILE_NAME=foo.jpg, output image will be in JPEG
 #
@@ -52,6 +50,7 @@ function die {
 }
 function argument_missing {
     print_help
+    echo ""
     die "Missing required argument: $1"
 }
 
@@ -94,7 +93,6 @@ case $key in
     -h|--help)
     print_help
     exit 1
-    CC_NOTICE="$2"
     shift
     ;;
     *)
@@ -115,16 +113,17 @@ CC_ICON_FILE="$CC_ICON_DIR/cc-$CC_TYPE.png"
 [ "_$CC_TYPE" = "_" ]     && argument_missing "CC_TYPE"
 [ "_$CC_NOTICE" = "_" ]   && argument_missing "CC_NOTICE"
 [ "_$OUTPUT_FILE" = "_" ] && argument_missing "OUTPUT_FILE"
-
 # Optional arguments
 [ "_$SIZE" = "_" ]             && SIZE=1800x1350
 [ "_$FONTSIZE" = "_" ]         && FONTSIZE="12"
 [ "_$FILL_COLOR" = "_" ]       && FILL_COLOR=black
 [ "_$MESSAGE_POSITION" = "_" ] && MESSAGE_POSITION=CORNER
 
+[ -f "$INPUT_FILE"  ] || die "${INPUT_FILE}: file not found"
+
 # Verify output file mimetype
 OUTPUT_FILE_MIMETYPE=$(echo "$OUTPUT_FILE" | sed 's/^.*\.//' | tr '[:upper:]' '[:lower:]')
-IMAGE_MIMETYPE="jpg jpeg gif tif png gif"
+IMAGE_MIMETYPE="jpg jpeg gif tif png gif pgm ppm"
 for m in $IMAGE_MIMETYPE;
 do
     if [ "x$m" = "x$OUTPUT_FILE_MIMETYPE" ];
