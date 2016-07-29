@@ -16,7 +16,7 @@ class CorrelationTable:
         :param temporalAnalysisWidget: TemporalAnalysisWidget view.
         """
 
-        self.dataset = dataset.dataset
+        self.spatialData = dataset.spatialData
         self.selectedSpecies = dataset.selectedSpecies
         self.spatialAnalysisWidget = spatialAnalysisWidget
         self.temporalAnalysisWidget = temporalAnalysisWidget
@@ -34,7 +34,7 @@ class CorrelationTable:
         for species in self.selectedSpecies:
             if species != newSpecies:
                 similarity = CorrelationCalculator.calculateSimilarity(
-                    self.dataset[newSpecies], self.dataset[species]
+                    self.spatialData[newSpecies], self.spatialData[species]
                 )
                 self.spatialAnalysisWidget.addSpeciesToTable(
                     newSpecies, species, similarity

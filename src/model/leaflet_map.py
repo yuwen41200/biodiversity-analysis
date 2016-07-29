@@ -36,7 +36,7 @@ class LeafletMap:
         :param zoom: Zoom level, defaults to 4.
         """
 
-        self.dataset = dataset.dataset
+        self.spatialData = dataset.spatialData
         self.selectedSpecies = dataset.selectedSpecies
 
         # Instead of writing to file, just write to memory.
@@ -76,7 +76,7 @@ class LeafletMap:
         if len(self.selectedSpecies) == 1:
             self.rebuild()
 
-        for coordinate in self.dataset[newSpecies]:
+        for coordinate in self.spatialData[newSpecies]:
             color = self.selectedSpecies[newSpecies].color
             self.fMap.circle_marker(
                 popup=newSpecies,
@@ -117,8 +117,8 @@ class LeafletMap:
         :return: None.
         """
 
-        if self.dataset and self.selectedSpecies:
-            allCoordinates = sum(self.dataset.values(), [])
+        if self.spatialData and self.selectedSpecies:
+            allCoordinates = sum(self.spatialData.values(), [])
             centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom,

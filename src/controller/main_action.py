@@ -22,7 +22,7 @@ class MainAction:
         :param mainWindow: MainWindow view.
         """
 
-        self.dataset = dataset.dataset
+        self.spatialData = dataset.spatialData
         self.selectedSpecies = dataset.selectedSpecies
         self.license = dataset.license
 
@@ -64,7 +64,7 @@ class MainAction:
                 return
 
             for r in dataList:
-                self.dataset[r[2]] = (r[0], r[1])
+                self.spatialData[r[2]] = (r[0], r[1])
 
             title = "Dataset Successfully Imported"
             content = "{:,d} records have been loaded.".format(len(dataList))
@@ -78,7 +78,7 @@ class MainAction:
         :return: None.
         """
 
-        if not self.dataset:
+        if not self.spatialData:
             title, content = "Empty Dataset", "Please import data first."
             self.mainWindow.alert(title, content, 3)
 
@@ -89,7 +89,7 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            species = [k for k in self.dataset.keys() if k not in self.selectedSpecies]
+            species = [k for k in self.spatialData.keys() if k not in self.selectedSpecies]
 
             dialog = AddSpeciesDialog(species)
             dialog.exec_()
@@ -124,7 +124,7 @@ class MainAction:
         :return: None.
         """
 
-        self.dataset.clear()
+        self.spatialData.clear()
         self.selectedSpecies.clear()
         self.mainWindow.removeSpeciesFromLayout()
         self.map.rebuild()
