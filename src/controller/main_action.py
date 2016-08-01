@@ -118,12 +118,12 @@ class MainAction:
 
             dialog = AddSpeciesDialog(species)
             dialog.exec_()
-            newSpecies = dialog.newSpecies
+            newSpecies, vernacularName = dialog.newSpecies
 
             if newSpecies:
                 self.selectedSpecies[newSpecies] = Species()
                 newColor = self.selectedSpecies[newSpecies].color
-                self.mainWindow.addSpeciesToLayout(newSpecies, newColor)
+                self.mainWindow.addSpeciesToLayout(newSpecies, vernacularName, newColor)
                 self.map.add(newSpecies)
                 self.map.refresh()
                 self.correlationTable.add(newSpecies)
@@ -136,11 +136,17 @@ class MainAction:
         :return: None.
         """
 
-        del self.selectedSpecies[oldSpecies]
+        oldSpeciesShort = oldSpecies
+        for k in self.selectedSpecies.keys():
+            if oldSpecies.startswith(k):
+                oldSpeciesShort = k
+                del self.selectedSpecies[k]
+                break
+
         self.mainWindow.removeSpeciesFromLayout(oldSpecies)
         self.map.remove()
         self.map.refresh()
-        self.correlationTable.remove(oldSpecies)
+        self.correlationTable.remove(oldSpeciesShort)
 
     def clearData(self):
         """

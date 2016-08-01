@@ -18,7 +18,7 @@ class AddSpeciesDialog(QtWidgets.QDialog):
 
         super().__init__()
         self.species = [s[0] for s in species]
-        self.newSpecies = ""
+        self.newSpecies = ()
 
         self.treeWidget = QtWidgets.QTreeWidget()
         self.treeWidget.setColumnCount(2)
@@ -76,5 +76,6 @@ class AddSpeciesDialog(QtWidgets.QDialog):
 
         if (self.treeWidget.selectedItems() and
                 self.treeWidget.selectedItems()[0].text(0) in self.species):
-            self.newSpecies = self.treeWidget.selectedItems()[0].text(0)
+            self.newSpecies = (self.treeWidget.selectedItems()[0].text(0),
+                               self.treeWidget.selectedItems()[0].text(1))
             self.done(0)

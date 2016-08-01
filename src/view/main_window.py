@@ -113,16 +113,18 @@ class MainWindow(QtWidgets.QMainWindow):
         return QtWidgets.QFileDialog.getOpenFileName(self, title, os.getcwd(), extension)[0]
 
     # noinspection PyArgumentList
-    def addSpeciesToLayout(self, newSpecies, newColor):
+    def addSpeciesToLayout(self, newSpecies, vernacularName, newColor):
         """
         Add a new species to the species layout.
 
-        :param newSpecies: Name of the new species to be added.
+        :param newSpecies: Scientific name of the new species to be added.
+        :param vernacularName: Vernacular name of the new species to be added.
         :param newColor: Color of the new species to be added.
         :return: None.
         """
 
-        label = ClickableLabel(newSpecies)
+        labelText = newSpecies + " " + vernacularName
+        label = ClickableLabel(labelText)
         label.setStyleSheet(
             "background-color: " + newColor + ";"
             "color: white;"
