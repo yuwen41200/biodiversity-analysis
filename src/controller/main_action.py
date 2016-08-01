@@ -43,7 +43,7 @@ class MainAction:
     def importData(self):
         """
         Import data from a Darwin Core Archive (DwC-A) file. |br|
-        Store them in ``Dataset.dataset``.
+        Store them in ``Dataset``.
 
         :return: None.
         """
@@ -97,7 +97,7 @@ class MainAction:
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
         """
-        Select a species from ``Dataset.dataset``, append it to ``Dataset.selectedSpecies``.
+        Select a species from ``Dataset.spatialData``, append it to ``Dataset.selectedSpecies``.
 
         :return: None.
         """
@@ -151,7 +151,7 @@ class MainAction:
 
     def clearData(self):
         """
-        Clear ``Dataset.dataset`` and ``Dataset.selectedSpecies``.
+        Clear ``Dataset``.
 
         :return: None.
         """
