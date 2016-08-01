@@ -29,6 +29,37 @@ class DatasetProcessor:
         return escape(dom.attributes[attribute].value)[0] if attribute in dom.attributes.keys() else default
 
     @staticmethod
+    def extractDarwinCoreField(core):
+        """
+        Extract fields of a given core
+
+        :param core: DOM object of a core
+        :return: fields of the given core, sorted by index
+        """
+
+        idDom = core.getElementsByTagName("id")
+        doms = core.getElementsByTagName("field")
+        indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index")) for dom in doms]
+        fields = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
+        sortedFields = sorted(zip(indexes,fields), key=lambda field: field[0])
+
+        idIndex = int(DatasetProcessor.getXmlAttribute(idDom[0], "index", "0")) if idDom else 0
+        fields = list(map(lambda field: field[1], sortedFields))
+        fields.insert(idIndex, "id")
+        return fields
+
+    @staticmethod
+    def extractDarwinCoreType(rowType):
+        """
+        Determine the type of core, given rowType URI
+        see "http://tdwg.github.io/dwc/terms/guides/text/#coreTag" for all available types
+
+        :param rowType: the rowType URI
+        :return: The type of core
+        """
+        return rowType.split("/")[-1]
+
+    @staticmethod
     def extractDarwinCoreArchive(filename):
         """
         Extract data from a Darwin Core Archive (DwC-A) file.
@@ -52,23 +83,13 @@ class DatasetProcessor:
             }
             metaData = {key: DatasetProcessor.getXmlAttribute(core, key, default=default) for key,default in metaDefaults.items()}
 
+            metaData["fields"] = DatasetProcessor.extractDarwinCoreField(core)
             metaData["coreType"] = DatasetProcessor.extractDarwinCoreType(metaData["rowType"])
             metaData["ignoreHeaderLines"] = bool(metaData["ignoreHeaderLines"])
             dataFilename = core.getElementsByTagName("location")[0].firstChild.data
 
             return (DatasetProcessor.readFileFromZip(zipped, dataFilename)
                     .decode(encoding=metaData["encoding"]), metaData)
-
-    @staticmethod
-    def extractDarwinCoreType(rowType):
-        """
-        Determine the type of core, given rowType URI
-        see "http://tdwg.github.io/dwc/terms/guides/text/#coreTag" for all available types
-
-        :param rowType: the rowType URI
-        :return: The type of core
-        """
-        return rowType.split("/")[-1]
 
     @staticmethod
     def extractCsv(csvStr, meta, selectedFields=[]):
@@ -82,9 +103,9 @@ class DatasetProcessor:
                  Each record is a list containing only the selected fields.
         """
 
+        fields = meta["fields"]
         delimiter = meta["fieldsTerminatedBy"]
         lines = csvStr.split(meta["linesTerminatedBy"])
-        fields = lines[0].split(delimiter)
         startLine = 1 if meta["ignoreHeaderLines"] else 0
 
         selectedFields = list(filter(lambda f: f in fields, selectedFields))
@@ -92,6 +113,7 @@ class DatasetProcessor:
         if selectedFields:
             selectedIndices = []
             for field in selectedFields:
+                assert(field in fields)
                 selectedIndices.append(fields.index(field))
 
             data = []
