@@ -118,9 +118,10 @@ class MainAction:
 
             dialog = AddSpeciesDialog(species)
             dialog.exec_()
-            newSpecies, vernacularName = dialog.newSpecies
 
-            if newSpecies:
+            if dialog.newSpecies:
+                newSpecies, vernacularName = dialog.newSpecies
+
                 self.selectedSpecies[newSpecies] = Species()
                 newColor = self.selectedSpecies[newSpecies].color
                 self.mainWindow.addSpeciesToLayout(newSpecies, vernacularName, newColor)

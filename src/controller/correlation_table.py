@@ -25,6 +25,7 @@ class CorrelationTable:
         self.spatialAnalysisWidget = spatialAnalysisWidget
         self.temporalAnalysisWidget = temporalAnalysisWidget
 
+    # noinspection PyTypeChecker
     def add(self, newSpecies):
         """
         Insert all possible combinations of the new species into the correlation quotient table.
@@ -40,8 +41,13 @@ class CorrelationTable:
             if species != newSpecies:
                 sx = [r[0] for r in self.spatialData[newSpecies]]
                 sy = [r[0] for r in self.spatialData[species]]
-                tx = [r[0] for r in self.temporalData[newSpecies]]
-                ty = [r[0] for r in self.temporalData[species]]
+                tx = [r[0].timestamp() for r in self.temporalData[newSpecies]]
+                ty = [r[0].timestamp() for r in self.temporalData[species]]
+
+                if len(ty) > len(tx):
+                    tx[len(tx):len(ty)] = [float('NaN')] * (len(ty) - len(tx))
+                else:
+                    ty[len(ty):len(tx)] = [float('NaN')] * (len(tx) - len(ty))
 
                 sc = CorrelationCalculator.calculateSimilarity(sx, sy)
                 tc = stats.spearmanr(tx, ty)[0]
