@@ -118,9 +118,8 @@ class LeafletMap:
         """
 
         if self.spatialData and self.selectedSpecies:
-            coordinateList = [n[0] for m in self.spatialData for n in m]
-            coordinateSum = sum(coordinateList, ())
-            centerCoordinate = DatasetProcessor.randomEstimateLocation(coordinateSum)
+            allCoordinates = [n[0] for m in self.spatialData.values() for n in m]
+            centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
             zoom = self.zoom + 4
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom,
                                    tiles=self.tile, attr=self.attr)

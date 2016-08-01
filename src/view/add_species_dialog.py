@@ -33,21 +33,20 @@ class AddSpeciesDialog(QtWidgets.QDialog):
             key = s[0][0].upper()
             if key in outerItems:
                 outerItem = outerItems[key]
-                innerItem1 = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem1.setText(0, s[0])
-                innerItem2 = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem2.setText(1, s[1])
+                innerItem = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem.setText(0, s[0])
+                innerItem.setText(1, s[1])
             else:
                 outerItem = QtWidgets.QTreeWidgetItem()
                 outerItem.setText(0, key)
                 outerItems[key] = outerItem
-                innerItem1 = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem1.setText(0, s[0])
-                innerItem2 = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem2.setText(1, s[1])
+                innerItem = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem.setText(0, s[0])
+                innerItem.setText(1, s[1])
 
         self.treeWidget.insertTopLevelItems(0, list(outerItems.values()))
         self.treeWidget.sortItems(0, Qt.AscendingOrder)
+        self.treeWidget.header().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
         label = QtWidgets.QLabel("&Select a species: ")
         label.setBuddy(self.treeWidget)
