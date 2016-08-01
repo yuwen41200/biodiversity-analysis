@@ -17,8 +17,6 @@ Supported file format: Darwin Core Archive (DwC-A)
 
 ![screenshot 1](http://i.imgur.com/OzGaaYa.png "screenshot 1")
 
-![screenshot 2](http://i.imgur.com/aLUQ9Kk.png "screenshot 2")
-
 ## Getting Started ##
 
 Download the repository and execute the following command:
@@ -32,7 +30,7 @@ source ./install.sh
 Make sure you have installed all dependencies:
 
 ```bash
-sudo apt-get install python3.5 python3.5-venv python3-matplotlib
+sudo apt-get install python3.5 python3.5-venv python3-numpy python3-scipy python3-matplotlib
 ```
 
 This program has been tested on Ubuntu 15.10 and above,  

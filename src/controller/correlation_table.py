@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from scipy import stats
+
 from lib.correlation_calculator import CorrelationCalculator
 
 
@@ -17,7 +19,9 @@ class CorrelationTable:
         """
 
         self.spatialData = dataset.spatialData
+        self.temporalData = dataset.temporalData
         self.selectedSpecies = dataset.selectedSpecies
+
         self.spatialAnalysisWidget = spatialAnalysisWidget
         self.temporalAnalysisWidget = temporalAnalysisWidget
 
@@ -30,18 +34,23 @@ class CorrelationTable:
         """
 
         self.spatialAnalysisWidget.disableAutoSort()
+        self.temporalAnalysisWidget.disableAutoSort()
 
         for species in self.selectedSpecies:
             if species != newSpecies:
-                similarity = CorrelationCalculator.calculateSimilarity(
-                    [r[0] for r in self.spatialData[newSpecies]],
-                    [r[0] for r in self.spatialData[species]]
-                )
-                self.spatialAnalysisWidget.addSpeciesToTable(
-                    newSpecies, species, similarity
-                )
+                sx = [r[0] for r in self.spatialData[newSpecies]]
+                sy = [r[0] for r in self.spatialData[species]]
+                tx = [r[0] for r in self.temporalData[newSpecies]]
+                ty = [r[0] for r in self.temporalData[species]]
+
+                sc = CorrelationCalculator.calculateSimilarity(sx, sy)
+                tc = stats.spearmanr(tx, ty)[0]
+
+                self.spatialAnalysisWidget.addSpeciesToTable(newSpecies, species, sc)
+                self.temporalAnalysisWidget.addSpeciesToTable(newSpecies, species, tc)
 
         self.spatialAnalysisWidget.enableAutoSort()
+        self.temporalAnalysisWidget.enableAutoSort()
 
     def remove(self, oldSpecies=None):
         """
@@ -53,10 +62,14 @@ class CorrelationTable:
         """
 
         self.spatialAnalysisWidget.disableAutoSort()
+        self.temporalAnalysisWidget.disableAutoSort()
 
         if oldSpecies is None:
             self.spatialAnalysisWidget.removeSpeciesFromTable()
+            self.temporalAnalysisWidget.removeSpeciesFromTable()
         else:
             self.spatialAnalysisWidget.removeSpeciesFromTable(oldSpecies)
+            self.temporalAnalysisWidget.removeSpeciesFromTable(oldSpecies)
 
         self.spatialAnalysisWidget.enableAutoSort()
+        self.temporalAnalysisWidget.enableAutoSort()
