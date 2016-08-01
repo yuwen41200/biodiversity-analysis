@@ -25,6 +25,7 @@ class MainAction:
         self.spatialData = dataset.spatialData
         self.selectedSpecies = dataset.selectedSpecies
         self.license = dataset.license
+        self.supportedCores = dataset.supportedCores
 
         self.map = LeafletMap(dataset, "Landscape")
         self.plot = ScatterPlot(dataset)
@@ -50,10 +51,19 @@ class MainAction:
 
         if filename:
             try:
-                archiveData = DatasetProcessor.extractDarwinCoreArchive(filename)
-                columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
-                dataList = DatasetProcessor.extractCsv(archiveData, columns)[1]
+                darwinCoreData, darwinCoreMeta = DatasetProcessor.extractDarwinCoreArchive(filename)
 
+                if darwinCoreMeta["coreType"] not in self.supportedCores:
+                    title = "Invalid Dariwn Core type"
+                    content = (
+                        "The provided DwC-A has core type of " + darwinCoreMeta["coreType"] + "\n"
+                        "We only support " + ",".join(self.supportedCores)
+                    )
+                    self.mainWindow.alert(title, content, 3)
+                    return
+
+                columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
+                dataList = DatasetProcessor.extractCsv(darwinCoreData, darwinCoreMeta, columns)
             except:
                 title = "Invalid DwC-A File"
                 content = (

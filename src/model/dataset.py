@@ -24,6 +24,7 @@ class Dataset:
         self.temporalData = MultiDict()
         self.auxiliaryData = dict()
         self.selectedSpecies = {}
+        self.supportedCores = ["Occurrence"]
 
     @staticmethod
     def license():
