@@ -13,15 +13,15 @@ class AddSpeciesDialog(QtWidgets.QDialog):
         """
         Construct a dialog that allows the user to select a new species.
 
-        :param species: List of distinct and unselected species in ``Dataset.dataset``.
+        :param species: List of distinct and unselected species in ``Dataset.spatialData``.
         """
 
         super().__init__()
-        self.species = species
+        self.species = [s[0] for s in species]
         self.newSpecies = ""
 
         self.treeWidget = QtWidgets.QTreeWidget()
-        self.treeWidget.setColumnCount(1)
+        self.treeWidget.setColumnCount(2)
         self.treeWidget.header().hide()
         self.treeWidget.setSizePolicy(QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -30,17 +30,21 @@ class AddSpeciesDialog(QtWidgets.QDialog):
 
         outerItems = {}
         for s in species:
-            key = s[0].upper()
+            key = s[0][0].upper()
             if key in outerItems:
                 outerItem = outerItems[key]
-                innerItem = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem.setText(0, s)
+                innerItem1 = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem1.setText(0, s[0])
+                innerItem2 = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem2.setText(1, s[1])
             else:
                 outerItem = QtWidgets.QTreeWidgetItem()
                 outerItem.setText(0, key)
                 outerItems[key] = outerItem
-                innerItem = QtWidgets.QTreeWidgetItem(outerItem)
-                innerItem.setText(0, s)
+                innerItem1 = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem1.setText(0, s[0])
+                innerItem2 = QtWidgets.QTreeWidgetItem(outerItem)
+                innerItem2.setText(1, s[1])
 
         self.treeWidget.insertTopLevelItems(0, list(outerItems.values()))
         self.treeWidget.sortItems(0, Qt.AscendingOrder)

@@ -8,9 +8,10 @@ class Dataset:
     """
     Store program data here.
 
-    :var self.spatialData: Dictionary of {species name: list of (x-coordinate, y-coordinate,
-                           amount) tuples}.
-    :var self.temporalData: Dictionary of {species name: list of timestamps}.
+    :var self.spatialData: Dictionary of {species name: list of (coordinate, amount) tuples}. |br|
+                           Coordinate is a (y-coordinate, x-coordinate) tuple.
+    :var self.temporalData: Dictionary of {species name: list of (timestamp, amount) tuples}. |br|
+                            Timestamp is a Python datetime object.
     :var self.auxiliaryData: Dictionary of {species name: its vernacular name}.
     :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
     """

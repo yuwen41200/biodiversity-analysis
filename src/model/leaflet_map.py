@@ -76,12 +76,12 @@ class LeafletMap:
         if len(self.selectedSpecies) == 1:
             self.rebuild()
 
-        for coordinate in self.spatialData[newSpecies]:
+        for coordinate, amount in self.spatialData[newSpecies]:
             color = self.selectedSpecies[newSpecies].color
             self.fMap.circle_marker(
                 popup=newSpecies,
                 location=coordinate,
-                radius=150,
+                radius=amount*100,
                 line_color=color,
                 fill_color=color,
                 fill_opacity=1
@@ -118,8 +118,9 @@ class LeafletMap:
         """
 
         if self.spatialData and self.selectedSpecies:
-            allCoordinates = sum(self.spatialData.values(), [])
-            centerCoordinate = DatasetProcessor.randomEstimateLocation(allCoordinates)
+            coordinateList = [n[0] for m in self.spatialData for n in m]
+            coordinateSum = sum(coordinateList, ())
+            centerCoordinate = DatasetProcessor.randomEstimateLocation(coordinateSum)
             zoom = self.zoom + 4
             self.fMap = folium.Map(location=centerCoordinate, zoom_start=zoom,
                                    tiles=self.tile, attr=self.attr)

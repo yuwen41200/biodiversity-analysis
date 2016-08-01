@@ -99,10 +99,5 @@ class DatasetProcessor:
             draw = dataNum
 
         randomDraws = sample(coordinates, draw)
-
-        # Ensure they are floats, not strings.
-        for idx, val in enumerate(randomDraws):
-            randomDraws[idx] = (float(val[0]), float(val[1]))
-
         coordSum = reduce(lambda a, b: (a[0] + b[0], a[1] + b[1]), randomDraws)
         return coordSum[0] / draw, coordSum[1] / draw

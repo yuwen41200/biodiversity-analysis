@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from dateutil.parser import parse
+
 from model.species import Species
 from model.leaflet_map import LeafletMap
 from model.scatter_plot import ScatterPlot
@@ -13,7 +15,6 @@ from lib.dataset_processor import DatasetProcessor
 
 # noinspection PyPep8Naming
 class MainAction:
-
     def __init__(self, dataset, mainWindow):
         """
         Initialize the controller for the main window.
@@ -23,6 +24,8 @@ class MainAction:
         """
 
         self.spatialData = dataset.spatialData
+        self.temporalData = dataset.temporalData
+        self.auxiliaryData = dataset.auxiliaryData
         self.selectedSpecies = dataset.selectedSpecies
         self.license = dataset.license
 
@@ -51,7 +54,14 @@ class MainAction:
         if filename:
             try:
                 archiveData = DatasetProcessor.extractDarwinCoreArchive(filename)
-                columns = ["decimalLatitude", "decimalLongitude", "scientificName"]
+                columns = [
+                    "individualCount",
+                    "eventDate",
+                    "decimalLatitude",
+                    "decimalLongitude",
+                    "scientificName",
+                    "vernacularName"
+                ]
                 dataList = DatasetProcessor.extractCsv(archiveData, columns)[1]
 
             except:
@@ -64,7 +74,10 @@ class MainAction:
                 return
 
             for r in dataList:
-                self.spatialData[r[2]] = (r[0], r[1])
+                r0int = int(r[0])
+                self.spatialData[r[4]] = ((float(r[2]), float(r[3])), r0int)
+                self.temporalData[r[4]] = (parse(r[1]), r0int)
+                self.auxiliaryData[r[4]] = r[5]
 
             title = "Dataset Successfully Imported"
             content = "{:,d} records have been loaded.".format(len(dataList))
@@ -89,7 +102,8 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            species = [k for k in self.spatialData.keys() if k not in self.selectedSpecies]
+            species = [(k, self.auxiliaryData[k]) for k in self.spatialData.keys()
+                       if k not in self.selectedSpecies]
 
             dialog = AddSpeciesDialog(species)
             dialog.exec_()

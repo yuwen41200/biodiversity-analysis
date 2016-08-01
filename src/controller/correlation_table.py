@@ -34,7 +34,8 @@ class CorrelationTable:
         for species in self.selectedSpecies:
             if species != newSpecies:
                 similarity = CorrelationCalculator.calculateSimilarity(
-                    self.spatialData[newSpecies], self.spatialData[species]
+                    [r[0] for r in self.spatialData[newSpecies]],
+                    [r[0] for r in self.spatialData[species]]
                 )
                 self.spatialAnalysisWidget.addSpeciesToTable(
                     newSpecies, species, similarity
