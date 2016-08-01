@@ -5,7 +5,8 @@ from zipfile import ZipFile
 from random import sample
 from fnmatch import fnmatch
 from functools import reduce
-from xml.etree import ElementTree
+from xml.dom import minidom
+from codecs import unicode_escape_decode
 
 
 # noinspection PyPep8Naming
@@ -25,31 +26,83 @@ class DatasetProcessor:
         return zipHandle.read(fullFilename)
 
     @staticmethod
+    def getXmlAttribute(dom, attribute, default=None):
+        return (unicode_escape_decode(dom.attributes[attribute].value)[0]
+                if attribute in dom.attributes.keys() else default)
+
+    @staticmethod
+    def extractDarwinCoreField(core):
+        """
+        Extract fields of a given core.
+
+        :param core: DOM object of the core.
+        :return: Fields of the given core, sorted by index.
+        """
+
+        idDom = core.getElementsByTagName("id")
+        doms = core.getElementsByTagName("field")
+        indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index")) for dom in doms]
+        fields = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
+        sortedFields = sorted(zip(indexes, fields), key=lambda field: field[0])
+
+        idIndex = int(DatasetProcessor.getXmlAttribute(idDom[0], "index", "0")) if idDom else 0
+        fields = list(map(lambda field: field[1], sortedFields))
+        fields.insert(idIndex, "id")
+
+        return fields
+
+    @staticmethod
+    def extractDarwinCoreType(rowType):
+        """
+        Determine the type of the core, given rowType URI. |br|
+        See http://tdwg.github.io/dwc/terms/guides/text/#coreTag for all available types.
+
+        :param rowType: The rowType URI.
+        :return: The type of the core.
+        """
+
+        return rowType.split("/")[-1]
+
+    @staticmethod
     def extractDarwinCoreArchive(filename):
         """
         Extract data from a Darwin Core Archive (DwC-A) file.
 
         :param filename: The name of the Darwin Core Archive (DwC-A) file.
-        :return: The extracted data.
+        :return: Extracted data and metadata, in tuple.
         """
 
         with ZipFile(filename) as zipped:
             meta = DatasetProcessor.readFileFromZip(zipped, "meta.xml")
 
             # Get the name of the data file by parsing ``meta.xml``.
-            xml = ElementTree.fromstring(meta)
-            xmlNamespace = xml.tag.split("archive")[0]
-            dataFilename = xml.find(".//" + xmlNamespace + "location").text
+            xml = minidom.parseString(meta)
+            core = xml.getElementsByTagName("core")[0]
+            metaDefaults = {
+                "encoding": "utf-8",
+                "fieldsTerminatedBy": ",",
+                "linesTerminatedBy": "\n",
+                "rowType": "http://rs.tdwg.org/dwc/xsd/simpledarwincore/SimpleDarwinRecord",
+                "ignoreHeaderLines": "1"
+            }
+            metadata = {key: DatasetProcessor.getXmlAttribute(core, key, default=default)
+                        for key, default in metaDefaults.items()}
+
+            metadata["fields"] = DatasetProcessor.extractDarwinCoreField(core)
+            metadata["coreType"] = DatasetProcessor.extractDarwinCoreType(metadata["rowType"])
+            metadata["ignoreHeaderLines"] = bool(metadata["ignoreHeaderLines"])
+            dataFilename = core.getElementsByTagName("location")[0].firstChild.data
 
             return (DatasetProcessor.readFileFromZip(zipped, dataFilename)
-                    .decode(encoding="utf-8"))
+                    .decode(encoding=metadata["encoding"]), metadata)
 
     @staticmethod
-    def extractCsv(csvStr, selectedFields=None):
+    def extractCsv(csvStr, metadata, selectedFields=None):
         """
         Select data from a CSV-formatted string.
 
         :param csvStr: The string representing the CSV data.
+        :param metadata: The metadata of this CSV data.
         :param selectedFields: The list of selected fields.
         :return: The list of records. |br|
                  Each record is a list containing only the selected fields.
@@ -58,29 +111,30 @@ class DatasetProcessor:
         if selectedFields is None:
             selectedFields = []
 
-        lines = csvStr.split('\n')
-        delimiter = ',' if ',' in lines[0] else '\t'
-        fields = lines[0].split(delimiter)
+        fields = metadata["fields"]
+        delimiter = metadata["fieldsTerminatedBy"]
+        lines = csvStr.split(metadata["linesTerminatedBy"])
+        startLine = 1 if metadata["ignoreHeaderLines"] else 0
 
         selectedFields = list(filter(lambda f: f in fields, selectedFields))
 
         if selectedFields:
             selectedIndices = []
             for field in selectedFields:
+                assert(field in fields)
                 selectedIndices.append(fields.index(field))
 
             data = []
-            for line in lines[1:]:
+            for line in lines[startLine:]:
                 if line:
                     _line = line.split(delimiter)
                     data.append([_line[i] for i in selectedIndices])
 
         else:
             # Default: select all fields.
-            selectedIndices = range(len(fields))
-            data = [line.split(delimiter) for line in lines[1:]]
+            data = [line.split(delimiter) for line in lines[startLine:]]
 
-        return selectedIndices, data
+        return data
 
     @staticmethod
     def randomEstimateLocation(coordinates):

@@ -3,6 +3,7 @@
 
 from dateutil.parser import parse
 
+from model.dataset import Dataset
 from model.species import Species
 from model.leaflet_map import LeafletMap
 from model.scatter_plot import ScatterPlot
@@ -27,7 +28,6 @@ class MainAction:
         self.temporalData = dataset.temporalData
         self.auxiliaryData = dataset.auxiliaryData
         self.selectedSpecies = dataset.selectedSpecies
-        self.license = dataset.license
 
         self.map = LeafletMap(dataset, "Landscape")
         self.plot = ScatterPlot(dataset)
@@ -53,7 +53,17 @@ class MainAction:
 
         if filename:
             try:
-                archiveData = DatasetProcessor.extractDarwinCoreArchive(filename)
+                archiveData, archiveMeta = DatasetProcessor.extractDarwinCoreArchive(filename)
+
+                if archiveMeta["coreType"] not in Dataset.supportedCores:
+                    title = "Unsupported DwC Type"
+                    content = (
+                        "The provided file has core type of " + archiveMeta["coreType"] + ".\n"
+                        "This program only support " + ", ".join(Dataset.supportedCores) + "."
+                    )
+                    self.mainWindow.alert(title, content, 3)
+                    return
+
                 columns = [
                     "individualCount",
                     "eventDate",
@@ -62,7 +72,8 @@ class MainAction:
                     "scientificName",
                     "vernacularName"
                 ]
-                dataList = DatasetProcessor.extractCsv(archiveData, columns)[1]
+
+                dataList = DatasetProcessor.extractCsv(archiveData, archiveMeta, columns)
 
             except:
                 title = "Invalid DwC-A File"
@@ -154,5 +165,5 @@ class MainAction:
         """
 
         title = "About Biodiversity Analysis"
-        content = self.license()
+        content = Dataset.license()
         self.mainWindow.alert(title, content, 4)

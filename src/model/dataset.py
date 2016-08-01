@@ -16,6 +16,8 @@ class Dataset:
     :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
     """
 
+    supportedCores = ["Occurrence"]
+
     def __init__(self):
         """
         Initialize the dataset.
