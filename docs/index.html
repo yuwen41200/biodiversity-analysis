@@ -270,7 +270,7 @@ See <a class="reference external" href="http://goo.gl/4VSrg6">http://goo.gl/4VSr
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="staticmethod">
 <dt id="lib.dataset_processor.DatasetProcessor.extractCsv">
-<em class="property">static </em><code class="descname">extractCsv</code><span class="sig-paren">(</span><em>csvStr</em>, <em>selectedFields=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractCsv" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">extractCsv</code><span class="sig-paren">(</span><em>csvStr</em>, <em>metadata</em>, <em>selectedFields=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractCsv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select data from a CSV-formatted string.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -278,6 +278,7 @@ See <a class="reference external" href="http://goo.gl/4VSrg6">http://goo.gl/4VSr
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>csvStr</strong> &#8211; The string representing the CSV data.</li>
+<li><strong>metadata</strong> &#8211; The metadata of this CSV data.</li>
 <li><strong>selectedFields</strong> &#8211; The list of selected fields.</li>
 </ul>
 </td>
@@ -300,7 +301,62 @@ Each record is a list containing only the selected fields.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; The name of the Darwin Core Archive (DwC-A) file.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The extracted data.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Extracted data and metadata, in tuple.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.extractDarwinCoreField">
+<em class="property">static </em><code class="descname">extractDarwinCoreField</code><span class="sig-paren">(</span><em>core</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractDarwinCoreField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract fields of a given core.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>core</strong> &#8211; DOM object of the core.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Fields of the given core, sorted by index.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.extractDarwinCoreType">
+<em class="property">static </em><code class="descname">extractDarwinCoreType</code><span class="sig-paren">(</span><em>rowType</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.extractDarwinCoreType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the type of the core, given rowType URI. <br>
+See <a class="reference external" href="http://tdwg.github.io/dwc/terms/guides/text/#coreTag">http://tdwg.github.io/dwc/terms/guides/text/#coreTag</a> for all available types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>rowType</strong> &#8211; The rowType URI.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The type of the core.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.dataset_processor.DatasetProcessor.getXmlAttribute">
+<em class="property">static </em><code class="descname">getXmlAttribute</code><span class="sig-paren">(</span><em>dom</em>, <em>attribute</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.dataset_processor.DatasetProcessor.getXmlAttribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the value of an attribute in a DOM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dom</strong> &#8211; DOM object.</li>
+<li><strong>attribute</strong> &#8211; Attribute name.</li>
+<li><strong>default</strong> &#8211; If <code class="docutils literal"><span class="pre">attribute</span></code> is not found in <code class="docutils literal"><span class="pre">dom</span></code>, apply this value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Value of <code class="docutils literal"><span class="pre">attribute</span></code> in <code class="docutils literal"><span class="pre">dom</span></code>.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -444,9 +500,10 @@ e.g. Inserting {&#8216;k&#8217;: &#8216;v1&#8217;, &#8216;k&#8217;: &#8216;v2&#8
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>self.spatialData</strong> &#8211; Dictionary of {species name: list of (x-coordinate, y-coordinate,
-amount) tuples}.</li>
-<li><strong>self.temporalData</strong> &#8211; Dictionary of {species name: list of timestamps}.</li>
+<li><strong>self.spatialData</strong> &#8211; Dictionary of {species name: list of (coordinate, amount) tuples}. <br>
+Coordinate is a (y-coordinate, x-coordinate) tuple.</li>
+<li><strong>self.temporalData</strong> &#8211; Dictionary of {species name: list of (timestamp, amount) tuples}. <br>
+Timestamp is a Python datetime object.</li>
 <li><strong>self.auxiliaryData</strong> &#8211; Dictionary of {species name: its vernacular name}.</li>
 <li><strong>self.selectedSpecies</strong> &#8211; Dictionary of {selected species name: its Species object}.</li>
 </ul>
@@ -473,6 +530,11 @@ amount) tuples}.</li>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="model.dataset.Dataset.supportedCores">
+<code class="descname">supportedCores</code><em class="property"> = ['Occurrence']</em><a class="headerlink" href="#model.dataset.Dataset.supportedCores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -563,7 +625,7 @@ amount) tuples}.</li>
 
 <dl class="attribute">
 <dt id="model.leaflet_map.LeafletMap.tiles">
-<code class="descname">tiles</code><em class="property"> = {'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ'), 'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tiles</code><em class="property"> = {'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;'), 'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -672,7 +734,7 @@ Use the plot in <a class="reference external" href="http://matplotlib.org/exampl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>species</strong> &#8211; List of distinct and unselected species in <code class="docutils literal"><span class="pre">Dataset.dataset</span></code>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>species</strong> &#8211; List of distinct and unselected species in <code class="docutils literal"><span class="pre">Dataset.spatialData</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -841,14 +903,15 @@ This method overrides that in QLabel.</p>
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.addSpeciesToLayout">
-<code class="descname">addSpeciesToLayout</code><span class="sig-paren">(</span><em>newSpecies</em>, <em>newColor</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.addSpeciesToLayout" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addSpeciesToLayout</code><span class="sig-paren">(</span><em>newSpecies</em>, <em>vernacularName</em>, <em>newColor</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.addSpeciesToLayout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a new species to the species layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>newSpecies</strong> &#8211; Name of the new species to be added.</li>
+<li><strong>newSpecies</strong> &#8211; Scientific name of the new species to be added.</li>
+<li><strong>vernacularName</strong> &#8211; Vernacular name of the new species to be added.</li>
 <li><strong>newColor</strong> &#8211; Color of the new species to be added.</li>
 </ul>
 </td>
