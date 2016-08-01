@@ -28,12 +28,12 @@ class DatasetProcessor:
     @staticmethod
     def getXmlAttribute(dom, attribute, default=None):
         """
-        Retrieve the value of attribute in the dom.
+        Retrieve the value of an attribute in a DOM.
 
-        :param dom: DOM object
-        :param attribute: attribute name
-        :param default: if `attribute` is not found in `dom`, apply this value
-        :return: value of `attribute` in `dom`
+        :param dom: DOM object.
+        :param attribute: Attribute name.
+        :param default: If ``attribute`` is not found in ``dom``, apply this value.
+        :return: Value of ``attribute`` in ``dom``.
         """
 
         return (unicode_escape_decode(dom.attributes[attribute].value)[0]
@@ -49,9 +49,9 @@ class DatasetProcessor:
         """
 
         idDom = core.getElementsByTagName("id")
-        doms  = core.getElementsByTagName("field")
+        doms = core.getElementsByTagName("field")
         indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index")) for dom in doms]
-        fields  = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
+        fields = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
         sortedFields = sorted(zip(indexes, fields), key=lambda field: field[0])
 
         idIndex = int(DatasetProcessor.getXmlAttribute(idDom[0], "index", "0")) if idDom else 0
