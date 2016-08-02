@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from numpy import random
 from scipy import stats
 
 from lib.correlation_calculator import CorrelationCalculator
@@ -45,9 +46,9 @@ class CorrelationTable:
                 ty = [r[0].timestamp() for r in self.temporalData[species]]
 
                 if len(ty) > len(tx):
-                    tx[len(tx):len(ty)] = [float('NaN')] * (len(ty) - len(tx))
-                else:
-                    ty[len(ty):len(tx)] = [float('NaN')] * (len(tx) - len(ty))
+                    ty = random.choice(ty, size=len(tx), replace=False)
+                elif len(ty) < len(tx):
+                    tx = random.choice(tx, size=len(ty), replace=False)
 
                 sc = CorrelationCalculator.calculateSimilarity(sx, sy)
                 tc = stats.spearmanr(tx, ty)[0]

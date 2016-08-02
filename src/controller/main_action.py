@@ -9,6 +9,7 @@ from model.leaflet_map import LeafletMap
 from model.scatter_plot import ScatterPlot
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
+from view.set_filters_dialog import SetFiltersDialog
 from view.add_species_dialog import AddSpeciesDialog
 from controller.correlation_table import CorrelationTable
 from lib.dataset_processor import DatasetProcessor
@@ -94,6 +95,36 @@ class MainAction:
             content = "{:,d} records have been loaded.".format(len(dataList))
             self.mainWindow.alert(title, content, 0)
 
+    def setFilters(self):
+        """
+        Only leave filtered data in ``Dataset``.
+
+        :return: None.
+        """
+
+        if not self.spatialData:
+            title, content = "Empty Dataset", "Please import data first."
+            self.mainWindow.alert(title, content, 3)
+
+        else:
+            xCoordinates, yCoordinates = [], []
+            for m in self.spatialData.values():
+                for n in m:
+                    xCoordinates.append(n[0][1])
+                    yCoordinates.append(n[0][0])
+
+            timestamps = [r[0] for r in self.temporalData.values()]
+
+            xCoordinateMinMax = (min(xCoordinates), max(xCoordinates))
+            yCoordinateMinMax = (min(yCoordinates), max(yCoordinates))
+            timestampMinMax = (min(timestamps), max(timestamps))
+
+            dialog = SetFiltersDialog(xCoordinateMinMax, yCoordinateMinMax, timestampMinMax)
+            dialog.exec_()
+
+            if dialog.xCoordinateMinMax:
+                pass
+
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
         """
@@ -156,12 +187,19 @@ class MainAction:
         :return: None.
         """
 
-        self.spatialData.clear()
-        self.selectedSpecies.clear()
-        self.mainWindow.removeSpeciesFromLayout()
-        self.map.rebuild()
-        self.map.refresh()
-        self.correlationTable.remove()
+        if not self.spatialData:
+            title, content = "Empty Dataset", "Please import data first."
+            self.mainWindow.alert(title, content, 3)
+
+        else:
+            self.spatialData.clear()
+            self.temporalData.clear()
+            self.auxiliaryData.clear()
+            self.selectedSpecies.clear()
+            self.mainWindow.removeSpeciesFromLayout()
+            self.map.rebuild()
+            self.map.refresh()
+            self.correlationTable.remove()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def about(self):

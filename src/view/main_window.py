@@ -46,6 +46,10 @@ class MainWindow(QtWidgets.QMainWindow):
         importDataAction.setStatusTip("Click to import data.")
         importDataAction.triggered.connect(self.action.importData)
 
+        setFiltersAction = menuBar.addAction("&Set Filters")
+        setFiltersAction.setStatusTip("Click to set filters.")
+        setFiltersAction.triggered.connect(self.action.setFilters)
+
         addSpeciesAction = menuBar.addAction("&Add Species")
         addSpeciesAction.setStatusTip("Click to add species.")
         addSpeciesAction.triggered.connect(self.action.addSpecies)
@@ -59,7 +63,7 @@ class MainWindow(QtWidgets.QMainWindow):
         aboutAction.triggered.connect(self.action.about)
 
         tabWidget = QtWidgets.QTabWidget(self)
-        tabWidget.addTab(spatialAnalysisWidget, "&Spatial Analysis")
+        tabWidget.addTab(spatialAnalysisWidget, "S&patial Analysis")
         tabWidget.addTab(temporalAnalysisWidget, "&Temporal Analysis")
 
         self.speciesLayout.setAlignment(Qt.AlignLeft)
