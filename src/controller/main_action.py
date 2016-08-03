@@ -118,12 +118,15 @@ class MainAction:
             dialog = SetFiltersDialog(xCoordinateMinMax, yCoordinateMinMax, timestampMinMax)
             dialog.exec_()
 
+            if not dialog.xCoordinateMinMax:
+                return
+
             for k in list(self.spatialData.keys()):
                 for i, u in enumerate(self.spatialData[k]):
                     v = self.temporalData[k][i]
                     if (
                         dialog.xCoordinateMinMax[0] <= u[0][1] <= dialog.xCoordinateMinMax[1] and
-                        dialog.yCoordinateMinMax[0] <= u[0][0] < dialog.yCoordinateMinMax[1] and
+                        dialog.yCoordinateMinMax[0] <= u[0][0] <= dialog.yCoordinateMinMax[1] and
                         dialog.timestampMinMax[0] <= v[0] <= dialog.timestampMinMax[1]
                     ):
                         break
