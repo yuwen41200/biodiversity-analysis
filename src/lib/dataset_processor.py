@@ -125,12 +125,11 @@ class DatasetProcessor:
         lines = csvStr.split(metadata["linesTerminatedBy"])
         startLine = 1 if metadata["ignoreHeaderLines"] else 0
 
-        selectedFields = list(filter(lambda f: f in fields, selectedFields))
-
         if selectedFields:
             selectedIndices = []
             for field in selectedFields:
-                assert(field in fields)
+                if field not in fields:
+                    raise ValueError("Required field '" + field + "' not found")
                 selectedIndices.append(fields.index(field))
 
             data = []

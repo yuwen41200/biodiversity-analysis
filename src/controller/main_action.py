@@ -74,9 +74,16 @@ class MainAction:
                     "vernacularName"
                 ]
 
-                dataList = DatasetProcessor.extractCsv(archiveData, archiveMeta, columns)
+                try:
+                    dataList = DatasetProcessor.extractCsv(archiveData, archiveMeta, columns)
+                except ValueError as e:
+                    title = "Invalid DwC-A File"
+                    content = str(e) + "\nPlease use a DwC-A with such field."
+                    self.mainWindow.alert(title, content, 3)
+                    return
 
             except:
+                print("base raised")
                 title = "Invalid DwC-A File"
                 content = (
                     "The provided file is either not in DwC-A format or corrupted.\n"
