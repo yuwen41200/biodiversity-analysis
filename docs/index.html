@@ -206,6 +206,20 @@ Store them in <code class="docutils literal"><span class="pre">Dataset</span></c
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="controller.main_action.MainAction.setFilters">
+<code class="descname">setFilters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.main_action.MainAction.setFilters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only leave filtered data in <code class="docutils literal"><span class="pre">Dataset</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -625,7 +639,7 @@ Timestamp is a Python datetime object.</li>
 
 <dl class="attribute">
 <dt id="model.leaflet_map.LeafletMap.tiles">
-<code class="descname">tiles</code><em class="property"> = {'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;'), 'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tiles</code><em class="property"> = {'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ'), 'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1008,6 +1022,49 @@ If the old species is not given, remove all species.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-view.set_filters_dialog">
+<span id="view-set-filters-dialog"></span><h1>view.set_filters_dialog<a class="headerlink" href="#module-view.set_filters_dialog" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="view.set_filters_dialog.SetFiltersDialog">
+<em class="property">class </em><code class="descclassname">view.set_filters_dialog.</code><code class="descname">SetFiltersDialog</code><span class="sig-paren">(</span><em>xCoordinateMinMax</em>, <em>yCoordinateMinMax</em>, <em>timestampMinMax</em><span class="sig-paren">)</span><a class="headerlink" href="#view.set_filters_dialog.SetFiltersDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QDialog</span></code></p>
+<dl class="method">
+<dt id="view.set_filters_dialog.SetFiltersDialog.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>xCoordinateMinMax</em>, <em>yCoordinateMinMax</em>, <em>timestampMinMax</em><span class="sig-paren">)</span><a class="headerlink" href="#view.set_filters_dialog.SetFiltersDialog.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a dialog that allows the user to select a space-time range. <br>
+This range will be used to filter a population.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xCoordinateMinMax</strong> &#8211; The range of the x-coordinates in the population.</li>
+<li><strong>yCoordinateMinMax</strong> &#8211; The range of the y-coordinates in the population.</li>
+<li><strong>timestampMinMax</strong> &#8211; The range of the timestamps in the population.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="view.set_filters_dialog.SetFiltersDialog.setFiltersHandler">
+<code class="descname">setFiltersHandler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.set_filters_dialog.SetFiltersDialog.setFiltersHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler function for the &#8220;Filter&#8221; button.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-view.spatial_analysis_widget">
 <span id="view-spatial-analysis-widget"></span><h1>view.spatial_analysis_widget<a class="headerlink" href="#module-view.spatial_analysis_widget" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
@@ -1082,6 +1139,7 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 <li><a class="reference internal" href="#module-view.analysis_widget">view.analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.clickable_label">view.clickable_label</a></li>
 <li><a class="reference internal" href="#module-view.main_window">view.main_window</a></li>
+<li><a class="reference internal" href="#module-view.set_filters_dialog">view.set_filters_dialog</a></li>
 <li><a class="reference internal" href="#module-view.spatial_analysis_widget">view.spatial_analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.temporal_analysis_widget">view.temporal_analysis_widget</a></li>
 </ul>

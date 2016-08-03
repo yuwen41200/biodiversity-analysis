@@ -131,6 +131,15 @@ view.main_window
    :special-members: __init__
    :show-inheritance:
 
+view.set_filters_dialog
+=======================
+
+.. automodule:: view.set_filters_dialog
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 view.spatial_analysis_widget
 ============================
 
