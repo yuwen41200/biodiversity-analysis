@@ -26,7 +26,7 @@ class Dataset:
         self.spatialData = MultiDict()
         self.temporalData = MultiDict()
         self.auxiliaryData = dict()
-        self.selectedSpecies = {}
+        self.selectedSpecies = dict()
 
     @staticmethod
     def license():

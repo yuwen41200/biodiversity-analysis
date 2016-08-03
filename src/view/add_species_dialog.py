@@ -74,8 +74,7 @@ class AddSpeciesDialog(QtWidgets.QDialog):
         :return: None.
         """
 
-        if (self.treeWidget.selectedItems() and
-                self.treeWidget.selectedItems()[0].text(0) in self.species):
-            self.newSpecies = (self.treeWidget.selectedItems()[0].text(0),
-                               self.treeWidget.selectedItems()[0].text(1))
+        s = self.treeWidget.selectedItems()
+        if s and s[0].text(0) in self.species:
+            self.newSpecies = (s[0].text(0), s[0].text(1))
             self.done(0)

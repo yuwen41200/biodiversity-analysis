@@ -118,8 +118,26 @@ class MainAction:
             dialog = SetFiltersDialog(xCoordinateMinMax, yCoordinateMinMax, timestampMinMax)
             dialog.exec_()
 
-            if dialog.xCoordinateMinMax:
-                pass
+            for k in list(self.spatialData.keys()):
+                for i, u in enumerate(self.spatialData[k]):
+                    v = self.temporalData[k][i]
+                    if (
+                        dialog.xCoordinateMinMax[0] <= u[0][1] <= dialog.xCoordinateMinMax[1] and
+                        dialog.yCoordinateMinMax[0] <= u[0][0] < dialog.yCoordinateMinMax[1] and
+                        dialog.timestampMinMax[0] <= v[0] <= dialog.timestampMinMax[1]
+                    ):
+                        break
+                else:
+                    del self.spatialData[k]
+                    del self.temporalData[k]
+                    del self.auxiliaryData[k]
+                    if k in self.selectedSpecies:
+                        del self.selectedSpecies[k]
+
+            length = len([n for m in self.spatialData.values() for n in m])
+            title = "Filter Result"
+            content = "{:,d} records matches the specified range.".format(length)
+            self.mainWindow.alert(title, content, 0)
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def addSpecies(self):
