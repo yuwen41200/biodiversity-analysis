@@ -107,13 +107,9 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            xCoordinates, yCoordinates = [], []
-            for m in self.spatialData.values():
-                for n in m:
-                    xCoordinates.append(n[0][1])
-                    yCoordinates.append(n[0][0])
-
-            timestamps = [r[0] for r in self.temporalData.values()]
+            xCoordinates = [n[0][1] for m in self.spatialData.values() for n in m]
+            yCoordinates = [n[0][0] for m in self.spatialData.values() for n in m]
+            timestamps = [n[0] for m in self.temporalData.values() for n in m]
 
             xCoordinateMinMax = (min(xCoordinates), max(xCoordinates))
             yCoordinateMinMax = (min(yCoordinates), max(yCoordinates))
