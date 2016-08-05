@@ -24,12 +24,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.action = None
 
     # noinspection PyArgumentList
-    def setupWidgets(self, spatialAnalysisWidget, temporalAnalysisWidget, mainAction):
+    def setupWidgets(self, spatialAnalysisWidget, temporalAnalysisWidget,
+                     cooccurrenceAnalysisWidget, mainAction):
         """
         Construct all GUI elements on the main window.
 
         :param spatialAnalysisWidget: SpatialAnalysisWidget view.
         :param temporalAnalysisWidget: TemporalAnalysisWidget view.
+        :param cooccurrenceAnalysisWidget: CooccurrenceAnalysisWidget view.
         :param mainAction: MainAction controller.
         :return: None.
         """
@@ -65,6 +67,7 @@ class MainWindow(QtWidgets.QMainWindow):
         tabWidget = QtWidgets.QTabWidget(self)
         tabWidget.addTab(spatialAnalysisWidget, "S&patial Analysis")
         tabWidget.addTab(temporalAnalysisWidget, "&Temporal Analysis")
+        tabWidget.addTab(cooccurrenceAnalysisWidget, "C&o-occurrence Analysis")
 
         self.speciesLayout.setAlignment(Qt.AlignLeft)
 

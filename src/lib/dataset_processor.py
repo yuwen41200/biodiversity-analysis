@@ -129,7 +129,7 @@ class DatasetProcessor:
             selectedIndices = []
             for field in selectedFields:
                 if field not in fields:
-                    raise ValueError("Required field '" + field + "' not found")
+                    raise ValueError("Required field \"" + field + "\" not found.")
                 selectedIndices.append(fields.index(field))
 
             data = []

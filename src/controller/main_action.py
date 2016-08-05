@@ -9,6 +9,7 @@ from model.leaflet_map import LeafletMap
 from model.scatter_plot import ScatterPlot
 from view.spatial_analysis_widget import SpatialAnalysisWidget
 from view.temporal_analysis_widget import TemporalAnalysisWidget
+from view.cooccurrence_analysis_widget import CooccurrenceAnalysisWidget
 from view.set_filters_dialog import SetFiltersDialog
 from view.add_species_dialog import AddSpeciesDialog
 from controller.correlation_table import CorrelationTable
@@ -17,6 +18,7 @@ from lib.dataset_processor import DatasetProcessor
 
 # noinspection PyPep8Naming
 class MainAction:
+
     def __init__(self, dataset, mainWindow):
         """
         Initialize the controller for the main window.
@@ -34,10 +36,11 @@ class MainAction:
         self.plot = ScatterPlot(dataset)
         spatial = SpatialAnalysisWidget(self.map.webView)
         temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
+        cooccurrence = CooccurrenceAnalysisWidget()
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(spatial, temporal, self)
+        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -78,7 +81,7 @@ class MainAction:
                     dataList = DatasetProcessor.extractCsv(archiveData, archiveMeta, columns)
                 except ValueError as e:
                     title = "Invalid DwC-A File"
-                    content = str(e) + "\nPlease use a DwC-A with such field."
+                    content = str(e) + "\nPlease select a DwC-A file with such field."
                     self.mainWindow.alert(title, content, 3)
                     return
 
