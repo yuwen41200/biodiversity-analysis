@@ -3,9 +3,11 @@
 
 from PyQt5 import QtWidgets
 
+from view.analysis_widget import AnalysisWidget
+
 
 # noinspection PyPep8Naming
-class CooccurrenceAnalysisWidget(QtWidgets.QWidget):
+class CooccurrenceAnalysisWidget(AnalysisWidget):
 
     # noinspection PyArgumentList
     def __init__(self):
@@ -14,3 +16,12 @@ class CooccurrenceAnalysisWidget(QtWidgets.QWidget):
         """
 
         super().__init__()
+
+        label = QtWidgets.QLabel("Co-occurrence Quotient:")
+        label.setBuddy(self.tableWidget)
+
+        mainLayout = QtWidgets.QVBoxLayout()
+        mainLayout.addWidget(label)
+        mainLayout.addWidget(self.tableWidget)
+
+        self.setLayout(mainLayout)

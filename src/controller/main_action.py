@@ -13,6 +13,7 @@ from view.cooccurrence_analysis_widget import CooccurrenceAnalysisWidget
 from view.set_filters_dialog import SetFiltersDialog
 from view.add_species_dialog import AddSpeciesDialog
 from controller.correlation_table import CorrelationTable
+from controller.cooccurrence_calculation import CooccurrenceCalculation
 from lib.dataset_processor import DatasetProcessor
 
 
@@ -38,9 +39,10 @@ class MainAction:
         temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
         cooccurrence = CooccurrenceAnalysisWidget()
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
+        calculation = CooccurrenceCalculation(dataset, cooccurrence)
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self)
+        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self, calculation)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
