@@ -83,7 +83,6 @@ class MainAction:
                     return
 
             except:
-                print("base raised")
                 title = "Invalid DwC-A File"
                 content = (
                     "The provided file is either not in DwC-A format or corrupted.\n"
