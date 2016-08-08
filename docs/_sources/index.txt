@@ -5,6 +5,15 @@
 
    <br>
 
+controller.cooccurrence_calculation
+===================================
+
+.. automodule:: controller.cooccurrence_calculation
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 controller.correlation_table
 ============================
 
@@ -117,6 +126,15 @@ view.clickable_label
 ====================
 
 .. automodule:: view.clickable_label
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+view.cooccurrence_analysis_widget
+=================================
+
+.. automodule:: view.cooccurrence_analysis_widget
    :members:
    :undoc-members:
    :special-members: __init__

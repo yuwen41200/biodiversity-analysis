@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>controller.correlation_table &mdash; Biodiversity Analysis 0.1 documentation</title>
+    <title>controller.cooccurrence_calculation &mdash; Biodiversity Analysis 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -47,6 +47,87 @@
           <div class="body" role="main">
             
   <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-controller.cooccurrence_calculation">
+<span id="controller-cooccurrence-calculation"></span><h1>controller.cooccurrence_calculation<a class="headerlink" href="#module-controller.cooccurrence_calculation" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation">
+<em class="property">class </em><code class="descclassname">controller.cooccurrence_calculation.</code><code class="descname">CooccurrenceCalculation</code><span class="sig-paren">(</span><em>dataset</em>, <em>cooccurrenceAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS">
+<em class="property">class </em><code class="descname">STATUS</code><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.FINISHED">
+<code class="descname">FINISHED</code><em class="property"> = &lt;STATUS.FINISHED: 3&gt;</em><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.FINISHED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.IDLE">
+<code class="descname">IDLE</code><em class="property"> = &lt;STATUS.IDLE: 1&gt;</em><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.IDLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.RUNNING">
+<code class="descname">RUNNING</code><em class="property"> = &lt;STATUS.RUNNING: 2&gt;</em><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.STATUS.RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.__init__">
+<code class="descclassname">CooccurrenceCalculation.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>cooccurrenceAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the controller for the co-occurrence quotient table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>cooccurrenceAnalysisWidget</strong> &#8211; CooccurrenceAnalysisWidget view.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.active">
+<code class="descclassname">CooccurrenceCalculation.</code><code class="descname">active</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do the calculations in another process. <br>
+Triggered when the active page in the main window changed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.calculate">
+<em class="property">static </em><code class="descclassname">CooccurrenceCalculation.</code><code class="descname">calculate</code><span class="sig-paren">(</span><em>queue</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>&lt;&lt;&lt; TODO &gt;&gt;&gt; <br>
+Calculate co-occurrence quotient.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>queue</strong> &#8211; A <code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code> object to communicate between processes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-controller.correlation_table">
 <span id="controller-correlation-table"></span><h1>controller.correlation_table<a class="headerlink" href="#module-controller.correlation_table" title="Permalink to this headline">¶</a></h1>
@@ -651,42 +732,29 @@ Timestamp is a Python datetime object.</li>
 <dt id="model.scatter_plot.ScatterPlot">
 <em class="property">class </em><code class="descclassname">model.scatter_plot.</code><code class="descname">ScatterPlot</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="class">
-<dt id="model.scatter_plot.ScatterPlot.MplCanvas">
-<em class="property">class </em><code class="descname">MplCanvas</code><span class="sig-paren">(</span><em>width=5</em>, <em>height=4</em>, <em>dpi=100</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.MplCanvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">matplotlib.backends.backend_qt5agg.FigureCanvasQTAgg</span></code></p>
-<dl class="method">
-<dt id="model.scatter_plot.ScatterPlot.MplCanvas.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>width=5</em>, <em>height=4</em>, <em>dpi=100</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.MplCanvas.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct the canvas for the temporal distribution graph. <br>
-&lt;&lt;&lt; TODO &gt;&gt;&gt; <br>
-Use the plot in <a class="reference external" href="http://matplotlib.org/examples/pylab_examples/scatter_demo2.html">http://matplotlib.org/examples/pylab_examples/scatter_demo2.html</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>width</strong> &#8211; N/A.</li>
-<li><strong>height</strong> &#8211; N/A.</li>
-<li><strong>dpi</strong> &#8211; N/A.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="method">
 <dt id="model.scatter_plot.ScatterPlot.__init__">
-<code class="descclassname">ScatterPlot.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the matplotlib plot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> &#8211; Dataset model.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.scatter_plot.ScatterPlot.rebuild">
+<code class="descname">rebuild</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.rebuild" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the matplotlib plot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -903,6 +971,21 @@ This method overrides that in QLabel.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-view.cooccurrence_analysis_widget">
+<span id="view-cooccurrence-analysis-widget"></span><h1>view.cooccurrence_analysis_widget<a class="headerlink" href="#module-view.cooccurrence_analysis_widget" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="view.cooccurrence_analysis_widget.CooccurrenceAnalysisWidget">
+<em class="property">class </em><code class="descclassname">view.cooccurrence_analysis_widget.</code><code class="descname">CooccurrenceAnalysisWidget</code><a class="headerlink" href="#view.cooccurrence_analysis_widget.CooccurrenceAnalysisWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#view.analysis_widget.AnalysisWidget" title="view.analysis_widget.AnalysisWidget"><code class="xref py py-class docutils literal"><span class="pre">view.analysis_widget.AnalysisWidget</span></code></a></p>
+<dl class="method">
+<dt id="view.cooccurrence_analysis_widget.CooccurrenceAnalysisWidget.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#view.cooccurrence_analysis_widget.CooccurrenceAnalysisWidget.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the Co-occurrence Analysis page in the main window.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-view.main_window">
 <span id="view-main-window"></span><h1>view.main_window<a class="headerlink" href="#module-view.main_window" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
@@ -999,7 +1082,7 @@ If the old species is not given, remove all species.</p>
 
 <dl class="method">
 <dt id="view.main_window.MainWindow.setupWidgets">
-<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>spatialAnalysisWidget</em>, <em>temporalAnalysisWidget</em>, <em>mainAction</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setupWidgets</code><span class="sig-paren">(</span><em>spatialAnalysisWidget</em>, <em>temporalAnalysisWidget</em>, <em>cooccurrenceAnalysisWidget</em>, <em>mainAction</em>, <em>cooccurrenceCalculation</em><span class="sig-paren">)</span><a class="headerlink" href="#view.main_window.MainWindow.setupWidgets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct all GUI elements on the main window.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1008,7 +1091,9 @@ If the old species is not given, remove all species.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>spatialAnalysisWidget</strong> &#8211; SpatialAnalysisWidget view.</li>
 <li><strong>temporalAnalysisWidget</strong> &#8211; TemporalAnalysisWidget view.</li>
+<li><strong>cooccurrenceAnalysisWidget</strong> &#8211; CooccurrenceAnalysisWidget view.</li>
 <li><strong>mainAction</strong> &#8211; MainAction controller.</li>
+<li><strong>cooccurrenceCalculation</strong> &#8211; CooccurrenceCalculation controller.</li>
 </ul>
 </td>
 </tr>
@@ -1125,7 +1210,8 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">controller.correlation_table</a></li>
+<li><a class="reference internal" href="#">controller.cooccurrence_calculation</a></li>
+<li><a class="reference internal" href="#module-controller.correlation_table">controller.correlation_table</a></li>
 <li><a class="reference internal" href="#module-controller.main_action">controller.main_action</a></li>
 <li><a class="reference internal" href="#module-lib.correlation_calculator">lib.correlation_calculator</a></li>
 <li><a class="reference internal" href="#module-lib.dataset_processor">lib.dataset_processor</a></li>
@@ -1138,6 +1224,7 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 <li><a class="reference internal" href="#module-view.add_species_dialog">view.add_species_dialog</a></li>
 <li><a class="reference internal" href="#module-view.analysis_widget">view.analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.clickable_label">view.clickable_label</a></li>
+<li><a class="reference internal" href="#module-view.cooccurrence_analysis_widget">view.cooccurrence_analysis_widget</a></li>
 <li><a class="reference internal" href="#module-view.main_window">view.main_window</a></li>
 <li><a class="reference internal" href="#module-view.set_filters_dialog">view.set_filters_dialog</a></li>
 <li><a class="reference internal" href="#module-view.spatial_analysis_widget">view.spatial_analysis_widget</a></li>
