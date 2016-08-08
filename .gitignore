@@ -93,6 +93,7 @@ ENV/
 pip-selfcheck.json
 
 # Vim swap files
-.swp
-.swo
-.swn
+.sw[pon]
+
+# Coredump
+core

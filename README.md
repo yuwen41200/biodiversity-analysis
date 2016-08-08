@@ -10,6 +10,7 @@ A Project by Institute of Information Science, Academia Sinica
 * Spatial correlation quotient
 * Temporal distribution graph
 * Temporal correlation quotient
+* Co-occurrence quotient
 
 Supported file format: Darwin Core Archive (DwC-A)
 
