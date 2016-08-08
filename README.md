@@ -16,7 +16,7 @@ Supported file format: Darwin Core Archive (DwC-A)
 
 ## Screenshots ##
 
-![screenshot 1](http://i.imgur.com/OzGaaYa.png "screenshot 1")
+![screenshot 1](http://i.imgur.com/Ax53T7R.png "screenshot 1")
 
 ## Getting Started ##
 

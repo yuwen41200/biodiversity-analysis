@@ -79,7 +79,7 @@ class MainWindow(QtWidgets.QMainWindow):
         scrollArea = QtWidgets.QScrollArea(self)
         scrollArea.setWidget(speciesWidget)
         scrollArea.setWidgetResizable(True)
-        scrollArea.setMaximumHeight(55)
+        scrollArea.setMaximumHeight(60)
 
         mainLayout = QtWidgets.QVBoxLayout()
         mainLayout.addWidget(tabWidget)
