@@ -15,11 +15,17 @@ class ScatterPlot:
         :param dataset: Dataset model.
         """
 
-        figure = Figure(figsize=(5, 4), dpi=100)
+        figure = Figure()
         self.mplCanvas = FigureCanvasQTAgg(figure)
         axes = figure.add_subplot(111)
         axes.hold(False)
-        t = numpy.arange(0.0, 3.0, 0.01)
-        s = numpy.sin(2 * numpy.pi * t)
-        axes.plot(t, s)
+        a = numpy.arange(0.0, 3.0, 0.01)
+        b = numpy.sin(2 * numpy.pi * a)
+        color = [0.003 * _a / 0.003 * _a for _a in a]
+        size = [(15 * _b / (b[0] + 1.732)) ** 2 for _b in b]
+        axes.scatter(a, b, c=color, s=size, alpha=0.5, edgecolors='face')
+        axes.set_xlabel(r'$\Delta_i$', fontsize=20)
+        axes.set_ylabel(r'$\Delta_{i+1}$', fontsize=20)
+        axes.grid(True)
+        figure.tight_layout()
         self.mplCanvas.draw()
