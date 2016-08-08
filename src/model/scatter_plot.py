@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import numpy
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
+from PyQt5.QtWidgets import QSizePolicy
 
 
 class ScatterPlot:
@@ -15,17 +15,36 @@ class ScatterPlot:
         :param dataset: Dataset model.
         """
 
-        figure = Figure()
-        self.mplCanvas = FigureCanvasQTAgg(figure)
-        axes = figure.add_subplot(111)
-        axes.hold(False)
-        a = numpy.arange(0.0, 3.0, 0.01)
-        b = numpy.sin(2 * numpy.pi * a)
-        color = [0.003 * _a / 0.003 * _a for _a in a]
-        size = [(15 * _b / (b[0] + 1.732)) ** 2 for _b in b]
-        axes.scatter(a, b, c=color, s=size, alpha=0.5, edgecolors='face')
-        axes.set_xlabel(r'$\Delta_i$', fontsize=20)
-        axes.set_ylabel(r'$\Delta_{i+1}$', fontsize=20)
-        axes.grid(True)
-        figure.tight_layout()
+        self.temporalData = dataset.temporalData
+        self.selectedSpecies = dataset.selectedSpecies
+
+        self.figure = Figure()
+        self.mplCanvas = FigureCanvasQTAgg(self.figure)
+        self.mplCanvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.mplCanvas.updateGeometry()
+        self.axes = self.figure.add_subplot(111)
+        self.axes.hold(False)
+
+        self.rebuild()
+
+    def rebuild(self):
+        """
+        Rebuild the matplotlib plot.
+
+        :return: None.
+        """
+
+        months, hours, colors, sizes = [], [], [], []
+        for key, value in self.selectedSpecies.items():
+            for timestamp, amount in self.temporalData[key]:
+                months.append(timestamp.month)
+                hours.append(timestamp.hour)
+                colors.append(value.color)
+                sizes.append(amount << 4 ** 2)
+
+        self.axes.scatter(hours, months, c=colors, s=sizes, alpha=0.5, edgecolors="face")
+        self.axes.set_xlabel("Hour")
+        self.axes.set_ylabel("Month")
+        self.axes.grid(True)
+        self.figure.tight_layout()
         self.mplCanvas.draw()

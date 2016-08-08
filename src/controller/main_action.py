@@ -186,6 +186,7 @@ class MainAction:
                 self.mainWindow.addSpeciesToLayout(newSpecies, vernacularName, newColor)
                 self.map.add(newSpecies)
                 self.map.refresh()
+                self.plot.rebuild()
                 self.correlationTable.add(newSpecies)
 
     def removeSpecies(self, oldSpecies):
@@ -206,6 +207,7 @@ class MainAction:
         self.mainWindow.removeSpeciesFromLayout(oldSpecies)
         self.map.remove()
         self.map.refresh()
+        self.plot.rebuild()
         self.correlationTable.remove(oldSpeciesShort)
 
     def clearData(self):
@@ -227,6 +229,7 @@ class MainAction:
             self.mainWindow.removeSpeciesFromLayout()
             self.map.rebuild()
             self.map.refresh()
+            self.plot.rebuild()
             self.correlationTable.remove()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
