@@ -69,7 +69,8 @@ class MainWindow(QtWidgets.QMainWindow):
         tabWidget.addTab(spatialAnalysisWidget, "S&patial Analysis")
         tabWidget.addTab(temporalAnalysisWidget, "&Temporal Analysis")
         tabWidget.addTab(cooccurrenceAnalysisWidget, "C&o-occurrence Analysis")
-        tabWidget.currentChanged.connect(cooccurrenceCalculation.active)
+        tabWidget.currentChanged.connect(lambda currentIndex: cooccurrenceCalculation.active()
+                                         if currentIndex == 2 else None)
 
         self.speciesLayout.setAlignment(Qt.AlignLeft)
         speciesWidget = QtWidgets.QWidget()

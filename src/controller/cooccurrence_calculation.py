@@ -25,17 +25,13 @@ class CooccurrenceCalculation:
         self.status = self.STATUS.IDLE
 
     # noinspection PyArgumentList
-    def active(self, currentIndex):
+    def active(self):
         """
         Do the calculations in another process. |br|
         Triggered when the active page in the main window changed.
 
-        :param currentIndex: Index of the currently active page.
         :return: None.
         """
-
-        if currentIndex != 2:
-            return
 
         if self.status == self.STATUS.IDLE:
             process = Process(target=self.calculate, args=(self.queue,), daemon=True)
