@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import time
+from random import sample
 from operator import itemgetter
 from itertools import combinations
 from heapq import nsmallest, nlargest
@@ -80,7 +81,8 @@ class DataProximity:
         """
 
         dataset = self.extractDataset()
-        recordRankResult = self.recordRank(dataset, len(dataset)*self.rankTakePercentage)
+        sortByDistance = spatialWeight > temporalWeight
+        recordRankResult = self.recordRank(dataset, len(dataset)*self.rankTakePercentage, sortByDistance)
 
         maxDistance = max(recordRankResult, key = lambda r:r[0])[0]
         maxTimeDiff = max(recordRankResult, key = lambda r:r[1])[1]
@@ -93,17 +95,17 @@ class DataProximity:
         timeNormalizationFactor = 0.0 if maxTimeDiff == 0 else temporalWeight/maxTimeDiff
 
         # normalize temporal/spatial distance to [0,1] and get a score by applying f(x) = 1-x
-        scores = [1 - r[0]*timeNormalizationFactor - r[1]*spaceNormalizationFactor for r in recordRankResult]
+        scores = [1 - r[0]*spaceNormalizationFactor - r[1]*timeNormalizationFactor for r in recordRankResult]
 
         speciesPairs = defaultdict(float)
         count = defaultdict(int)
-        for i, score in enumerate(scores):
+        for i in range(len(scores)):
             species1 = dataset[recordRankResult[i][2]][0]
             species2 = dataset[recordRankResult[i][3]][0]
             key = (species1,species2) if species1 > species2 else (species2,species1)
-            speciesPairs[key] += score
+            speciesPairs[key] += scores[i]
             count[key] += 1
 
         assert(isinstance(onlyTake, int))
         averagedScores = [(score/count[key], key) for key, score in speciesPairs.items()]
-        return nlargest(onlyTake, averagedScores) if onlyTake else averagedScores
+        return nlargest(onlyTake, averagedScores) if onlyTake else sorted(averagedScores)
