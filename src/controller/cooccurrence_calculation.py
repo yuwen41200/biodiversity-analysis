@@ -36,7 +36,11 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if self.status == self.STATUS.IDLE:
+        if not self.dataset.spatialData:
+            self.widget.removeSpeciesFromTable()
+            self.status = self.STATUS.IDLE
+
+        elif self.status == self.STATUS.IDLE:
             dataset = deepcopy(self.dataset)
             process = Process(target=self.calculate, args=(self.queue, dataset), daemon=True)
             process.start()
@@ -57,7 +61,6 @@ class CooccurrenceCalculation:
     @staticmethod
     def calculate(queue, dataset):
         """
-        <<< TODO >>> |br|
         Calculate co-occurrence quotient.
 
         :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
