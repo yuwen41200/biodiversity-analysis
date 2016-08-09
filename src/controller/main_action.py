@@ -15,6 +15,7 @@ from view.add_species_dialog import AddSpeciesDialog
 from controller.correlation_table import CorrelationTable
 from controller.cooccurrence_calculation import CooccurrenceCalculation
 from lib.dataset_processor import DatasetProcessor
+from lib.data_proximity import DataProximity
 
 
 # noinspection PyPep8Naming
@@ -40,6 +41,7 @@ class MainAction:
         cooccurrence = CooccurrenceAnalysisWidget()
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
         calculation = CooccurrenceCalculation(dataset, cooccurrence)
+        self.dataProximity = DataProximity(dataset)
 
         self.mainWindow = mainWindow
         self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self, calculation)
