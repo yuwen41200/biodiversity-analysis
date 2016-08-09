@@ -41,6 +41,15 @@ lib.correlation_calculator
    :special-members: __init__
    :show-inheritance:
 
+lib.data_proximity
+==================
+
+.. automodule:: lib.data_proximity
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
 lib.dataset_processor
 =====================
 
