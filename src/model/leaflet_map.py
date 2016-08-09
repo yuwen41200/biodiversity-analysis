@@ -79,12 +79,12 @@ class LeafletMap:
         for coordinate, amount in self.spatialData[newSpecies]:
             color = self.selectedSpecies[newSpecies].color
             self.fMap.circle_marker(
-                popup=newSpecies,
+                popup=newSpecies + " (" + str(amount) + ")",
                 location=coordinate,
-                radius=amount*100,
-                line_color=color,
+                radius=128 * amount + 1024,
+                line_color="rgba(0, 0, 0, 0)",
                 fill_color=color,
-                fill_opacity=1
+                fill_opacity=0.5
             )
 
     def remove(self):
