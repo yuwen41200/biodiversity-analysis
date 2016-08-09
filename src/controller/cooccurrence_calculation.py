@@ -4,7 +4,9 @@
 from enum import Enum
 from multiprocessing import Process, Queue
 from queue import Empty
-from time import sleep
+from copy import deepcopy
+
+from lib.data_proximity import DataProximity
 
 
 # noinspection PyPep8Naming
@@ -21,6 +23,7 @@ class CooccurrenceCalculation:
         """
 
         self.queue = Queue()
+        self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
 
@@ -34,7 +37,8 @@ class CooccurrenceCalculation:
         """
 
         if self.status == self.STATUS.IDLE:
-            process = Process(target=self.calculate, args=(self.queue,), daemon=True)
+            dataset = deepcopy(self.dataset)
+            process = Process(target=self.calculate, args=(self.queue, dataset), daemon=True)
             process.start()
             self.widget.addSpeciesToTable("Calculating...", "Please come back later.", 0)
             self.status = self.STATUS.RUNNING
@@ -51,14 +55,17 @@ class CooccurrenceCalculation:
                 self.status = self.STATUS.FINISHED
 
     @staticmethod
-    def calculate(queue):
+    def calculate(queue, dataset):
         """
         <<< TODO >>> |br|
         Calculate co-occurrence quotient.
 
         :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
+        :param dataset: Dataset model.
         :return: None.
         """
 
-        sleep(10)
-        queue.put([("foo", "bar", 87.0), ("bah", "yee", 0.879487)])
+        dataProximity = DataProximity(dataset)
+        results = dataProximity.speciesRank(20)
+        msg = [(r[1][0], r[1][1], r[0]) for r in results]
+        queue.put(msg)

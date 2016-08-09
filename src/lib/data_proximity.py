@@ -81,8 +81,8 @@ class DataProximity:
         :param onlyTake: The number of records to return; it not supplied, return all records.
         :param temporalWeight: The weight of preference of time difference.
         :param spatialWeight: The weight of preference of distance.
-        :return: List of tuples of ``Data``, where ``Data`` is a tuple of (score, (species1,
-                 species2)).
+        :return: List of tuples of ``Data``, where ``Data`` is a tuple of (score, (species 1,
+                 species 2)).
         """
 
         dataset = self.extractDataset()
