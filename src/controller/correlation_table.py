@@ -19,6 +19,7 @@ class CorrelationTable:
         :param temporalAnalysisWidget: TemporalAnalysisWidget view.
         """
 
+        self.lock = dataset.lock
         self.spatialData = dataset.spatialData
         self.temporalData = dataset.temporalData
         self.selectedSpecies = dataset.selectedSpecies
@@ -38,6 +39,7 @@ class CorrelationTable:
         self.spatialAnalysisWidget.disableAutoSort()
         self.temporalAnalysisWidget.disableAutoSort()
 
+        self.lock.acquire()
         for species in self.selectedSpecies:
             if species != newSpecies:
                 sx = [r[0] for r in self.spatialData[newSpecies]]
@@ -55,6 +57,7 @@ class CorrelationTable:
 
                 self.spatialAnalysisWidget.addSpeciesToTable(newSpecies, species, sc)
                 self.temporalAnalysisWidget.addSpeciesToTable(newSpecies, species, tc)
+        self.lock.release()
 
         self.spatialAnalysisWidget.enableAutoSort()
         self.temporalAnalysisWidget.enableAutoSort()

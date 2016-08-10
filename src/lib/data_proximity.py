@@ -19,7 +19,7 @@ class DataProximity:
         :param percentage: The number of records taken into account when calculating species
                            ranking.
         """
-
+        self.lock = dataset.lock
         self.temporalData = dataset.temporalData
         self.spatialData = dataset.spatialData
         self.calculatedResult = []
@@ -32,9 +32,12 @@ class DataProximity:
         :return: List of tuple of (key, timestamp, coordinate).
         """
 
-        return [(k, self.temporalData[k][i][0].timestamp(), u[0])
+        self.lock.acquire()
+        result = [(k, self.temporalData[k][i][0].timestamp(), u[0])
                 for k, coords in self.spatialData.items()
                 for i, u in enumerate(coords)]
+        self.lock.release()
+        return result
 
     @staticmethod
     def recordRank(dataset, number=0, sortByDistance=True):

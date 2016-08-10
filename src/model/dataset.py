@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from multiprocessing import Lock
 from lib.multi_dict import MultiDict
 
 
@@ -27,6 +28,7 @@ class Dataset:
         self.temporalData = MultiDict()
         self.auxiliaryData = dict()
         self.selectedSpecies = dict()
+        self.lock = Lock()
 
     @staticmethod
     def license():

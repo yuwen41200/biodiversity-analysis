@@ -41,8 +41,7 @@ class CooccurrenceCalculation:
             self.status = self.STATUS.IDLE
 
         elif self.status == self.STATUS.IDLE:
-            dataset = deepcopy(self.dataset)
-            process = Process(target=self.calculate, args=(self.queue, dataset), daemon=True)
+            process = Process(target=self.calculate, args=(self.queue, self.dataset), daemon=True)
             process.start()
             self.widget.addSpeciesToTable("Calculating...", "Please come back later.", 0)
             self.status = self.STATUS.RUNNING
