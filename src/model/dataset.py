@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from multiprocessing import Lock
+
 from lib.multi_dict import MultiDict
 
 
@@ -15,6 +16,7 @@ class Dataset:
                             Timestamp is a Python datetime object.
     :var self.auxiliaryData: Dictionary of {species name: its vernacular name}.
     :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
+    :var self.lock: A ``multiprocessing.Lock`` object used to lock data access.
     """
 
     supportedCores = ["Occurrence"]

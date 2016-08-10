@@ -4,7 +4,6 @@
 from enum import Enum
 from multiprocessing import Process, Queue
 from queue import Empty
-from copy import deepcopy
 
 from lib.data_proximity import DataProximity
 
