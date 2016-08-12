@@ -16,7 +16,6 @@ class Dataset:
                             Timestamp is a Python datetime object.
     :var self.auxiliaryData: Dictionary of {species name: its vernacular name}.
     :var self.selectedSpecies: Dictionary of {selected species name: its Species object}.
-    :var self.lock: A ``multiprocessing.Lock`` object used to lock data access.
     """
 
     supportedCores = ["Occurrence"]
@@ -30,7 +29,6 @@ class Dataset:
         self.temporalData = MultiDict()
         self.auxiliaryData = dict()
         self.selectedSpecies = dict()
-        self.lock = Lock()
 
     @staticmethod
     def license():

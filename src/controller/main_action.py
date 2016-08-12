@@ -28,7 +28,6 @@ class MainAction:
         :param mainWindow: MainWindow view.
         """
 
-        self.lock = dataset.lock
         self.spatialData = dataset.spatialData
         self.temporalData = dataset.temporalData
         self.auxiliaryData = dataset.auxiliaryData
@@ -97,13 +96,11 @@ class MainAction:
                 self.mainWindow.alert(title, content, 3)
                 return
 
-            self.lock.acquire()
             for r in dataList:
                 r0int = int(r[0])
                 self.spatialData[r[4]] = ((float(r[2]), float(r[3])), r0int)
                 self.temporalData[r[4]] = (parse(r[1]), r0int)
                 self.auxiliaryData[r[4]] = r[5]
-            self.lock.release()
 
             title = "Dataset Successfully Imported"
             content = "{:,d} records have been loaded.".format(len(dataList))
@@ -121,7 +118,6 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            self.lock.acquire()
             xCoordinates = [n[0][1] for m in self.spatialData.values() for n in m]
             yCoordinates = [n[0][0] for m in self.spatialData.values() for n in m]
             timestamps = [n[0] for m in self.temporalData.values() for n in m]
@@ -153,7 +149,6 @@ class MainAction:
                         del self.selectedSpecies[k]
 
             length = len([n for m in self.spatialData.values() for n in m])
-            self.lock.release()
             title = "Filter Result"
             content = "{:,d} records matches the specified range.".format(length)
             self.mainWindow.alert(title, content, 0)
@@ -177,10 +172,8 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            self.lock.acquire()
             species = [(k, self.auxiliaryData[k]) for k in self.spatialData.keys()
                        if k not in self.selectedSpecies]
-            self.lock.release()
 
             dialog = AddSpeciesDialog(species)
             dialog.exec_()
@@ -229,12 +222,10 @@ class MainAction:
             self.mainWindow.alert(title, content, 3)
 
         else:
-            self.lock.acquire()
             self.spatialData.clear()
             self.temporalData.clear()
             self.auxiliaryData.clear()
             self.selectedSpecies.clear()
-            self.lock.release()
             self.mainWindow.removeSpeciesFromLayout()
             self.map.rebuild()
             self.map.refresh()

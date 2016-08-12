@@ -20,7 +20,6 @@ class DataProximity:
                            ranking.
         """
 
-        self.lock = dataset.lock
         self.temporalData = dataset.temporalData
         self.spatialData = dataset.spatialData
         self.calculatedResult = []
@@ -33,11 +32,9 @@ class DataProximity:
         :return: List of tuple of (key, timestamp, coordinate).
         """
 
-        self.lock.acquire()
         results = [(k, self.temporalData[k][i][0].timestamp(), u[0])
                    for k, coords in self.spatialData.items()
                    for i, u in enumerate(coords)]
-        self.lock.release()
         return results
 
     @staticmethod
