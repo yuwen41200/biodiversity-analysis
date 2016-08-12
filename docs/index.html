@@ -111,16 +111,20 @@ Triggered when the active page in the main window changed.</p>
 
 <dl class="staticmethod">
 <dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.calculate">
-<em class="property">static </em><code class="descclassname">CooccurrenceCalculation.</code><code class="descname">calculate</code><span class="sig-paren">(</span><em>queue</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.calculate" title="Permalink to this definition">¶</a></dt>
-<dd><p>&lt;&lt;&lt; TODO &gt;&gt;&gt; <br>
-Calculate co-occurrence quotient.</p>
+<em class="property">static </em><code class="descclassname">CooccurrenceCalculation.</code><code class="descname">calculate</code><span class="sig-paren">(</span><em>queue</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate co-occurrence quotient.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>queue</strong> &#8211; A <code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code> object to communicate between processes.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>queue</strong> &#8211; A <code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code> object to communicate between processes.</li>
+<li><strong>dataset</strong> &#8211; Dataset model.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -434,8 +438,8 @@ index of first element in dataset, index of second element in dataset).</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of tuples of <code class="docutils literal"><span class="pre">Data</span></code>, where <code class="docutils literal"><span class="pre">Data</span></code> is a tuple of (score, (species1,
-species2)).</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of tuples of <code class="docutils literal"><span class="pre">Data</span></code>, where <code class="docutils literal"><span class="pre">Data</span></code> is a tuple of (score, (species 1,
+species 2)).</p>
 </td>
 </tr>
 </tbody>
@@ -808,7 +812,7 @@ Timestamp is a Python datetime object.</li>
 
 <dl class="attribute">
 <dt id="model.leaflet_map.LeafletMap.tiles">
-<code class="descname">tiles</code><em class="property"> = {'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ'), 'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tiles</code><em class="property"> = {'Landscape': ('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', '&amp;copy; &lt;a href=&quot;http://www.thunderforest.com/&quot;&gt;Thunderforest&lt;/a&gt;, &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;'), 'Grayscale': ('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', 'Tiles &amp;copy; Esri &amp;mdash; Esri, DeLorme, NAVTEQ')}</em><a class="headerlink" href="#model.leaflet_map.LeafletMap.tiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
