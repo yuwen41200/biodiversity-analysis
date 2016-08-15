@@ -20,10 +20,12 @@ class TemporalAnalysisWidget(AnalysisWidget):
 
         super().__init__()
 
-        upperLabel = QtWidgets.QLabel("Temporal Distribution Graph:")
+        upperLabel = QtWidgets.QLabel("Temporal Distribution &Graph:")
+        upperLabel.setMargin(1)
         upperLabel.setBuddy(mplCanvas)
 
-        lowerLabel = QtWidgets.QLabel("Temporal Correlation Quotient:")
+        lowerLabel = QtWidgets.QLabel("Temporal Correlation &Quotient:")
+        lowerLabel.setMargin(1)
         lowerLabel.setBuddy(self.tableWidget)
 
         mainLayout = QtWidgets.QVBoxLayout()

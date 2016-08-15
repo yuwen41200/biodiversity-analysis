@@ -20,10 +20,12 @@ class SpatialAnalysisWidget(AnalysisWidget):
 
         super().__init__()
 
-        upperLabel = QtWidgets.QLabel("Spatial Distribution Graph:")
+        upperLabel = QtWidgets.QLabel("Spatial Distribution &Graph:")
+        upperLabel.setMargin(1)
         upperLabel.setBuddy(webView)
 
-        lowerLabel = QtWidgets.QLabel("Spatial Correlation Quotient:")
+        lowerLabel = QtWidgets.QLabel("Spatial Correlation &Quotient:")
+        lowerLabel.setMargin(1)
         lowerLabel.setBuddy(self.tableWidget)
 
         mainLayout = QtWidgets.QVBoxLayout()

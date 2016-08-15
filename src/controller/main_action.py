@@ -107,6 +107,7 @@ class MainAction:
             content = "{:,d} records have been loaded.".format(len(dataList))
             self.mainWindow.alert(title, content, 0)
 
+    # noinspection PyTypeChecker
     def setFilters(self):
         """
         Only leave filtered data in ``Dataset``.
@@ -144,12 +145,11 @@ class MainAction:
                         break
                 else:
                     if k in self.selectedSpecies:
-                        # noinspection PyTypeChecker
                         self.removeSpecies(k + " " + self.auxiliaryData[k])
                     del self.spatialData[k]
                     del self.temporalData[k]
                     del self.auxiliaryData[k]
-                    self.cooccurrenceCalculation.status = self.cooccurrenceCalculation.STATUS.IDLE
+            self.cooccurrenceCalculation.halt()
 
             length = len([n for m in self.spatialData.values() for n in m])
             title = "Filter Result"
@@ -234,6 +234,7 @@ class MainAction:
             self.map.refresh()
             self.plot.rebuild()
             self.correlationTable.remove()
+            self.cooccurrenceCalculation.halt()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList
     def about(self):
