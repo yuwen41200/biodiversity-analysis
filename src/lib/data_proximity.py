@@ -116,4 +116,6 @@ class DataProximity:
 
         assert(isinstance(onlyTake, int))
         averagedScores = [(score/count[key], key) for key, score in speciesPairs.items()]
-        return nlargest(onlyTake, averagedScores) if onlyTake and onlyTake < len(averagedScores) else sorted(averagedScores)
+        return (nlargest(onlyTake, averagedScores)
+                if onlyTake and onlyTake < len(averagedScores)
+                else sorted(averagedScores))
