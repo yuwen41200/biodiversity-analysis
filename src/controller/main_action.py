@@ -39,10 +39,11 @@ class MainAction:
         temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
         cooccurrence = CooccurrenceAnalysisWidget()
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
-        calculation = CooccurrenceCalculation(dataset, cooccurrence)
+        self.cooccurrenceCalculation = CooccurrenceCalculation(dataset, cooccurrence)
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self, calculation)
+        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self,
+                                     self.cooccurrenceCalculation)
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException
@@ -142,11 +143,13 @@ class MainAction:
                     ):
                         break
                 else:
+                    if k in self.selectedSpecies:
+                        # noinspection PyTypeChecker
+                        self.removeSpecies(k + " " + self.auxiliaryData[k])
                     del self.spatialData[k]
                     del self.temporalData[k]
                     del self.auxiliaryData[k]
-                    if k in self.selectedSpecies:
-                        del self.selectedSpecies[k]
+                    self.cooccurrenceCalculation.status = self.cooccurrenceCalculation.STATUS.IDLE
 
             length = len([n for m in self.spatialData.values() for n in m])
             title = "Filter Result"

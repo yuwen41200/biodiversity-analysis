@@ -42,6 +42,7 @@ class CooccurrenceCalculation:
         elif self.status == self.STATUS.IDLE:
             process = Process(target=self.calculate, args=(self.queue, self.dataset), daemon=True)
             process.start()
+            self.widget.removeSpeciesFromTable()
             self.widget.addSpeciesToTable("Calculating...", "Please come back later.", 0)
             self.status = self.STATUS.RUNNING
 
