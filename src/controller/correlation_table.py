@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from numpy import random
-from scipy import stats
-
 from lib.correlation_calculator import CorrelationCalculator
 
 
@@ -44,7 +41,8 @@ class CorrelationTable:
         for species in self.selectedSpecies:
             if species != newSpecies:
                 sy = [r[0] for r in self.spatialData[species]]
-                ty = [item for r in self.temporalData[species] for item in [r[0].timestamp()] * r[1]]
+                ty = [item for r in self.temporalData[species]
+                      for item in [r[0].timestamp()] * r[1]]
 
                 sc = CorrelationCalculator.calculateSpatialSimilarity(sx, sy)
                 tc = CorrelationCalculator.calculateTemporalSimilarity(tx, ty)

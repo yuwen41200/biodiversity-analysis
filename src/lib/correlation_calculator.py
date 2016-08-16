@@ -47,7 +47,6 @@ class CorrelationCalculator:
         # Diameter of Earth = 2 * 6371 = 12742 km
         return 12742 * asin(sqrt(val))
 
-
     @staticmethod
     def calculateTemporalSimilarity(groupA, groupB):
         """
