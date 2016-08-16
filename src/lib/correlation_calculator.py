@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from math import cos, asin, sqrt
+from scipy import stats
 
 
 # noinspection PyPep8Naming
 class CorrelationCalculator:
 
     @staticmethod
-    def calculateSimilarity(groupA, groupB):
+    def calculateSpatialSimilarity(groupA, groupB):
         """
         Calculate the Hausdorff distance between two groups of coordinates. |br|
         See http://goo.gl/ik71mP.
@@ -45,3 +46,18 @@ class CorrelationCalculator:
 
         # Diameter of Earth = 2 * 6371 = 12742 km
         return 12742 * asin(sqrt(val))
+
+
+    @staticmethod
+    def calculateTemporalSimilarity(groupA, groupB):
+        """
+        Calculate the Kolmogorov-Smirnov correlation between two groups of sample data. |br|
+        The smaller, the better. |br|
+        See https://goo.gl/DtTY7z.
+
+        :param groupA: List of samples.
+        :param groupB: List of samples.
+        :return: Kolmogorov-Smirnov statistics.
+        """
+
+        return stats.ks_2samp(groupA, groupB)[0]

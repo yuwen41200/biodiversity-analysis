@@ -38,20 +38,16 @@ class CorrelationTable:
         self.spatialAnalysisWidget.disableAutoSort()
         self.temporalAnalysisWidget.disableAutoSort()
 
+        sx = [r[0] for r in self.spatialData[newSpecies]]
+        tx = [item for r in self.temporalData[newSpecies] for item in [r[0].timestamp()] * r[1]]
+
         for species in self.selectedSpecies:
             if species != newSpecies:
-                sx = [r[0] for r in self.spatialData[newSpecies]]
                 sy = [r[0] for r in self.spatialData[species]]
-                tx = [r[0].timestamp() for r in self.temporalData[newSpecies]]
-                ty = [r[0].timestamp() for r in self.temporalData[species]]
+                ty = [item for r in self.temporalData[species] for item in [r[0].timestamp()] * r[1]]
 
-                if len(ty) > len(tx):
-                    ty = random.choice(ty, size=len(tx), replace=False)
-                elif len(ty) < len(tx):
-                    tx = random.choice(tx, size=len(ty), replace=False)
-
-                sc = CorrelationCalculator.calculateSimilarity(sx, sy)
-                tc = stats.spearmanr(tx, ty)[0]
+                sc = CorrelationCalculator.calculateSpatialSimilarity(sx, sy)
+                tc = CorrelationCalculator.calculateTemporalSimilarity(tx, ty)
 
                 self.spatialAnalysisWidget.addSpeciesToTable(newSpecies, species, sc)
                 self.temporalAnalysisWidget.addSpeciesToTable(newSpecies, species, tc)
