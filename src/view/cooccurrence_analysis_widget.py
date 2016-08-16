@@ -18,6 +18,7 @@ class CooccurrenceAnalysisWidget(AnalysisWidget):
 
         super().__init__()
         self.limit = 20
+        self.cooccurrenceCalculation = None
 
         slider = QtWidgets.QSlider(Qt.Horizontal)
         slider.setSingleStep(1)
@@ -38,7 +39,8 @@ class CooccurrenceAnalysisWidget(AnalysisWidget):
             :return: None.
             """
 
-            self.limit = slider.value()
+            assert(hasattr(self.cooccurrenceCalculation, "halt"))
+            self.limit = slider.value() * 10
             self.cooccurrenceCalculation.halt()
 
         slider.valueChanged.connect(lambda i: pushButton.setText("&Limit to {}0 Rows".format(i)))

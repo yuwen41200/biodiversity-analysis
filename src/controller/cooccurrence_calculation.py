@@ -26,6 +26,7 @@ class CooccurrenceCalculation:
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
+        self.widget.cooccurrenceCalculation = self
 
     def halt(self):
         """
@@ -35,9 +36,9 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if isinstance(self.queue, Queue):
+        if self.queue:
             self.queue.close()
-        if isinstance(self.process, Process):
+        if self.process:
             self.process.terminate()
         self.widget.removeSpeciesFromTable()
 
@@ -65,7 +66,8 @@ class CooccurrenceCalculation:
                 daemon=True
             )
             self.process.start()
-            self.widget.addSpeciesToTable("Calculating...", "Please come back later.", 0)
+            string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
+            self.widget.addSpeciesToTable(string, "Please come back later.", 0)
             self.status = self.STATUS.RUNNING
 
         elif self.status == self.STATUS.RUNNING:
