@@ -4,6 +4,7 @@
 from enum import Enum
 from multiprocessing import Process, Queue
 from queue import Empty
+from threading import Timer
 
 from lib.data_proximity import DataProximity
 
@@ -26,6 +27,7 @@ class CooccurrenceCalculation:
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
+        self.timer = None
         self.widget.cooccurrenceCalculation = self
 
     def halt(self):
@@ -44,13 +46,12 @@ class CooccurrenceCalculation:
 
         if self.status != self.STATUS.IDLE:
             self.status = self.STATUS.IDLE
-            self.active()
+            self.activate()
 
     # noinspection PyArgumentList
-    def active(self):
+    def activate(self):
         """
-        Do the calculations in another process. |br|
-        Triggered when the active page in the main window changes to "Co-occurrence Analysis".
+        Do the calculations in another process.
 
         :return: None.
         """
@@ -82,6 +83,39 @@ class CooccurrenceCalculation:
                 self.queue.close()
                 self.process.terminate()
                 self.status = self.STATUS.FINISHED
+
+    def onFocus(self):
+        """
+        Start calculating and set a timer to check its status periodically. |br|
+        Triggered when the current page in the main window changes to "Co-occurrence Analysis".
+
+        :return: None.
+        """
+
+        def task():
+            """
+            Activate periodically.
+
+            :return: None.
+            """
+
+            self.timer = Timer(10, task)
+            self.timer.daemon = True
+            self.timer.start()
+            self.activate()
+
+        task()
+
+    def onBlur(self):
+        """
+        Unset the timer. |br|
+        Triggered when the current page in the main window leaves "Co-occurrence Analysis".
+
+        :return: None.
+        """
+
+        if self.timer:
+            self.timer.cancel()
 
     @staticmethod
     def calculate(queue, dataset, limit):
