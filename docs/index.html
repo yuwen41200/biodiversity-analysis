@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>controller.cooccurrence_calculation &mdash; Biodiversity Analysis 0.1 documentation</title>
+    <title>Documentation &mdash; Biodiversity Analysis 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -48,6 +48,9 @@
             
   <div class="toctree-wrapper compound">
 </div>
+<div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+</div>
 <div class="section" id="module-controller.cooccurrence_calculation">
 <span id="controller-cooccurrence-calculation"></span><h1>controller.cooccurrence_calculation<a class="headerlink" href="#module-controller.cooccurrence_calculation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
@@ -79,7 +82,7 @@
 <dl class="method">
 <dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.__init__">
 <code class="descclassname">CooccurrenceCalculation.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>dataset</em>, <em>cooccurrenceAnalysisWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the controller for the co-occurrence quotient table.</p>
+<dd><p>Initialize the controller for the co-occurrence correlation quotient table.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -98,7 +101,7 @@
 <dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.active">
 <code class="descclassname">CooccurrenceCalculation.</code><code class="descname">active</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.active" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do the calculations in another process. <br>
-Triggered when the active page in the main window changed.</p>
+Triggered when the active page in the main window changes to &#8220;Co-occurrence Analysis&#8221;.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -111,7 +114,7 @@ Triggered when the active page in the main window changed.</p>
 
 <dl class="staticmethod">
 <dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.calculate">
-<em class="property">static </em><code class="descclassname">CooccurrenceCalculation.</code><code class="descname">calculate</code><span class="sig-paren">(</span><em>queue</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.calculate" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descclassname">CooccurrenceCalculation.</code><code class="descname">calculate</code><span class="sig-paren">(</span><em>queue</em>, <em>dataset</em>, <em>limit</em><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.calculate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate co-occurrence quotient.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -120,11 +123,27 @@ Triggered when the active page in the main window changed.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>queue</strong> &#8211; A <code class="docutils literal"><span class="pre">multiprocessing.Queue</span></code> object to communicate between processes.</li>
 <li><strong>dataset</strong> &#8211; Dataset model.</li>
+<li><strong>limit</strong> &#8211; Maximum number of rows returned.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None.</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.cooccurrence_calculation.CooccurrenceCalculation.halt">
+<code class="descclassname">CooccurrenceCalculation.</code><code class="descname">halt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#controller.cooccurrence_calculation.CooccurrenceCalculation.halt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminate the calculations. <br>
+Redo them if they already started.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None.</td>
 </tr>
 </tbody>
 </table>
@@ -315,8 +334,8 @@ Store them in <code class="docutils literal"><span class="pre">Dataset</span></c
 <em class="property">class </em><code class="descclassname">lib.correlation_calculator.</code><code class="descname">CorrelationCalculator</code><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="staticmethod">
-<dt id="lib.correlation_calculator.CorrelationCalculator.calculateSimilarity">
-<em class="property">static </em><code class="descname">calculateSimilarity</code><span class="sig-paren">(</span><em>groupA</em>, <em>groupB</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.calculateSimilarity" title="Permalink to this definition">¶</a></dt>
+<dt id="lib.correlation_calculator.CorrelationCalculator.calculateSpatialSimilarity">
+<em class="property">static </em><code class="descname">calculateSpatialSimilarity</code><span class="sig-paren">(</span><em>groupA</em>, <em>groupB</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.calculateSpatialSimilarity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the Hausdorff distance between two groups of coordinates. <br>
 See <a class="reference external" href="http://goo.gl/ik71mP">http://goo.gl/ik71mP</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -330,6 +349,29 @@ See <a class="reference external" href="http://goo.gl/ik71mP">http://goo.gl/ik71
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Hausdorff distance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.correlation_calculator.CorrelationCalculator.calculateTemporalSimilarity">
+<em class="property">static </em><code class="descname">calculateTemporalSimilarity</code><span class="sig-paren">(</span><em>groupA</em>, <em>groupB</em><span class="sig-paren">)</span><a class="headerlink" href="#lib.correlation_calculator.CorrelationCalculator.calculateTemporalSimilarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the Kolmogorov-Smirnov correlation between two groups of sample data. <br>
+The smaller, the better. <br>
+See <a class="reference external" href="https://goo.gl/DtTY7z">https://goo.gl/DtTY7z</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>groupA</strong> &#8211; List of samples.</li>
+<li><strong>groupB</strong> &#8211; List of samples.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Kolmogorov-Smirnov statistics.</p>
 </td>
 </tr>
 </tbody>
@@ -839,6 +881,20 @@ Timestamp is a Python datetime object.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="model.scatter_plot.ScatterPlot.getYearRange">
+<code class="descname">getYearRange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.getYearRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the maximum and minimum year in the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Tuple of (minimum year, maximum year).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="model.scatter_plot.ScatterPlot.rebuild">
 <code class="descname">rebuild</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.scatter_plot.ScatterPlot.rebuild" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rebuild the matplotlib plot.</p>
@@ -1302,7 +1358,8 @@ A <code class="docutils literal"><span class="pre">ScatterPlot.mplCanvas</span><
 
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">controller.cooccurrence_calculation</a></li>
+<li><a class="reference internal" href="#">Documentation</a></li>
+<li><a class="reference internal" href="#module-controller.cooccurrence_calculation">controller.cooccurrence_calculation</a></li>
 <li><a class="reference internal" href="#module-controller.correlation_table">controller.correlation_table</a></li>
 <li><a class="reference internal" href="#module-controller.main_action">controller.main_action</a></li>
 <li><a class="reference internal" href="#module-lib.correlation_calculator">lib.correlation_calculator</a></li>

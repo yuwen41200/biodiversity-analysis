@@ -53,8 +53,8 @@ class ScatterPlot:
 
         minYear, maxYear = self.getYearRange()
         self.axes.scatter(months, years, c=colors, s=sizes, alpha=0.5, edgecolors="face")
-        self.axes.set_xlabel("Months")
-        self.axes.set_ylabel("Years")
+        self.axes.set_xlabel("Month")
+        self.axes.set_ylabel("Year")
         self.axes.set_xticks(list(range(1, 14)))
         self.axes.set_yticks(list(range(minYear - 1, maxYear + 2)))
         self.axes.set_xlim(1, 13)
