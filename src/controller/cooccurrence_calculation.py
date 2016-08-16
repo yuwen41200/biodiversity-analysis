@@ -90,7 +90,7 @@ class CooccurrenceCalculation:
 
         :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
         :param dataset: Dataset model.
-        :param limit: Maximal number of rows returned.
+        :param limit: Maximum number of rows returned.
         :return: None.
         """
 

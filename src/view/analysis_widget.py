@@ -29,7 +29,7 @@ class AnalysisWidget(QtWidgets.QWidget):
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         self.tableWidget.setStatusTip(
             "Correlation quotient indicates how similar the distributions of the two "
-            "species are. The higher the quotient is, the higher their similarity is."
+            "species are. The lower the quotient is, the higher their similarity is."
         )
 
     def addSpeciesToTable(self, species1, species2, correlation):

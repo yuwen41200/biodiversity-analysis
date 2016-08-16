@@ -46,7 +46,7 @@ class CooccurrenceAnalysisWidget(AnalysisWidget):
         slider.valueChanged.connect(lambda i: pushButton.setText("&Limit to {}0 Rows".format(i)))
         pushButton.clicked.connect(recalculate)
 
-        upperLabel = QtWidgets.QLabel("&Maximal number of rows returned:")
+        upperLabel = QtWidgets.QLabel("&Maximum number of rows returned:")
         upperLabel.setMargin(1)
         upperLabel.setBuddy(slider)
 
