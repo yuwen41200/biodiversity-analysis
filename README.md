@@ -10,9 +10,9 @@ A Project by Institute of Information Science, Academia Sinica
 * Spatial correlation quotient
 * Temporal distribution graph
 * Temporal correlation quotient
-* Co-occurrence quotient
+* Co-occurrence correlation quotient
 
-Supported file format: Darwin Core Archive (DwC-A)
+Supported file format: Darwin Core Archive (DwC-A).
 
 ## Screenshots ##
 
@@ -28,12 +28,22 @@ Supported file format: Darwin Core Archive (DwC-A)
 
 ![f](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/f.png "f")
 
+Sample biodiversity data used in the above demonstration:  
+Shao, Kwang-Tsao, et al. (2012) A dataset from bottom trawl survey around Taiwan. ZooKeys 198: 103-109.  
+(doi: [10.3897/zookeys.198.3032](http://dx.doi.org/10.3897/zookeys.198.3032))
+
 ## Getting Started ##
 
 Download the repository and execute the following command:
 
 ```bash
 source ./install.sh
+```
+
+From now on, you can start this program by running:
+
+```bash
+./src/app.py
 ```
 
 ## Requirements ##
