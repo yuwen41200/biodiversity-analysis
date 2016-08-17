@@ -55,6 +55,12 @@ class MainAction:
         :return: None.
         """
 
+        if self.spatialData:
+            title = "Dataset Already Imported"
+            content = "To import new data, please clear data first."
+            self.mainWindow.alert(title, content, 3)
+            return
+
         title, extension = "Select a DwC-A File", "DwC-A File (*.zip)"
         filename = self.mainWindow.openFile(title, extension)
 
@@ -78,6 +84,13 @@ class MainAction:
                     "decimalLongitude",
                     "scientificName",
                     "vernacularName"
+                    # TODO: Allow optional columns.
+                    # ("individualCount", True),
+                    # ("eventDate", True),
+                    # ("decimalLatitude", True),
+                    # ("decimalLongitude", True),
+                    # ("scientificName", True),
+                    # ("vernacularName", False)
                 ]
 
                 try:

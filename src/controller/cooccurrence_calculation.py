@@ -98,6 +98,7 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
+        self.activate()
         # Emit ``QTimer.timeout()`` signal every 10 seconds.
         self.timer.start(10000)
 
