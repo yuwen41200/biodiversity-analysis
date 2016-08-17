@@ -16,7 +16,17 @@ Supported file format: Darwin Core Archive (DwC-A)
 
 ## Screenshots ##
 
-![screenshot 1](http://i.imgur.com/Ax53T7R.png "screenshot 1")
+![a](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/a.png "a")
+
+![b](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/b.png "b")
+
+![c](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/c.png "c")
+
+![d](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/d.png "d")
+
+![e](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/e.png "e")
+
+![f](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/f.png "f")
 
 ## Getting Started ##
 
