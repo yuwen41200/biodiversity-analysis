@@ -11,7 +11,7 @@ from lib.correlation_calculator import CorrelationCalculator
 # noinspection PyPep8Naming
 class DataProximity:
 
-    def __init__(self, dataset, percentage=0.1):
+    def __init__(self, dataset, percentage=0.7):
         """
         Initialize data proximity calculator.
 
@@ -90,7 +90,6 @@ class DataProximity:
         sortByDistance = spatialWeight > temporalWeight
         recordRankResult = self.recordRank(dataset, len(dataset) * self.rankTakePercentage,
                                            sortByDistance)
-
         maxDistance = max(recordRankResult, key=lambda r: r[0])[0]
         maxTimeDiff = max(recordRankResult, key=lambda r: r[1])[1]
         totalWeight = temporalWeight+spatialWeight
@@ -101,8 +100,8 @@ class DataProximity:
         spaceNormalizationFactor = 0.0 if maxDistance == 0 else spatialWeight / maxDistance
         timeNormalizationFactor = 0.0 if maxTimeDiff == 0 else temporalWeight / maxTimeDiff
 
-        # Normalize temporal/spatial distance to [0, 1] and get a score by applying f(x) = 1 - x.
-        scores = [1 - r[0] * spaceNormalizationFactor - r[1] * timeNormalizationFactor
+        # Normalize temporal/spatial distance to [0, 1].
+        scores = [r[0] * spaceNormalizationFactor + r[1] * timeNormalizationFactor
                   for r in recordRankResult]
 
         speciesPairs = defaultdict(float)
@@ -116,6 +115,6 @@ class DataProximity:
 
         assert(isinstance(onlyTake, int))
         averagedScores = [(score/count[key], key) for key, score in speciesPairs.items()]
-        return (nlargest(onlyTake, averagedScores)
+        return (nsmallest(onlyTake, averagedScores)
                 if onlyTake and onlyTake < len(averagedScores)
                 else sorted(averagedScores))
