@@ -4,7 +4,8 @@
 from enum import Enum
 from multiprocessing import Process, Queue
 from queue import Empty
-from threading import Lock, Timer
+from threading import Lock
+from PyQt5.QtCore import QTimer
 
 from lib.data_proximity import DataProximity
 
@@ -14,6 +15,7 @@ class CooccurrenceCalculation:
 
     STATUS = Enum("STATUS", ("IDLE", "RUNNING", "FINISHED"))
 
+    # noinspection PyUnresolvedReferences
     def __init__(self, dataset, cooccurrenceAnalysisWidget):
         """
         Initialize the controller for the co-occurrence correlation quotient table.
@@ -28,8 +30,10 @@ class CooccurrenceCalculation:
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
         self.lock = Lock()
-        self.timer = None
+        self.timer = QTimer(cooccurrenceAnalysisWidget)
+
         self.widget.cooccurrenceCalculation = self
+        self.timer.timeout.connect(self.activate)
 
     def halt(self):
         """
@@ -94,23 +98,8 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        def task():
-            """
-            Activate periodically.
-
-            :return: None.
-            """
-
-            self.timer = Timer(10, task)
-            self.timer.daemon = True
-            self.timer.start()
-
-            # May produce the following error because it manipulates the GUI from another thread.
-            #    QObject::connect: Cannot queue arguments of type 'QVector<int>'
-            #    (Make sure 'QVector<int>' is registered using qRegisterMetaType().)
-            self.activate()
-
-        task()
+        # Emit ``QTimer.timeout()`` signal every 10 seconds.
+        self.timer.start(10000)
 
     def onBlur(self):
         """
@@ -120,8 +109,7 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if self.timer:
-            self.timer.cancel()
+        self.timer.stop()
 
     @staticmethod
     def calculate(queue, dataset, limit):
