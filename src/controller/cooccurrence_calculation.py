@@ -4,7 +4,7 @@
 from enum import Enum
 from multiprocessing import Process, Queue
 from queue import Empty
-from threading import Timer
+from threading import Lock, Timer
 
 from lib.data_proximity import DataProximity
 
@@ -27,6 +27,7 @@ class CooccurrenceCalculation:
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
+        self.lock = Lock()
         self.timer = None
         self.widget.cooccurrenceCalculation = self
 
@@ -56,33 +57,34 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if not self.dataset.spatialData:
-            return
-
-        elif self.status == self.STATUS.IDLE:
-            self.queue = Queue()
-            self.process = Process(
-                target=self.calculate,
-                args=(self.queue, self.dataset, self.widget.limit),
-                daemon=True
-            )
-            self.process.start()
-            string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
-            self.widget.addSpeciesToTable(string, "Please come back later.", 0)
-            self.status = self.STATUS.RUNNING
-
-        elif self.status == self.STATUS.RUNNING:
-            try:
-                results = self.queue.get(False)
-            except Empty:
+        with self.lock:
+            if not self.dataset.spatialData:
                 return
-            else:
-                self.widget.removeSpeciesFromTable()
-                for r in results:
-                    self.widget.addSpeciesToTable(*r)
-                self.queue.close()
-                self.process.terminate()
-                self.status = self.STATUS.FINISHED
+
+            elif self.status == self.STATUS.IDLE:
+                self.queue = Queue()
+                self.process = Process(
+                    target=self.calculate,
+                    args=(self.queue, self.dataset, self.widget.limit),
+                    daemon=True
+                )
+                self.process.start()
+                string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
+                self.widget.addSpeciesToTable(string, "Please come back later.", 0)
+                self.status = self.STATUS.RUNNING
+
+            elif self.status == self.STATUS.RUNNING:
+                try:
+                    results = self.queue.get(False)
+                except Empty:
+                    return
+                else:
+                    self.widget.removeSpeciesFromTable()
+                    for r in results:
+                        self.widget.addSpeciesToTable(*r)
+                    self.queue.close()
+                    self.process.terminate()
+                    self.status = self.STATUS.FINISHED
 
     def onFocus(self):
         """
@@ -102,6 +104,10 @@ class CooccurrenceCalculation:
             self.timer = Timer(10, task)
             self.timer.daemon = True
             self.timer.start()
+
+            # May produce the following error because it manipulates the GUI from another thread.
+            #    QObject::connect: Cannot queue arguments of type 'QVector<int>'
+            #    (Make sure 'QVector<int>' is registered using qRegisterMetaType().)
             self.activate()
 
         task()
