@@ -24,7 +24,7 @@ Supported file format: Darwin Core Archive (DwC-A).
 
 ![d](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/d.png "d")
 
-![e](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/e.png "e")
+<img src="https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/e.png" alt="e" title="e" width="435.4" height="634.2">
 
 ![f](https://raw.githubusercontent.com/yuwen41200/biodiversity-analysis/master/img/f.png "f")
 
