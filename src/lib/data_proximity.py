@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from operator import itemgetter
-from heapq import nsmallest, nlargest
+from heapq import nsmallest
 from collections import defaultdict
 
 from lib.correlation_calculator import CorrelationCalculator
@@ -88,8 +88,11 @@ class DataProximity:
 
         dataset = self.extractDataset()
         sortByDistance = spatialWeight > temporalWeight
-        recordRankResult = self.recordRank(dataset, len(dataset) * self.rankTakePercentage,
-                                           sortByDistance)
+        recordRankResult = self.recordRank(
+            dataset,
+            len(dataset) * self.rankTakePercentage,
+            sortByDistance
+        )
         maxDistance = max(recordRankResult, key=lambda r: r[0])[0]
         maxTimeDiff = max(recordRankResult, key=lambda r: r[1])[1]
         totalWeight = temporalWeight+spatialWeight
