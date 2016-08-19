@@ -46,23 +46,23 @@ class TerminatableThread(threading.Thread):
         :return: Thread ID.
         """
 
-        if not self.isAlive():
-            raise threading.ThreadError("The thread is not active.")
+        if not self.is_alive():
+            raise AssertionError("The thread is not active.")
 
         # Do we have it cached?
-        # if hasattr(self, "_thread_id"):
-        #     return self._thread_id
+        if hasattr(self, "_thread_id"):
+            return self._thread_id
 
         # If not, look for it in ``threading._active`` dictionary.
         for tid, tObj in threading._active.items():
-            # print(tid, tObj)
             if tObj is self:
                 self._thread_id = tid
                 return tid
 
-        raise AssertionError("Could not determine the thread's ID.")
+        raise RuntimeError("Could not determine the thread's ID.")
 
-    def terminate(self, excType=RuntimeError):
+    # noinspection PyBroadException
+    def terminate(self, excType=RuntimeWarning):
         """
         Raises the given exception type in the context of this thread.
 
@@ -76,4 +76,8 @@ class TerminatableThread(threading.Thread):
         :return: None.
         """
 
-        TerminatableThread.asyncRaise(self.getTid(), excType)
+        try:
+            TerminatableThread.asyncRaise(self.getTid(), excType)
+        except Exception:
+            # Don't care !!
+            pass
