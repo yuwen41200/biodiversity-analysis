@@ -78,19 +78,12 @@ class MainAction:
                     return
 
                 columns = [
-                    "individualCount",
-                    "eventDate",
-                    "decimalLatitude",
-                    "decimalLongitude",
-                    "scientificName",
-                    "vernacularName"
-                    # TODO: Allow optional columns.
-                    # ("individualCount", True),
-                    # ("eventDate", True),
-                    # ("decimalLatitude", True),
-                    # ("decimalLongitude", True),
-                    # ("scientificName", True),
-                    # ("vernacularName", False)
+                    ("individualCount", True),
+                    ("eventDate", True),
+                    ("decimalLatitude", True),
+                    ("decimalLongitude", True),
+                    ("scientificName", True),
+                    ("vernacularName", False)
                 ]
 
                 try:
