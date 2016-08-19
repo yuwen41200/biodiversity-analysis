@@ -128,15 +128,19 @@ class DatasetProcessor:
         if selectedFields:
             selectedIndices = []
             for field in selectedFields:
-                if field not in fields:
-                    raise ValueError("Required field \"" + field + "\" not found.")
-                selectedIndices.append(fields.index(field))
+                name, required = field
+                if name not in fields:
+                    if required:
+                        raise ValueError("Required name \"" + name + "\" not found.")
+                    selectedIndices.append(-1)
+                else:
+                    selectedIndices.append(fields.index(name))
 
             data = []
             for line in lines[startLine:]:
                 if line:
                     _line = line.split(delimiter)
-                    data.append([_line[i] for i in selectedIndices])
+                    data.append([_line[i] if i > 0 else "" for i in selectedIndices])
 
         else:
             # Default: select all fields.
