@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
-from multiprocessing import Process, Queue
+from multiprocessing import Queue
 from queue import Empty
 from threading import Lock
 from PyQt5.QtCore import QTimer
 
+from lib.terminatable_thread import TerminatableThread
 from lib.data_proximity import DataProximity
 
 
@@ -67,7 +68,7 @@ class CooccurrenceCalculation:
 
             elif self.status == self.STATUS.IDLE:
                 self.queue = Queue()
-                self.process = Process(
+                self.process = TerminatableThread(
                     target=self.calculate,
                     args=(self.queue, self.dataset, self.widget.limit),
                     daemon=True
