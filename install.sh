@@ -2,7 +2,8 @@
 
 python3.5 -m venv ba-env
 source ba-env/bin/activate
-pip install -r requirements.txt
+pip3.5 install --upgrade pip
+pip3.5 install -r requirements.txt
 
 # Workaround for `QWebEngine ICU not found` bug
 
