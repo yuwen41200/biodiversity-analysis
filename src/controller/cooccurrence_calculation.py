@@ -119,6 +119,15 @@ class CooccurrenceCalculation:
 
         dataset = queue.get()
         limit = queue.get()
+
+        parent = super(dataset.spatialData.__class__, dataset.spatialData)
+        for key in dataset.spatialData:
+            parent.__setitem__(key, dataset.spatialData[key][0])
+
+        parent = super(dataset.temporalData.__class__, dataset.temporalData)
+        for key in dataset.temporalData:
+            parent.__setitem__(key, dataset.temporalData[key][0])
+
         dataProximity = DataProximity(dataset)
         results = dataProximity.speciesRank(limit)
         msg = [(r[1][0], r[1][1], r[0]) for r in results]
