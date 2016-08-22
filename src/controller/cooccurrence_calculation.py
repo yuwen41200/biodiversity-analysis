@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
-from multiprocessing import Process, Queue
 from queue import Empty
 from threading import Lock
+
 from PyQt5.QtCore import QTimer
 
 from lib.data_proximity import DataProximity
@@ -16,16 +16,18 @@ class CooccurrenceCalculation:
     STATUS = Enum("STATUS", ("IDLE", "RUNNING", "FINISHED"))
 
     # noinspection PyUnresolvedReferences
-    def __init__(self, dataset, cooccurrenceAnalysisWidget):
+    def __init__(self, dataset, cooccurrenceAnalysisWidget, process, queue):
         """
         Initialize the controller for the co-occurrence correlation quotient table.
 
         :param dataset: Dataset model.
         :param cooccurrenceAnalysisWidget: CooccurrenceAnalysisWidget view.
+        :param process: Worker subprocess.
+        :param queue: Message queue for the worker subprocess.
         """
 
-        self.queue = None
-        self.process = None
+        self.queue = queue
+        self.process = process
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
@@ -53,7 +55,6 @@ class CooccurrenceCalculation:
             self.status = self.STATUS.IDLE
             self.activate()
 
-    # noinspection PyArgumentList
     def activate(self):
         """
         Do the calculations in another process.
@@ -66,13 +67,8 @@ class CooccurrenceCalculation:
                 return
 
             elif self.status == self.STATUS.IDLE:
-                self.queue = Queue()
-                self.process = Process(
-                    target=self.calculate,
-                    args=(self.queue, self.dataset, self.widget.limit),
-                    daemon=True
-                )
-                self.process.start()
+                self.queue.put(self.dataset)
+                self.queue.put(self.widget.limit)
                 string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
                 self.widget.addSpeciesToTable(string, "Please come back later.", 0)
                 self.status = self.STATUS.RUNNING
@@ -113,16 +109,16 @@ class CooccurrenceCalculation:
         self.timer.stop()
 
     @staticmethod
-    def calculate(queue, dataset, limit):
+    def worker(queue):
         """
-        Calculate co-occurrence quotient.
+        Calculate the co-occurrence correlation quotient.
 
         :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
-        :param dataset: Dataset model.
-        :param limit: Maximum number of rows returned.
         :return: None.
         """
 
+        dataset = queue.get()
+        limit = queue.get()
         dataProximity = DataProximity(dataset)
         results = dataProximity.speciesRank(limit)
         msg = [(r[1][0], r[1][1], r[0]) for r in results]
