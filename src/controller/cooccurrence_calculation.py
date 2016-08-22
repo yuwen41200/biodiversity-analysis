@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
-from queue import Empty
 from threading import Lock
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Pipe
 
 from PyQt5.QtCore import QTimer
 
@@ -17,17 +16,17 @@ class CooccurrenceCalculation:
     STATUS = Enum("STATUS", ("IDLE", "RUNNING", "FINISHED"))
 
     # noinspection PyUnresolvedReferences
-    def __init__(self, dataset, cooccurrenceAnalysisWidget, process, queue):
+    def __init__(self, dataset, cooccurrenceAnalysisWidget, process, pipe):
         """
         Initialize the controller for the co-occurrence correlation quotient table.
 
         :param dataset: Dataset model.
         :param cooccurrenceAnalysisWidget: CooccurrenceAnalysisWidget view.
         :param process: Worker subprocess.
-        :param queue: Message queue for the worker subprocess.
+        :param pipe: Message pipe for the worker subprocess.
         """
 
-        self.queue = queue
+        self.pipe = pipe
         self.process = process
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
@@ -49,11 +48,12 @@ class CooccurrenceCalculation:
 
         with self.lock:
             self.process.terminate()
-            self.queue.close()
-            self.queue = Queue()
+            self.pipe[0].close()
+            self.pipe[1].close()
+            self.pipe = Pipe()
             self.process = Process(
                 target=CooccurrenceCalculation.worker,
-                args=(self.queue,),
+                args=(self.pipe[1],),
                 daemon=True
             )
             self.process.start()
@@ -77,27 +77,24 @@ class CooccurrenceCalculation:
                 return
 
             elif self.status == self.STATUS.IDLE:
-                self.queue.put(self.dataset)
-                self.queue.put(self.widget.limit)
+                self.pipe[0].send(self.dataset)
+                self.pipe[0].send(self.widget.limit)
                 string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
-                self.widget.addSpeciesToTable(string, "Please come back later.", 0)
+                self.widget.addSpeciesToTable(string, "Please wait for a while.", 0)
                 self.status = self.STATUS.RUNNING
 
-            elif self.status == self.STATUS.RUNNING:
-                try:
-                    results = self.queue.get(False)
-                except Empty:
-                    return
-                else:
+            elif self.status == self.STATUS.RUNNING and self.pipe[0].poll():
+                    results = self.pipe[0].recv()
                     self.widget.removeSpeciesFromTable()
                     for r in results:
                         self.widget.addSpeciesToTable(*r)
                     self.process.terminate()
-                    self.queue.close()
-                    self.queue = Queue()
+                    self.pipe[0].close()
+                    self.pipe[1].close()
+                    self.pipe = Pipe()
                     self.process = Process(
                         target=CooccurrenceCalculation.worker,
-                        args=(self.queue,),
+                        args=(self.pipe[1],),
                         daemon=True
                     )
                     self.process.start()
@@ -126,16 +123,16 @@ class CooccurrenceCalculation:
         self.timer.stop()
 
     @staticmethod
-    def worker(queue):
+    def worker(connection):
         """
         Calculate the co-occurrence correlation quotient.
 
-        :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
+        :param connection: ``multiprocessing.Connection`` object to communicate between processes.
         :return: None.
         """
 
-        dataset = queue.get()
-        limit = queue.get()
+        dataset = connection.recv()
+        limit = connection.recv()
 
         parent = super(dataset.spatialData.__class__, dataset.spatialData)
         for key in dataset.spatialData:
@@ -148,4 +145,4 @@ class CooccurrenceCalculation:
         dataProximity = DataProximity(dataset)
         results = dataProximity.speciesRank(limit)
         msg = [(r[1][0], r[1][1], r[0]) for r in results]
-        queue.put(msg)
+        connection.send(msg)

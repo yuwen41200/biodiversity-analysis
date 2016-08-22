@@ -21,15 +21,15 @@ if __name__ == '__main__':
     os.environ["LIBOVERLAY_SCROLLBAR"] = "0"
 
     # Fork a subprocess at the beginning to prevent crash.
-    queue = multiprocessing.Queue()
+    pipe = multiprocessing.Pipe()
     # noinspection PyArgumentList
     process = multiprocessing.Process(
         target=CooccurrenceCalculation.worker,
-        args=(queue,),
+        args=(pipe[1],),
         daemon=True
     )
     process.start()
 
     app = QApplication(sys.argv)
-    MainAction(Dataset(), MainWindow(), process, queue)
+    MainAction(Dataset(), MainWindow(), process, pipe)
     sys.exit(app.exec_())
