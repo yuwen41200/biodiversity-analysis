@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
-from multiprocessing import Process, Queue
-from queue import Empty
+from queue import Queue, Empty
 from threading import Lock
 from PyQt5.QtCore import QTimer
 
+from lib.terminatable_thread import TerminatableThread
 from lib.data_proximity import DataProximity
 
 
@@ -25,7 +25,7 @@ class CooccurrenceCalculation:
         """
 
         self.queue = None
-        self.process = None
+        self.thread = None
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
@@ -43,10 +43,8 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if self.queue:
-            self.queue.close()
-        if self.process:
-            self.process.terminate()
+        if self.thread:
+            self.thread.terminate()
         self.widget.removeSpeciesFromTable()
 
         if self.status != self.STATUS.IDLE:
@@ -56,7 +54,7 @@ class CooccurrenceCalculation:
     # noinspection PyArgumentList
     def activate(self):
         """
-        Do the calculations in another process.
+        Do the calculations in another thread.
 
         :return: None.
         """
@@ -67,12 +65,12 @@ class CooccurrenceCalculation:
 
             elif self.status == self.STATUS.IDLE:
                 self.queue = Queue()
-                self.process = Process(
+                self.thread = TerminatableThread(
                     target=self.calculate,
                     args=(self.queue, self.dataset, self.widget.limit),
                     daemon=True
                 )
-                self.process.start()
+                self.thread.start()
                 string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
                 self.widget.addSpeciesToTable(string, "Please come back later.", 0)
                 self.status = self.STATUS.RUNNING
@@ -86,8 +84,6 @@ class CooccurrenceCalculation:
                     self.widget.removeSpeciesFromTable()
                     for r in results:
                         self.widget.addSpeciesToTable(*r)
-                    self.queue.close()
-                    self.process.terminate()
                     self.status = self.STATUS.FINISHED
 
     def onFocus(self):
@@ -117,7 +113,7 @@ class CooccurrenceCalculation:
         """
         Calculate co-occurrence quotient.
 
-        :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
+        :param queue: A ``queue.Queue`` object to communicate between threads.
         :param dataset: Dataset model.
         :param limit: Maximum number of rows returned.
         :return: None.
