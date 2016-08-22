@@ -4,6 +4,7 @@
 from enum import Enum
 from queue import Empty
 from threading import Lock
+from multiprocessing import Process, Queue
 
 from PyQt5.QtCore import QTimer
 
@@ -37,6 +38,7 @@ class CooccurrenceCalculation:
         self.widget.cooccurrenceCalculation = self
         self.timer.timeout.connect(self.activate)
 
+    # noinspection PyArgumentList
     def halt(self):
         """
         Terminate the calculations. |br|
@@ -45,16 +47,22 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if self.queue:
-            self.queue.close()
-        if self.process:
-            self.process.terminate()
+        self.queue.close()
+        self.process.terminate()
+        self.queue = Queue()
+        self.process = Process(
+            target=CooccurrenceCalculation.worker,
+            args=(self.queue,),
+            daemon=True
+        )
+        self.process.start()
         self.widget.removeSpeciesFromTable()
 
         if self.status != self.STATUS.IDLE:
             self.status = self.STATUS.IDLE
             self.activate()
 
+    # noinspection PyArgumentList
     def activate(self):
         """
         Do the calculations in another process.
@@ -84,6 +92,13 @@ class CooccurrenceCalculation:
                         self.widget.addSpeciesToTable(*r)
                     self.queue.close()
                     self.process.terminate()
+                    self.queue = Queue()
+                    self.process = Process(
+                        target=CooccurrenceCalculation.worker,
+                        args=(self.queue,),
+                        daemon=True
+                    )
+                    self.process.start()
                     self.status = self.STATUS.FINISHED
 
     def onFocus(self):
