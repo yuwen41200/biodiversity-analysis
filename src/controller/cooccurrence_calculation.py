@@ -47,19 +47,21 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        self.queue.close()
-        self.process.terminate()
-        self.queue = Queue()
-        self.process = Process(
-            target=CooccurrenceCalculation.worker,
-            args=(self.queue,),
-            daemon=True
-        )
-        self.process.start()
-        self.widget.removeSpeciesFromTable()
-
-        if self.status != self.STATUS.IDLE:
+        with self.lock:
+            self.process.terminate()
+            self.queue.close()
+            self.queue = Queue()
+            self.process = Process(
+                target=CooccurrenceCalculation.worker,
+                args=(self.queue,),
+                daemon=True
+            )
+            self.process.start()
+            self.widget.removeSpeciesFromTable()
+            flag = False if self.status == self.STATUS.IDLE else True
             self.status = self.STATUS.IDLE
+
+        if flag:
             self.activate()
 
     # noinspection PyArgumentList
@@ -90,8 +92,8 @@ class CooccurrenceCalculation:
                     self.widget.removeSpeciesFromTable()
                     for r in results:
                         self.widget.addSpeciesToTable(*r)
-                    self.queue.close()
                     self.process.terminate()
+                    self.queue.close()
                     self.queue = Queue()
                     self.process = Process(
                         target=CooccurrenceCalculation.worker,
