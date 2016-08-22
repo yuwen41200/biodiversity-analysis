@@ -14,7 +14,10 @@ from controller.cooccurrence_calculation import CooccurrenceCalculation
 
 if __name__ == '__main__':
 
-    # QTBUG-49940 workaround.
+    multiprocessing.freeze_support()
+    multiprocessing.set_start_method("spawn")
+
+    # QTBUG-49940 workaround
     os.environ["LIBOVERLAY_SCROLLBAR"] = "0"
 
     # Fork a subprocess at the beginning to prevent crash.
