@@ -4,8 +4,43 @@
         <files>
             <location>$meta_source_location</location>
         </files>
+
+        <!--
+            Source file is supposed to have the following columns:
+
+            no column_name  sample_value                                 mapping
+            == ============ ============================================ ================================
+             0 identifier   265                                          (id)
+             1 科名          Colubridae                                   family
+             2 科名（中文）   黃頷蛇科                                       taxonRemarks
+             3 物種名        Cyclophiops major                            scientificName
+             4 物種名（中文） 青蛇                                          vernacularName
+             5 物種（初判）   青蛇                                          previousIdentifications
+             6 數量          1                                            individualCount
+             7 死因          路殺                                          occurrenceRemarks
+             8 created_date 2013-10-20                                   *created
+             9 調查活動      路死野生動物「2013年秋季」全台同步大調查            eventRemarks
+            10 合作單位      (empty string)                               *mediator
+            11 紀錄時間      2013-10-20                                   eventDate
+            12 紀錄者        王小明                                        recordedBy
+            13 帳號          foobar                                      *rightsHolder
+            14 地點          台南市七股區                                  municipality
+            15 授權          cc-by                                       *rights
+            16 經度          120.084268                                  decimalLongitude
+            17 緯度          23.088636                                   decimalLatitude
+            18 資料來源      路殺社(FB)                                    fieldNotes
+            19 審查狀態      已確認                                        identificationVerificationStatus
+            20 採集號        GQE20131020                                  recordNumber
+            21 標本號        RX8631                                       materialSampleID
+            22 remark       電力座標：N1540IZ92                            locationRemarks
+            23 extlink      http://www.facebook.com/photo.php?fbid=29305 associatedMedia
+
+            Reference: http://tdwg.github.io/dwc/terms/index.htm
+                       http://dublincore.org/documents/2012/06/14/dcmi-terms/ (for columns with * marks)
+        -->
+
         <id index="0"/>
-        <field index="1" term="http://purl.org/dc/terms/modified"/>
+        <field index="1" term="http://purl.org/dc/terms/created"/>
         <field index="2" term="http://purl.org/dc/terms/language"/>
         <field index="3" term="http://purl.org/dc/terms/rights"/>
         <field index="4" term="http://purl.org/dc/terms/rightsHolder"/>
