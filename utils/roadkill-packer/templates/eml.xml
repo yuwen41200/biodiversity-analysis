@@ -79,7 +79,7 @@
         <phone>886-2-2788-3799 #1456</phone>
         <role>author</role>
     </associatedParty>
-    <pubDate>$eml_publish_date</pubDate>
+    <pubDate>$eml_publication_date</pubDate>
     <language>eng</language>
     <abstract>
         <para>
@@ -101,6 +101,11 @@
         <keyword>Observation</keyword>
         <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
     </keywordSet>
+    <distribution scope="document">
+        <online>
+            <url function="information">https://roadkill.tw/en</url>
+        </online>
+    </distribution>
     <contact>
         <individualName>
             <givenName>Tyng-ruey</givenName>
