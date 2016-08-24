@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.0.2/eml.xsd"
          packageId="c7328b34-489b-3eb2-1a85-6bec7afb920f/v1" system="http://gbif.org" scope="system"
-         xml:lang="eng">
+         xml:lang="en">
 
 <dataset>
-    <title xml:lang="eng">Taiwan roadkill observation dataset</title>
+    <title xml:lang="en">Taiwan roadkill observation dataset</title>
     <creator>
         <individualName>
             <givenName>Tyng-ruey</givenName>
