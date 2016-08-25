@@ -8,6 +8,9 @@
 Documentation
 =============
 
+| Biodiversity Analysis: Biodiversity Data Analysis and Visualization
+| Copyright (C) 2016 Yu-wen Pwu and Yun-chih Chen
+
 controller.cooccurrence_calculation
 ===================================
 
@@ -75,6 +78,15 @@ lib.taxonomy_query
 ==================
 
 .. automodule:: lib.taxonomy_query
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+lib.terminatable_thread
+=======================
+
+.. automodule:: lib.terminatable_thread
    :members:
    :undoc-members:
    :special-members: __init__

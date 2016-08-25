@@ -1,0 +1,72 @@
+<archive xmlns="http://rs.tdwg.org/dwc/text/" metadata="eml.xml">
+    <core encoding="utf-8" fieldsTerminatedBy="," linesTerminatedBy="\n" fieldsEnclosedBy=""
+          ignoreHeaderLines="1" rowType="http://rs.tdwg.org/dwc/terms/Occurrence">
+        <files>
+            <location>$meta_source_location</location>
+        </files>
+
+        <!--
+            Source file is supposed to have the following columns:
+
+            no column_name  sample_value                                 mapping
+            == ============ ============================================ ================================
+             0 identifier   265                                          (id)
+             1 科名          Colubridae                                   family
+             2 科名（中文）   黃頷蛇科                                       taxonRemarks
+             3 物種名        Cyclophiops major                            scientificName
+             4 物種名（中文） 青蛇                                          vernacularName
+             5 物種（初判）   青蛇                                          previousIdentifications
+             6 數量          1                                            individualCount
+             7 死因          路殺                                          occurrenceRemarks
+             8 created_date 2013-10-20                                   *modified
+             9 調查活動      路死野生動物「2013年秋季」全台同步大調查            eventRemarks
+            10 合作單位      (empty string)                               institutionCode
+            11 紀錄時間      2013-10-20                                   eventDate
+            12 紀錄者        王小明                                        recordedBy
+            13 帳號          foobar                                      *rightsHolder
+            14 地點          台南市七股區                                  municipality
+            15 授權          cc-by                                       *rights
+            16 經度          120.084268                                  decimalLongitude
+            17 緯度          23.088636                                   decimalLatitude
+            18 資料來源      路殺社(FB)                                    fieldNotes
+            19 審查狀態      已確認                                        identificationVerificationStatus
+            20 採集號        GQE20131020                                  recordNumber
+            21 標本號        RX8631                                       materialSampleID
+            22 remark       電力座標：N1540IZ92                            locationRemarks
+            23 extlink      http://www.facebook.com/photo.php?fbid=29305 associatedMedia
+
+            Reference: http://rs.tdwg.org/dwc/terms/
+                       http://dublincore.org/documents/dcmi-terms/ (for columns with * marks)
+        -->
+
+        <id index="0"/>
+        <field index="1" term="http://rs.tdwg.org/dwc/terms/family"/>
+        <field index="2" term="http://rs.tdwg.org/dwc/terms/taxonRemarks"/>
+        <field index="3" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+        <field index="4" term="http://rs.tdwg.org/dwc/terms/vernacularName"/>
+        <field index="5" term="http://rs.tdwg.org/dwc/terms/previousIdentifications"/>
+        <field index="6" term="http://rs.tdwg.org/dwc/terms/individualCount"/>
+        <field index="7" term="http://rs.tdwg.org/dwc/terms/occurrenceRemarks"/>
+        <field index="8" term="http://purl.org/dc/terms/modified"/>
+        <field index="9" term="http://rs.tdwg.org/dwc/terms/eventRemarks"/>
+        <field index="10" term="http://rs.tdwg.org/dwc/terms/institutionCode"/>
+        <field index="11" term="http://rs.tdwg.org/dwc/terms/eventDate"/>
+        <field index="12" term="http://rs.tdwg.org/dwc/terms/recordedBy"/>
+        <field index="13" term="http://purl.org/dc/terms/rightsHolder"/>
+        <field index="14" term="http://rs.tdwg.org/dwc/terms/municipality"/>
+        <field index="15" term="http://purl.org/dc/terms/rights"/>
+        <field index="16" term="http://rs.tdwg.org/dwc/terms/decimalLongitude"/>
+        <field index="17" term="http://rs.tdwg.org/dwc/terms/decimalLatitude"/>
+        <field index="18" term="http://rs.tdwg.org/dwc/terms/fieldNotes"/>
+        <field index="19" term="http://rs.tdwg.org/dwc/terms/identificationVerificationStatus"/>
+        <field index="20" term="http://rs.tdwg.org/dwc/terms/recordNumber"/>
+        <field index="21" term="http://rs.tdwg.org/dwc/terms/materialSampleID"/>
+        <field index="22" term="http://rs.tdwg.org/dwc/terms/locationRemarks"/>
+        <field index="23" term="http://rs.tdwg.org/dwc/terms/associatedMedia"/>
+        <field default="HumanObservation" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
+        <field default="zh-Hant-TW" term="http://purl.org/dc/terms/language"/>
+        <field default="Asia" term="http://rs.tdwg.org/dwc/terms/continent"/>
+        <field default="Taiwan" term="http://rs.tdwg.org/dwc/terms/country"/>
+        <field default="TW" term="http://rs.tdwg.org/dwc/terms/countryCode"/>
+    </core>
+</archive>

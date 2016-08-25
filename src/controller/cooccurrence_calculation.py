@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from enum import Enum
-from multiprocessing import Process, Queue
-from queue import Empty
 from threading import Lock
+from multiprocessing import Process, Pipe
+
 from PyQt5.QtCore import QTimer
 
 from lib.data_proximity import DataProximity
@@ -16,16 +16,18 @@ class CooccurrenceCalculation:
     STATUS = Enum("STATUS", ("IDLE", "RUNNING", "FINISHED"))
 
     # noinspection PyUnresolvedReferences
-    def __init__(self, dataset, cooccurrenceAnalysisWidget):
+    def __init__(self, dataset, cooccurrenceAnalysisWidget, process, pipe):
         """
         Initialize the controller for the co-occurrence correlation quotient table.
 
         :param dataset: Dataset model.
         :param cooccurrenceAnalysisWidget: CooccurrenceAnalysisWidget view.
+        :param process: Worker subprocess.
+        :param pipe: Message pipe for the worker subprocess.
         """
 
-        self.queue = None
-        self.process = None
+        self.pipe = pipe
+        self.process = process
         self.dataset = dataset
         self.widget = cooccurrenceAnalysisWidget
         self.status = self.STATUS.IDLE
@@ -35,6 +37,7 @@ class CooccurrenceCalculation:
         self.widget.cooccurrenceCalculation = self
         self.timer.timeout.connect(self.activate)
 
+    # noinspection PyArgumentList
     def halt(self):
         """
         Terminate the calculations. |br|
@@ -43,14 +46,22 @@ class CooccurrenceCalculation:
         :return: None.
         """
 
-        if self.queue:
-            self.queue.close()
-        if self.process:
+        with self.lock:
             self.process.terminate()
-        self.widget.removeSpeciesFromTable()
-
-        if self.status != self.STATUS.IDLE:
+            self.pipe[0].close()
+            self.pipe[1].close()
+            self.pipe = Pipe()
+            self.process = Process(
+                target=CooccurrenceCalculation.worker,
+                args=(self.pipe[1],),
+                daemon=True
+            )
+            self.process.start()
+            self.widget.removeSpeciesFromTable()
+            flag = False if self.status == self.STATUS.IDLE else True
             self.status = self.STATUS.IDLE
+
+        if flag:
             self.activate()
 
     # noinspection PyArgumentList
@@ -66,28 +77,27 @@ class CooccurrenceCalculation:
                 return
 
             elif self.status == self.STATUS.IDLE:
-                self.queue = Queue()
-                self.process = Process(
-                    target=self.calculate,
-                    args=(self.queue, self.dataset, self.widget.limit),
-                    daemon=True
-                )
-                self.process.start()
+                self.pipe[0].send(self.dataset)
+                self.pipe[0].send(self.widget.limit)
                 string = "Calculating (limited to " + str(self.widget.limit) + " rows) ..."
-                self.widget.addSpeciesToTable(string, "Please come back later.", 0)
+                self.widget.addSpeciesToTable(string, "Please wait for a while.", 0)
                 self.status = self.STATUS.RUNNING
 
-            elif self.status == self.STATUS.RUNNING:
-                try:
-                    results = self.queue.get(False)
-                except Empty:
-                    return
-                else:
+            elif self.status == self.STATUS.RUNNING and self.pipe[0].poll():
+                    results = self.pipe[0].recv()
                     self.widget.removeSpeciesFromTable()
                     for r in results:
                         self.widget.addSpeciesToTable(*r)
-                    self.queue.close()
                     self.process.terminate()
+                    self.pipe[0].close()
+                    self.pipe[1].close()
+                    self.pipe = Pipe()
+                    self.process = Process(
+                        target=CooccurrenceCalculation.worker,
+                        args=(self.pipe[1],),
+                        daemon=True
+                    )
+                    self.process.start()
                     self.status = self.STATUS.FINISHED
 
     def onFocus(self):
@@ -113,17 +123,26 @@ class CooccurrenceCalculation:
         self.timer.stop()
 
     @staticmethod
-    def calculate(queue, dataset, limit):
+    def worker(connection):
         """
-        Calculate co-occurrence quotient.
+        Calculate the co-occurrence correlation quotient.
 
-        :param queue: A ``multiprocessing.Queue`` object to communicate between processes.
-        :param dataset: Dataset model.
-        :param limit: Maximum number of rows returned.
+        :param connection: ``multiprocessing.Connection`` object to communicate between processes.
         :return: None.
         """
+
+        dataset = connection.recv()
+        limit = connection.recv()
+
+        parent = super(dataset.spatialData.__class__, dataset.spatialData)
+        for key in dataset.spatialData:
+            parent.__setitem__(key, dataset.spatialData[key][0])
+
+        parent = super(dataset.temporalData.__class__, dataset.temporalData)
+        for key in dataset.temporalData:
+            parent.__setitem__(key, dataset.temporalData[key][0])
 
         dataProximity = DataProximity(dataset)
         results = dataProximity.speciesRank(limit)
         msg = [(r[1][0], r[1][1], r[0]) for r in results]
-        queue.put(msg)
+        connection.send(msg)

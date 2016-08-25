@@ -1,0 +1,129 @@
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.0.2/eml.xsd"
+         packageId="c7328b34-489b-3eb2-1a85-6bec7afb920f/v1" system="http://gbif.org" scope="system"
+         xml:lang="en">
+
+<dataset>
+    <title xml:lang="en">Taiwan roadkill observation dataset</title>
+    <creator>
+        <individualName>
+            <givenName>Tyng-ruey</givenName>
+            <surName>Chuang</surName>
+        </individualName>
+        <organizationName>Institute of Information Science, Academia Sinica</organizationName>
+        <positionName>Associate Research Fellow</positionName>
+        <address>
+            <deliveryPoint>128 Academia Rd. Sec. 2, Nankang Dist.</deliveryPoint>
+            <city>Taipei</city>
+            <administrativeArea>TAIWAN</administrativeArea>
+            <postalCode>11529</postalCode>
+            <country>TW</country>
+        </address>
+        <phone>886-2-2788-3799 #1613</phone>
+        <electronicMailAddress>trc@iis.sinica.edu.tw</electronicMailAddress>
+        <onlineUrl>http://www.iis.sinica.edu.tw/pages/trc/</onlineUrl>
+    </creator>
+    <metadataProvider>
+        <individualName>
+            <givenName>Tyng-ruey</givenName>
+            <surName>Chuang</surName>
+        </individualName>
+        <organizationName>Institute of Information Science, Academia Sinica</organizationName>
+        <positionName>Associate Research Fellow</positionName>
+        <address>
+            <deliveryPoint>128 Academia Rd. Sec. 2, Nankang Dist.</deliveryPoint>
+            <city>Taipei</city>
+            <administrativeArea>TAIWAN</administrativeArea>
+            <postalCode>11529</postalCode>
+            <country>TW</country>
+        </address>
+        <phone>886-2-2788-3799 #1613</phone>
+        <electronicMailAddress>trc@iis.sinica.edu.tw</electronicMailAddress>
+        <onlineUrl>http://www.iis.sinica.edu.tw/pages/trc/</onlineUrl>
+    </metadataProvider>
+    <associatedParty>
+        <individualName>
+            <givenName>Yu-wen</givenName>
+            <surName>Pwu</surName>
+        </individualName>
+        <organizationName>Institute of Information Science, Academia Sinica</organizationName>
+        <positionName>Summer Intern</positionName>
+        <address>
+            <deliveryPoint>128 Academia Rd. Sec. 2, Nankang Dist.</deliveryPoint>
+            <city>Taipei</city>
+            <administrativeArea>TAIWAN</administrativeArea>
+            <postalCode>11529</postalCode>
+            <country>TW</country>
+        </address>
+        <phone>886-2-2788-3799 #1456</phone>
+        <electronicMailAddress>ywpu@iis.sinica.edu.tw</electronicMailAddress>
+        <onlineUrl>http://ywpu.me/</onlineUrl>
+        <role>author</role>
+    </associatedParty>
+    <associatedParty>
+        <individualName>
+            <givenName>Yun-chih</givenName>
+            <surName>Chen</surName>
+        </individualName>
+        <organizationName>Institute of Information Science, Academia Sinica</organizationName>
+        <positionName>Summer Intern</positionName>
+        <address>
+            <deliveryPoint>128 Academia Rd. Sec. 2, Nankang Dist.</deliveryPoint>
+            <city>Taipei</city>
+            <administrativeArea>TAIWAN</administrativeArea>
+            <postalCode>11529</postalCode>
+            <country>TW</country>
+        </address>
+        <phone>886-2-2788-3799 #1456</phone>
+        <role>author</role>
+    </associatedParty>
+    <pubDate>$eml_publication_date</pubDate>
+    <language>eng</language>
+    <abstract>
+        <para>
+            This dataset is dumped from Taiwan Roadkill Observation Network (Traditional Chinese: 台灣野生動物路死觀察網).
+            See https://roadkill.tw/en for more information.
+        </para>
+    </abstract>
+    <keywordSet>
+        <keyword>Roadkill</keyword>
+        <keyword>Taiwan</keyword>
+        <keyword>Darwin Core</keyword>
+        <keywordThesaurus>n/a</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+        <keyword>Occurrence</keyword>
+        <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+        <keyword>Observation</keyword>
+        <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
+    </keywordSet>
+    <distribution scope="document">
+        <online>
+            <url function="information">https://roadkill.tw/en</url>
+        </online>
+    </distribution>
+    <contact>
+        <individualName>
+            <givenName>Tyng-ruey</givenName>
+            <surName>Chuang</surName>
+        </individualName>
+        <organizationName>Institute of Information Science, Academia Sinica</organizationName>
+        <positionName>Associate Research Fellow</positionName>
+        <address>
+            <deliveryPoint>128 Academia Rd. Sec. 2, Nankang Dist.</deliveryPoint>
+            <city>Taipei</city>
+            <administrativeArea>TAIWAN</administrativeArea>
+            <postalCode>11529</postalCode>
+            <country>TW</country>
+        </address>
+        <phone>886-2-2788-3799 #1613</phone>
+        <electronicMailAddress>trc@iis.sinica.edu.tw</electronicMailAddress>
+        <onlineUrl>http://www.iis.sinica.edu.tw/pages/trc/</onlineUrl>
+    </contact>
+</dataset>
+
+</eml:eml>

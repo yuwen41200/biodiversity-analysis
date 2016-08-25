@@ -20,12 +20,14 @@ from lib.dataset_processor import DatasetProcessor
 # noinspection PyPep8Naming
 class MainAction:
 
-    def __init__(self, dataset, mainWindow):
+    def __init__(self, dataset, mainWindow, process, pipe):
         """
         Initialize the controller for the main window.
 
         :param dataset: Dataset model.
         :param mainWindow: MainWindow view.
+        :param process: Worker subprocess.
+        :param pipe: Message pipe for the worker subprocess.
         """
 
         self.spatialData = dataset.spatialData
@@ -39,11 +41,14 @@ class MainAction:
         temporal = TemporalAnalysisWidget(self.plot.mplCanvas)
         cooccurrence = CooccurrenceAnalysisWidget()
         self.correlationTable = CorrelationTable(dataset, spatial, temporal)
-        self.cooccurrenceCalculation = CooccurrenceCalculation(dataset, cooccurrence)
+        self.cooccurrenceCalculation = CooccurrenceCalculation(
+            dataset, cooccurrence, process, pipe
+        )
 
         self.mainWindow = mainWindow
-        self.mainWindow.setupWidgets(spatial, temporal, cooccurrence, self,
-                                     self.cooccurrenceCalculation)
+        self.mainWindow.setupWidgets(
+            spatial, temporal, cooccurrence, self, self.cooccurrenceCalculation
+        )
         self.mainWindow.show()
 
     # noinspection PyCallByClass, PyTypeChecker, PyArgumentList, PyBroadException

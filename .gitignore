@@ -98,3 +98,6 @@ pip-selfcheck.json
 
 # Coredump
 core
+
+# utils output files
+dwca-roadkill-taiwan.zip
