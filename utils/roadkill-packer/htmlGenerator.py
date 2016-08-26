@@ -23,23 +23,33 @@ html_ending = '''            </tbody>
 </html>
 '''
 
-with open('input.csv', newline='') as input_file:
-    rows = csv.reader(input_file)
-    with open('output.html', 'w') as output_file:
-        output_file.write(html_beginning)
-        is_first_line = True
-        for row in rows:
-            if is_first_line:
-                output_file.write('                <tr>\n')
-                for column in row:
-                    output_file.write('                    <th data-sortable="true">' + column + '</th>\n')
-                output_file.write('                </tr>\n')
-                output_file.write('            </thead>\n')
-                output_file.write('            <tbody>\n')
-                is_first_line = False
-            else:
-                output_file.write('                <tr>\n')
-                for column in row:
-                    output_file.write('                    <td>' + column + '</td>\n')
-                output_file.write('                </tr>\n')
-        output_file.write(html_ending)
+
+def generate(input_path, output_path):
+    """
+    Generate an HTML web page from a CSV file.
+
+    :param input_path: Path of input (CSV) file.
+    :param output_path: Path of output (HTML) file.
+    :return: None.
+    """
+
+    with open(input_path, newline='') as input_file:
+        rows = csv.reader(input_file)
+        with open(output_path, 'w') as output_file:
+            output_file.write(html_beginning)
+            is_first_line = True
+            for row in rows:
+                if is_first_line:
+                    output_file.write('                <tr>\n')
+                    for column in row:
+                        output_file.write('                    <th data-sortable="true">' + column + '</th>\n')
+                    output_file.write('                </tr>\n')
+                    output_file.write('            </thead>\n')
+                    output_file.write('            <tbody>\n')
+                    is_first_line = False
+                else:
+                    output_file.write('                <tr>\n')
+                    for column in row:
+                        output_file.write('                    <td>' + column + '</td>\n')
+                    output_file.write('                </tr>\n')
+            output_file.write(html_ending)
