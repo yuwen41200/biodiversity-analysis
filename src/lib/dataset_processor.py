@@ -50,8 +50,8 @@ class DatasetProcessor:
 
         idDom = core.getElementsByTagName("id")
         doms = core.getElementsByTagName("field")
-        indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index")) for dom in doms]
-        indexes = filter(lambda t: t is not None, indexes)
+        indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index", default=-1)) for dom in doms]
+        indexes = filter(lambda t: t >= 0, indexes)
         fields = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
         sortedFields = sorted(zip(indexes, fields), key=lambda field: field[0])
 
@@ -141,7 +141,7 @@ class DatasetProcessor:
             for line in lines[startLine:]:
                 if line:
                     _line = line.split(delimiter)
-                    data.append([_line[i] if i > 0 else "" for i in selectedIndices])
+                    data.append([_line[i] if i >= 0 else "" for i in selectedIndices])
 
         else:
             # Default: select all fields.

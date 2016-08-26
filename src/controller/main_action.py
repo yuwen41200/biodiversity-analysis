@@ -3,6 +3,7 @@
 
 from dateutil.parser import parse
 from pprint import pformat
+from traceback import format_exc
 
 from model.dataset import Dataset
 from model.species import Species
@@ -104,9 +105,9 @@ class MainAction:
                 title = "Invalid DwC-A File"
                 content = (
                     "The provided file is either not in DwC-A format or corrupted.\n"
-                    "Please select a valid one."
+                    "Please select a valid one.\n\n"
                 )
-                self.mainWindow.alert(title, content, 3)
+                self.mainWindow.alert(title, content + format_exc(), 3)
                 return
 
             for r in dataList:

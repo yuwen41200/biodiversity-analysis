@@ -158,7 +158,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
             taxonomyKeys = ["kingdom", "phylum", "class", "order", "family", "genus", "species"]
             toolTip = "<br/>".join(
-                ["<strong>" + key.title() + "</strong>: " + taxonomy[key] for key in taxonomyKeys]
+                ["<strong>" + key.title() + "</strong>: " + taxonomy[key]
+                 for key in taxonomyKeys if key in taxonomy]
             )
             tLabel.setToolTip(toolTip)
 
