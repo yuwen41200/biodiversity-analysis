@@ -83,3 +83,13 @@ class ScatterPlot:
             # Cache the results.
             self.minYear, self.maxYear = minY, maxY
         return self.minYear, self.maxYear
+
+    def resetCache(self):
+        """
+        Reset the cached minimum year and maximum year
+        so that they could be recalculated next time.
+
+        :return: None.
+        """
+
+        self.minYear, self.maxYear = 1000000, 0

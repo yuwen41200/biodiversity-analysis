@@ -174,6 +174,7 @@ class MainAction:
                     del self.temporalData[k]
                     del self.auxiliaryData[k]
             self.cooccurrenceCalculation.halt()
+            self.plot.resetCache()
 
             length = len([n for m in self.spatialData.values() for n in m])
             title = "Filter Result"
@@ -256,6 +257,7 @@ class MainAction:
             self.mainWindow.removeSpeciesFromLayout()
             self.map.rebuild()
             self.map.refresh()
+            self.plot.resetCache()
             self.plot.rebuild()
             self.correlationTable.remove()
             self.cooccurrenceCalculation.halt()
