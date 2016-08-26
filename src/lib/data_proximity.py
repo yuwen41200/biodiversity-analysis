@@ -94,7 +94,7 @@ class DataProximity:
             sortByDistance
         )
 
-        if len(recordRankResult) is 0:
+        if len(recordRankResult) == 0:
             return []
 
         maxDistance = max(recordRankResult, key=lambda r: r[0])[0]
