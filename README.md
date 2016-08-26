@@ -37,13 +37,13 @@ Shao, Kwang-Tsao, et al. (2012) A dataset from bottom trawl survey around Taiwan
 Download the repository and execute the following command:
 
 ```bash
-source ./install.sh
+source install.sh
 ```
 
 From now on, you can start this program by running:
 
 ```bash
-./src/app.py
+source ba-env/bin/activate && ./src/app.py &
 ```
 
 ## Requirements ##
