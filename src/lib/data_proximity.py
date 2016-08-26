@@ -93,6 +93,10 @@ class DataProximity:
             len(dataset) * self.rankTakePercentage,
             sortByDistance
         )
+
+        if len(recordRankResult) is 0:
+            return []
+
         maxDistance = max(recordRankResult, key=lambda r: r[0])[0]
         maxTimeDiff = max(recordRankResult, key=lambda r: r[1])[1]
         totalWeight = temporalWeight+spatialWeight
