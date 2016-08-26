@@ -51,6 +51,7 @@ class DatasetProcessor:
         idDom = core.getElementsByTagName("id")
         doms = core.getElementsByTagName("field")
         indexes = [int(DatasetProcessor.getXmlAttribute(dom, "index")) for dom in doms]
+        indexes = filter(lambda t: t is not None, indexes)
         fields = [DatasetProcessor.getXmlAttribute(dom, "term").split("/")[-1] for dom in doms]
         sortedFields = sorted(zip(indexes, fields), key=lambda field: field[0])
 
@@ -131,7 +132,7 @@ class DatasetProcessor:
                 name, required = field
                 if name not in fields:
                     if required:
-                        raise ValueError("Required name \"" + name + "\" not found.")
+                        raise ValueError("Required field \"" + name + "\" not found.")
                     selectedIndices.append(-1)
                 else:
                     selectedIndices.append(fields.index(name))

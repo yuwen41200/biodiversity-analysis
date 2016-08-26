@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from dateutil.parser import parse
+from pprint import pformat
 
 from model.dataset import Dataset
 from model.species import Species
@@ -109,10 +110,21 @@ class MainAction:
                 return
 
             for r in dataList:
-                r0int = int(r[0])
-                self.spatialData[r[4]] = ((float(r[2]), float(r[3])), r0int)
-                self.temporalData[r[4]] = (parse(r[1]), r0int)
-                self.auxiliaryData[r[4]] = r[5]
+                try:
+                    r0int = int(r[0])
+                    r1datetime = parse(r[1])
+                    r2float = float(r[2])
+                    r3float = float(r[3])
+                    if not r[4]:
+                        raise ValueError("Field \"scientificName\" is empty.")
+                except:
+                    title = "Invalid Record Found"
+                    content = "The following record is invalid and will be ignored:\n"
+                    self.mainWindow.alert(title, content + pformat(r), 2)
+                else:
+                    self.spatialData[r[4]] = ((r2float, r3float), r0int)
+                    self.temporalData[r[4]] = (r1datetime, r0int)
+                    self.auxiliaryData[r[4]] = r[5]
 
             title = "Dataset Successfully Imported"
             content = "{:,d} records have been loaded.".format(len(dataList))
