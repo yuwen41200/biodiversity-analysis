@@ -74,6 +74,10 @@ case $key in
     FONTSIZE="$2"
     shift
     ;;
+    -fp|--fontpath)
+    FONTPATH="$2"
+    shift
+    ;;
     -c|--cc_type)
     CC_TYPE="$2"
     shift
@@ -118,6 +122,7 @@ CC_ICON_FILE="$CC_ICON_DIR/cc-$CC_TYPE.png"
 [ "_$FONTSIZE" = "_" ]         && FONTSIZE="12"
 [ "_$FILL_COLOR" = "_" ]       && FILL_COLOR=black
 [ "_$MESSAGE_POSITION" = "_" ] && MESSAGE_POSITION=CORNER
+[ "_$FONTPATH" = "_" ]         || _FONTPATH="-font $FONTPATH"
 
 [ -f "$INPUT_FILE"  ] || die "${INPUT_FILE}: file not found"
 
@@ -156,7 +161,7 @@ TMP=$(mktemp --suffix=.jpg)
 convert ${CC_ICON_FILE} -resize "${iconw}x${iconh}"\> $TMP
 convert ${INPUT_FILE} -resize ${SIZE}\> jpg:- | \
 convert - -gravity Center  -background ${FILL_COLOR} -extent ${SIZE} jpg:- | \
-convert -background '#00000005' -pointsize ${FONTSIZE} -fill white label:"$CC_NOTICE" \
+convert -background '#00000005' -pointsize ${FONTSIZE} ${_FONTPATH} -fill white label:"$CC_NOTICE" \
     -bordercolor '#00000070' -border 6x6 - +swap -gravity SouthEast -geometry +5+5 -composite jpg:- | \
 composite -gravity SouthWest -geometry +5+5 ${TMP} - "$OUTPUT_FILE"
 rm $TMP
