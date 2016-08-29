@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/usr/bin/env bash
 
 # Type of font, use `convert -list font` to get all available fonts
 #FONT_TYPE="TakaoPGothic"
@@ -21,7 +21,6 @@ CC_FIELD=16
 
 # Script to tag the image
 TAGGER_SCRIPT="$(dirname $0)/../image-tagger/imageCCTagger.sh"
-echo "$TAGGER_SCRIPT"
 
 while [[ $# -gt 0 ]]
 do
