@@ -28,16 +28,17 @@
 #
 
 function print_help {
-    echo " Usage: ./batchImageTagger.sh -i INPUT_FILE_NAME [--nobackup] -d [INPUT_DIR] -f [FONTSIZE] -b [BACKGROUND_COLOR] \\"
+    echo " Usage: ./batchImageTagger.sh -i INPUT_FILE_NAME [-v] -d [INPUT_IMAGE_DIRECTORY] -o OUTPUT_IMAGE_DIRECTORY -f [FONTSIZE] -b [BACKGROUND_COLOR] \ "
     echo "                           -s [SIZE] -p [MESSAGE_POSITION]"
     echo "    [required] INPUT_FILE_NAME: Name of input file (only .csv supported)"
-    echo "    [optional] INPUT_DIR: directory of input images; if left empty, the script will"
+    echo "    [optional] INPUT_IMAGE_DIRECTORY: directory of input images; if left empty, the script will"
     echo "               assume `input_file` field in the INPUT_FILE is in absolute path"
-    echo "    [optional] --nobackup: do not backup input photograph"
+    echo "    [required] OUTPUT_IMAGE_DIRECTORY: directory of output images"
     echo "    [optional] FONTSIZE (default: 12): font size of cc message"
     echo "    [optional] BACKGROUND_COLOR (default: black): if image is enlarged, fill background with this color"
     echo "    [optional] SIZE: (default: 1800x1350) resize image to width W, height H"
     echo "    [optional] MESSAGE_POSITION: (default: CENTER) the position of CC message/icon in the image, either CENTER or CORNER"
+    echo "    [optional] -v, VERBOSE: print verbose messages"
     echo ""
     echo " Example usage:"
     echo "   ./batchImageTagger.sh -i list.csv -d /home/foo/images"
