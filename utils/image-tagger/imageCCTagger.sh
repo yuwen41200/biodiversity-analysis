@@ -121,7 +121,7 @@ CC_ICON_FILE="$CC_ICON_DIR/cc-$CC_TYPE.png"
 [ "_$SIZE" = "_" ]             && SIZE=1800x1350
 [ "_$FONTSIZE" = "_" ]         && FONTSIZE="12"
 [ "_$FILL_COLOR" = "_" ]       && FILL_COLOR=black
-[ "_$MESSAGE_POSITION" = "_" ] && MESSAGE_POSITION=CORNER
+[ "_$MESSAGE_POSITION" = "_" ] && MESSAGE_POSITION=CENTER
 [ "_$FONTPATH" = "_" ]         || _FONTPATH="-font $FONTPATH"
 
 [ -f "$INPUT_FILE"  ] || die "${INPUT_FILE}: file not found"
@@ -148,7 +148,7 @@ if [ "$MESSAGE_POSITION" = "CENTER" ]; then
 
 TMP=$(mktemp --suffix=.png)
 convert ${CC_ICON_FILE} -resize "${iconw}x${iconh}"\> jpg:- | \
-convert - -background '#00000001' -pointsize ${FONTSIZE} -fill white label:"$CC_NOTICE" \
+convert - -background '#00000001' -pointsize ${FONTSIZE} ${_FONTPATH} -fill white label:"$CC_NOTICE" \
     -bordercolor '#00000070' -border 6x6 -gravity Center -geometry +5+5 +append $TMP
 convert ${INPUT_FILE} -strip -resize ${SIZE}\> jpg:- | \
 convert - -gravity Center  -background ${FILL_COLOR} -extent ${SIZE} jpg:- | \
