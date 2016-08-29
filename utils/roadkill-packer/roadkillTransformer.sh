@@ -19,6 +19,8 @@ AUTHOR_FIELD=13
 # Field number of copyright in csv
 CC_FIELD=16
 
+IMAGE_NOT_AVAILABLE="本紀錄屬敏感受威脅物種，不對外開放！"
+
 # Script to tag the image
 TAGGER_SCRIPT="$(dirname $0)/../image-tagger/imageCCTagger.sh"
 
@@ -77,34 +79,36 @@ do
     ID=$(echo $line | cut -f$ID_FIELD -d',')
     echo "Processing $ID ..."
 
-    # Extracting author
-    AUTHOR=$(echo $line | cut -f$AUTHOR_FIELD -d',')
-    [ "_" = "_$AUTHOR" ] && AUTHOR=Unknown
-
-    # Extracting CC info
-    CC=$(echo $line | cut -f$CC_FIELD -d',')
-    FOUND=0
-    for t in $(echo -n $CC_TYPES);
-    do
-        if [ "_$t" = "_$CC" ];
-        then
-            FOUND=1
-            break
-        fi
-    done
-    if [ "$FOUND" = "0" ]; then
-        CC=$CC_DEFAULT
-    fi
-
     # Retrieving image from roadkill.tw
     OUT="$TARGET_DIR/$ID.jpg"
 
     IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | python "$PY_SCRIPT" 2> /dev/null | sed "s/[\'\"]//g"`
 
     if [ "_" = "_$IMG" ]; then
-        echo "Image not available for id $ID";
+        echo "Image not available for id $ID, using a placeholder image";
+        convert -pointsize 28 -size $SIZE  -gravity Center \
+            -font $FONT_PATH caption:"$IMAGE_NOT_AVAILABLE" "$OUT"
     else
         if [ ! -f "$OUT" ]; then
+            # Extracting author
+            AUTHOR=$(echo $line | cut -f$AUTHOR_FIELD -d',')
+            [ "_" = "_$AUTHOR" ] && AUTHOR=Unknown
+
+            # Extracting CC info
+            CC=$(echo $line | cut -f$CC_FIELD -d',' | sed 's/cc-//g')
+            FOUND=0
+            for t in $(echo -n "$CC_TYPES");
+            do
+                if [ "_$t" = "_$CC" ];
+                then
+                    FOUND=1
+                    break
+                fi
+            done
+            if [ "$FOUND" = "0" ]; then
+                CC=$CC_DEFAULT
+            fi
+
             wget $IMG -qO "$OUT" &> /dev/null || echo "Cannot download $ID.jpg";
             "$TAGGER_SCRIPT" -i "$OUT" -s $SIZE -c $CC -m "by $AUTHOR" -fp "$FONT_PATH" -o "$OUT"
         fi
