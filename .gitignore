@@ -103,3 +103,6 @@ core
 dwca-roadkill-taiwan.zip
 browse.html
 roadkill-photo/
+
+# Misc
+*.tmp

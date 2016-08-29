@@ -33,7 +33,8 @@
             20 採集號        GQE20131020                                  recordNumber
             21 標本號        RX8631                                       materialSampleID
             22 remark       電力座標：N1540IZ92                            locationRemarks
-            23 extlink      http://www.facebook.com/photo.php?fbid=29305 associatedMedia
+            23 extlink      http://www.facebook.com/photo.php?fbid=29305 associatedReferences
+            24 photo        roadkill-photo/265.jpg                       associatedMedia
 
             Reference: http://rs.tdwg.org/dwc/terms/
                        http://dublincore.org/documents/dcmi-terms/ (for columns with * marks)
@@ -62,7 +63,8 @@
         <field index="20" term="http://rs.tdwg.org/dwc/terms/recordNumber"/>
         <field index="21" term="http://rs.tdwg.org/dwc/terms/materialSampleID"/>
         <field index="22" term="http://rs.tdwg.org/dwc/terms/locationRemarks"/>
-        <field index="23" term="http://rs.tdwg.org/dwc/terms/associatedMedia"/>
+        <field index="23" term="http://rs.tdwg.org/dwc/terms/associatedReferences"/>
+        <field index="24" term="http://rs.tdwg.org/dwc/terms/associatedMedia"/>
         <field default="HumanObservation" term="http://rs.tdwg.org/dwc/terms/basisOfRecord"/>
         <field default="zh-Hant-TW" term="http://purl.org/dc/terms/language"/>
         <field default="Asia" term="http://rs.tdwg.org/dwc/terms/continent"/>

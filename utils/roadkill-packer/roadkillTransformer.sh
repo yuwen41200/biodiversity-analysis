@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Type of font, use `convert -list font` to get all available fonts
-#FONT_TYPE="TakaoPGothic"
-FONT_TYPE="Droid-Sans-Fallback"
+FONT_TYPE="TakaoPGothic"
+#FONT_TYPE="Droid-Sans-Fallback"
 
 # Size of output image
 SIZE=950x600
