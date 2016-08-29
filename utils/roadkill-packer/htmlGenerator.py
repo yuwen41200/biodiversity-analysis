@@ -78,7 +78,9 @@ def generate(input_path, output_path):
                     if no < 23:
                         output_file.write('                    <td>' + column + '</td>\n')
                     else:
-                        output_file.write('                    <td><a href="' + column + '" target="_blank">' + column + '</a></td>\n')
+                        link = 'http:' + column if column.startswith('//') else column
+                        link = link.replace('http://', 'https://', 1) if 'facebook' in column else link
+                        output_file.write('                    <td><a href="' + link + '" target="_blank">' + column + '</a></td>\n')
                 output_file.write('                    <td>HumanObservation</td>\n')
                 output_file.write('                    <td>zh-Hant-TW</td>\n')
                 output_file.write('                    <td>Asia</td>\n')
