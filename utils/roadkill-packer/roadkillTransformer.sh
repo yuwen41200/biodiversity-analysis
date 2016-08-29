@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -ex
 
 # Type of font, use `convert -list font` to get all available fonts
 #FONT_TYPE="TakaoPGothic"

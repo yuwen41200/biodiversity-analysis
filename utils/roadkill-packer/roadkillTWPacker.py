@@ -3,11 +3,12 @@
 
 from tkinter import Tk, messagebox, filedialog
 from sys import exit, argv
-from os import path
+from os import path, walk
 from logging import basicConfig, DEBUG, debug
 from time import strftime
 from string import Template
-from zipfile import ZipFile
+from subprocess import run
+from zipfile import ZipFile, ZIP_DEFLATED
 
 import htmlGenerator
 
@@ -21,6 +22,8 @@ if not src_path:
 eml_path = path.join(path.dirname(path.realpath(__file__)), 'templates', 'eml.xml')
 meta_path = path.join(path.dirname(path.realpath(__file__)), 'templates', 'meta.xml')
 browse_path = path.join(path.dirname(path.realpath(__file__)), 'browse.html')
+trans_path = path.join(path.dirname(path.realpath(__file__)), 'roadkillTransformer.sh')
+photo_path = path.join(path.dirname(path.realpath(__file__)), 'roadkill-photo')
 
 if len(argv) > 1 and argv[1] == 'DEBUG':
     basicConfig(level=DEBUG)
@@ -29,6 +32,8 @@ debug('eml.xml at ' + eml_path)
 debug('meta.xml at ' + meta_path)
 debug('source file at ' + src_path)
 debug('browse.html at ' + browse_path)
+debug('roadkillTransformer.sh at ' + trans_path)
+debug('roadkill-photo at ' + photo_path)
 
 with open(eml_path) as file:
     eml = file.read()
@@ -44,11 +49,15 @@ data = {
 eml = Template(eml).substitute(data)
 meta = Template(meta).substitute(data)
 htmlGenerator.generate(src_path, browse_path)
+run([trans_path, '-i', src_path, '-d', photo_path], check=True)
 
-with ZipFile('dwca-roadkill-taiwan.zip', 'w') as zip_file:
+with ZipFile('dwca-roadkill-taiwan.zip', 'w', ZIP_DEFLATED) as zip_file:
     zip_file.writestr('eml.xml', eml)
     zip_file.writestr('meta.xml', meta)
     zip_file.write(src_path, path.basename(src_path))
     zip_file.write(browse_path, 'browse.html')
+    for dirpath, dirnames, filenames in walk(photo_path):
+        for filename in filenames:
+            zip_file.write(path.join(dirpath, filename), path.join('roadkill-photo', filename))
 
 messagebox.showinfo('Roadkill Packer', 'Successfully packed.')
