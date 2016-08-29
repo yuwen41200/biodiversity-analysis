@@ -1,14 +1,11 @@
-#! /usr/bin/env bash 
-
-# The source csv file to be parsed
-SOURCE_CSV=sample.csv
-
-# The directory to put the generated images
-TARGET_DIR=by
+#!/usr/bin/env bash
 
 # Type of font, use `convert -list font` to get all available fonts
 #FONT_TYPE="TakaoPGothic"
 FONT_TYPE="Droid-Sans-Fallback"
+
+# Size of output image
+SIZE=950x600
 
 # Default type of copyright
 CC_DEFAULT=by
@@ -25,11 +22,40 @@ CC_FIELD=16
 # Script to tag the image
 TAGGER_SCRIPT="../image-tagger/imageCCTagger.sh"
 
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+    -i|--input_file)
+    SOURCE_CSV="$2"
+    shift
+    ;;
+    -d|--directory)
+    TARGET_DIR="$2"
+    shift
+    ;;
+    *)
+    # unknown option
+    echo "Invalid option specified: $key"
+    print_help
+    exit 1
+    ;;
+esac
+shift
+done
+
 function die {
     echo "$1"
     exit 1
 }
 
+function argument_missing {
+    die "Missing required argument: $1"
+}
+
+# Required arguments
+[ "_$SOURCE_CSV" = "_" ] && argument_missing "INPUT_FILE"
+[ "_$TARGET_DIR" = "_" ] && argument_missing "TARGET_DIR"
 
 FONT_PATH=`convert -list font  | grep -A5 "$FONT_TYPE" | head -6 | tail -1 | cut -f2 -d':'`
 [ -f $SOURCE_CSV ]    || die "Source CSV not found: $SOURCE_CSV"
@@ -62,7 +88,7 @@ do
     fi
 
     # Retrieving image from roadkill.tw
-    OUT="imgs/$ID.jpg"
+    OUT="$TARGET_DIR/$ID.jpg"
     IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | \
     python -c 'import sys, re;print(re.findall(r"<.*img.*img-responsive.*src=\"(.*)\"",sys.stdin.read())[0])' 2>/dev/null \
     | cut -f1 -d'"'`; 
@@ -72,7 +98,7 @@ do
     else
         if [ ! -f "$OUT" ]; then
             wget $IMG -qO "$OUT" &> /dev/null || echo "Cannot download $ID.jpg";
-            "$TAGGER_SCRIPT" -i "$OUT" -s 800x600 -c $CC -m "by $AUTHOR" -fp "$FONT_PATH" -o "$OUT"
+            "$TAGGER_SCRIPT" -i "$OUT" -s $SIZE -c $CC -m "by $AUTHOR" -fp "$FONT_PATH" -o "$OUT"
         fi
     fi
 done
