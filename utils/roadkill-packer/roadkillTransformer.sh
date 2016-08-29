@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # Type of font, use `convert -list font` to get all available fonts
-FONT_TYPE="TakaoPGothic"
+#FONT_TYPE="TakaoPGothic"
 #FONT_TYPE="Droid-Sans-Fallback"
+FONT_PATH="$(dirname $0)/fonts/NotoSansCJKtc-DemiLight.otf"
 
 # Size of output image
 SIZE=950x600
@@ -36,6 +37,10 @@ case $key in
     TARGET_DIR="$2"
     shift
     ;;
+    -fp|--fontpath)
+    FONT_PATH="$2"
+    shift
+    ;;
     *)
     # unknown option
     echo "Invalid option specified: $key"
@@ -59,7 +64,10 @@ function argument_missing {
 [ "_$SOURCE_CSV" = "_" ] && argument_missing "INPUT_FILE"
 [ "_$TARGET_DIR" = "_" ] && argument_missing "TARGET_DIR"
 
-FONT_PATH=`convert -list font  | grep -A5 "$FONT_TYPE" | head -6 | tail -1 | cut -f2 -d':'`
+# Optional arguments
+[ "_$FONT_PATH" = "_" ] && \
+    FONT_PATH=`convert -list font  | grep -A5 "$FONT_TYPE" | head -6 | tail -1 | cut -f2 -d':'`
+
 [ -f $SOURCE_CSV ]    || die "Source CSV not found: $SOURCE_CSV"
 [ -f $TAGGER_SCRIPT ] || die "Tagger script not found: $TAGGER_SCRIPT"
 [ -f $FONT_PATH ]     || die "Font not found: $FONT_TYPE"
@@ -77,19 +85,20 @@ CC_TYPES=`"$TAGGER_SCRIPT" -h | sed 1d | grep CC_TYPE | cut -d':' -f3  | sed 's/
 cat "$SOURCE_CSV" | sed 1d | while read line;
 do 
     ID=$(echo $line | cut -f$ID_FIELD -d',')
-    echo "Processing $ID ..."
 
     # Retrieving image from roadkill.tw
     OUT="$TARGET_DIR/$ID.jpg"
 
-    IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | python "$PY_SCRIPT" 2> /dev/null | sed "s/[\'\"]//g"`
 
-    if [ "_" = "_$IMG" ]; then
-        echo "Image not available for id $ID, using a placeholder image";
-        convert -pointsize 28 -size $SIZE  -gravity Center \
-            -font $FONT_PATH caption:"$IMAGE_NOT_AVAILABLE" "$OUT"
-    else
-        if [ ! -f "$OUT" ]; then
+    if [ ! -f "$OUT" ]; then
+        echo "Processing $ID ..."
+        IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | python "$PY_SCRIPT" 2> /dev/null | sed "s/[\'\"]//g"`
+
+        if [ "_" = "_$IMG" ]; then
+            echo "Image not available for id $ID, using a placeholder image";
+            convert -pointsize 28 -size $SIZE  -gravity Center \
+                -font $FONT_PATH caption:"$IMAGE_NOT_AVAILABLE" "$OUT"
+        else
             # Extracting author
             AUTHOR=$(echo $line | cut -f$AUTHOR_FIELD -d',')
             [ "_" = "_$AUTHOR" ] && AUTHOR=Unknown
@@ -112,6 +121,8 @@ do
             wget $IMG -qO "$OUT" &> /dev/null || echo "Cannot download $ID.jpg";
             "$TAGGER_SCRIPT" -i "$OUT" -s $SIZE -c $CC -m "by $AUTHOR" -fp "$FONT_PATH" -o "$OUT"
         fi
+    else
+        echo "Found $OUT, not generating it again ..."
     fi
 done
 rm $PY_SCRIPT
