@@ -68,7 +68,7 @@ Special thanks to:
 
 * Tyng-ruey Chuang from Institute of Information Science, Academia Sinica
 * Te-en Lin from Endemic Species Research Institute, Council of Agriculture
-* Jason Mai from Biodiversity Research Center, Academia Sinica
+* Guan-shuo Mai from Biodiversity Research Center, Academia Sinica
 * Yi-hong Chang from Word Gleaner Ltd.
 
 ## License ##
