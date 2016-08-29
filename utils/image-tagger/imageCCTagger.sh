@@ -150,7 +150,7 @@ TMP=$(mktemp --suffix=.png)
 convert ${CC_ICON_FILE} -resize "${iconw}x${iconh}"\> jpg:- | \
 convert - -background '#00000001' -pointsize ${FONTSIZE} -fill white label:"$CC_NOTICE" \
     -bordercolor '#00000070' -border 6x6 -gravity Center -geometry +5+5 +append $TMP
-convert ${INPUT_FILE} -resize ${SIZE}\> jpg:- | \
+convert ${INPUT_FILE} -strip -resize ${SIZE}\> jpg:- | \
 convert - -gravity Center  -background ${FILL_COLOR} -extent ${SIZE} jpg:- | \
 composite -gravity South -geometry +5+5 $TMP - "$OUTPUT_FILE"
 rm $TMP
