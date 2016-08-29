@@ -20,7 +20,8 @@ AUTHOR_FIELD=13
 CC_FIELD=16
 
 # Script to tag the image
-TAGGER_SCRIPT="../image-tagger/imageCCTagger.sh"
+TAGGER_SCRIPT="$(dirname $0)/../image-tagger/imageCCTagger.sh"
+echo "$TAGGER_SCRIPT"
 
 while [[ $# -gt 0 ]]
 do
@@ -63,6 +64,15 @@ FONT_PATH=`convert -list font  | grep -A5 "$FONT_TYPE" | head -6 | tail -1 | cut
 [ -f $FONT_PATH ]     || die "Font not found: $FONT_TYPE"
 mkdir -p "$TARGET_DIR"
 
+PY_SCRIPT=$(mktemp)
+cat > $PY_SCRIPT << EOF
+import sys,re
+pattern=r'<a.*href=(.*)>\s*<.*img.*img-responsive.*src=\".*\"'
+print(re.findall(pattern,sys.stdin.read())[0])
+EOF
+
+CC_TYPES=`"$TAGGER_SCRIPT" -h | sed 1d | grep CC_TYPE | cut -d':' -f3  | sed 's/ *//g' | tr ',' '\n'`
+
 cat "$SOURCE_CSV" | sed 1d | while read line;
 do 
     ID=$(echo $line | cut -f$ID_FIELD -d',')
@@ -75,7 +85,7 @@ do
     # Extracting CC info
     CC=$(echo $line | cut -f$CC_FIELD -d',')
     FOUND=0
-    for t in `"$TAGGER_SCRIPT" -h | sed 1d | grep CC_TYPE | cut -d':' -f3  | sed 's/ *//g' | tr ',' '\n'`;
+    for t in $(echo -n $CC_TYPES);
     do
         if [ "_$t" = "_$CC" ];
         then
@@ -89,9 +99,8 @@ do
 
     # Retrieving image from roadkill.tw
     OUT="$TARGET_DIR/$ID.jpg"
-    IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | \
-    python -c 'import sys, re;print(re.findall(r"<.*img.*img-responsive.*src=\"(.*)\"",sys.stdin.read())[0])' 2>/dev/null \
-    | cut -f1 -d'"'`; 
+
+    IMG=`curl -s "https://roadkill.tw/occurrence/$ID" | python "$PY_SCRIPT" 2> /dev/null | sed "s/[\'\"]//g"`
 
     if [ "_" = "_$IMG" ]; then
         echo "Image not available for id $ID";
@@ -102,3 +111,4 @@ do
         fi
     fi
 done
+rm $PY_SCRIPT
